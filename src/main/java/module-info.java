@@ -1,0 +1,8 @@
+module universite_paris8.iut.nchaieb.sae_jeux {
+    requires javafx.controls;
+    requires javafx.fxml;
+
+
+    opens universite_paris8.iut.nchaieb.sae_jeux to javafx.fxml;
+    exports universite_paris8.iut.nchaieb.sae_jeux;
+}
