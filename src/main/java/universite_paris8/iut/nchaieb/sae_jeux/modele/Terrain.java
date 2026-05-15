@@ -70,7 +70,7 @@ public class Terrain {
 
         for(int i=0; i<25; i++){
             for(int j=0; j<48; j++) {
-                codeTuiles[i][j] = 1;
+                codeTuiles[i][j] = 0;
             }
         }
     }

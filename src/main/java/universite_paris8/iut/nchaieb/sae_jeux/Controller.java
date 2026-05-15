@@ -1,6 +1,7 @@
 package universite_paris8.iut.nchaieb.sae_jeux;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
 import universite_paris8.iut.nchaieb.sae_jeux.modele.Environnement;
 import universite_paris8.iut.nchaieb.sae_jeux.modele.Terrain;
@@ -15,6 +16,8 @@ public class Controller implements Initializable{
 
     @FXML
     private TilePane tilePane;
+    @FXML
+    private StackPane stackPane;
 
 
 
@@ -22,7 +25,7 @@ public class Controller implements Initializable{
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         Terrain terrain = new Terrain();
-        TerrainVue terrainVue = new TerrainVue(terrain, tilePane);
+        TerrainVue terrainVue = new TerrainVue(terrain, tilePane, stackPane);
         System.out.println(Main.map);
         terrainVue.dessine(Main.map);
 

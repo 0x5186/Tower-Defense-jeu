@@ -4,6 +4,7 @@ package universite_paris8.iut.nchaieb.sae_jeux.vue;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
 import universite_paris8.iut.nchaieb.sae_jeux.modele.Terrain;
 import universite_paris8.iut.nchaieb.sae_jeux.Main;
@@ -13,7 +14,6 @@ public class TerrainVue {
 
 
     Image bleu = new Image(Main.class.getResourceAsStream("images/bleu.png"));
-
     Image  herbe = new Image(Main.class.getResourceAsStream("images/herbe.png"));
     Image  tableau = new Image(Main.class.getResourceAsStream("images/tableau.png"));
     Image  nuage = new Image(Main.class.getResourceAsStream("images/bleunuage.png"));
@@ -25,16 +25,20 @@ public class TerrainVue {
     Image  tableauBase = new Image(Main.class.getResourceAsStream("images/tableauBase.png"));
     Image  tableauHaut1 = new Image(Main.class.getResourceAsStream("images/tableauHaut1.png"));
     Image  tableauHaut2 = new Image(Main.class.getResourceAsStream("images/tableauHaut2.png"));
-    Image  test = new Image(Main.class.getResourceAsStream("images/test.png"));
+    Image  menutest = new Image(Main.class.getResourceAsStream("images/menutest.png"));
+
     private TilePane tilePane;
     private Terrain terrain;
+    private StackPane stackPane;
 
-    public TerrainVue(Terrain terrain, TilePane tilePane) {
+    public TerrainVue(Terrain terrain, TilePane tilePane, StackPane stackPane) {
         this.terrain = terrain;
         this.tilePane = tilePane;
+        this.stackPane= stackPane;
+
     }
+
     public void dessine(int map) {
-        terrain.test();
         switch (map){
             case 1:
                 terrain.test();
@@ -93,11 +97,6 @@ public class TerrainVue {
                         ImageView tabHaut2 = new ImageView(tableauHaut2);
                         this.tilePane.getChildren().add(tabHaut2);
                         break;
-                    case 12:
-                        ImageView test1 = new ImageView(test);
-                        this.tilePane.getChildren().add(test1);
-                        break;
-
                 }
             }
         }
