@@ -1,17 +1,21 @@
 package universite_paris8.iut.nchaieb.sae_jeux.modele;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+
 public abstract class MonstreDeBase implements Monstre{
     protected int nombreDePV;
     protected int pvMax;
     protected int atq;
     protected String biome;
     private String id;
-    //private PosX, PosY;
-    //private int vitesse;
+    private IntegerProperty PosX;
+    private IntegerProperty PosY;
+    private int vitesse;
     public static int compteurID = 0;
     private int recompenseArgent;
 
-    public MonstreDeBase(int pvMax, int atq, String biome, int recompenseArgent){
+    public MonstreDeBase(int pvMax, int atq, String biome, int recompenseArgent, int PosX, int PosY, int vitesse){
         this.pvMax = pvMax;
         this.nombreDePV = pvMax;
         this.atq = atq;
@@ -19,6 +23,9 @@ public abstract class MonstreDeBase implements Monstre{
         this.id ="M"+ this.compteurID;
         this.compteurID++;
         this.recompenseArgent = recompenseArgent;
+        this.PosX = new SimpleIntegerProperty(PosX);
+        this.PosY = new SimpleIntegerProperty(PosY);
+        this.vitesse = vitesse;
     }
 
     public  void infligerDegat(EntiteAllieeDeBase alliee){
