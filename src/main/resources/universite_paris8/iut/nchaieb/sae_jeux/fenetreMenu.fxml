@@ -24,6 +24,8 @@
                </ImageView>
             </graphic>
          </Button>
+         <Pane fx:id="panneauAnimation" mouseTransparent="true" >
+         </Pane>
       </StackPane>
    </center>
 </BorderPane>

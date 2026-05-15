@@ -1,8 +1,13 @@
 package universite_paris8.iut.nchaieb.sae_jeux;
+import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.util.Duration;
 import universite_paris8.iut.nchaieb.sae_jeux.modele.Environnement;
 import universite_paris8.iut.nchaieb.sae_jeux.modele.Terrain;
 import universite_paris8.iut.nchaieb.sae_jeux.vue.TerrainVue;
@@ -18,6 +23,8 @@ public class Controller implements Initializable{
     private TilePane tilePane;
     @FXML
     private StackPane stackPane;
+    @FXML
+    private Pane panneauAnimation;
 
 
 
@@ -29,6 +36,22 @@ public class Controller implements Initializable{
         System.out.println(Main.map);
         terrainVue.dessine(Main.map);
 
+        //ajout du rectangle rouge(tempo) à changer plus tard
+        //un if car le cube se mettait en mouvement automatiquement quand on lancait le jeu
+        if (Main.map == 2) {
+            Rectangle rectangle = new Rectangle(50, 50, Color.RED);
+            panneauAnimation.getChildren().add(rectangle);
+            rectangle.setX(10);
+            rectangle.setY(340);
+            //la translation du cube("monstre")
+            TranslateTransition transition = new TranslateTransition();
+            transition.setNode(rectangle);
+            transition.setByX(1450); //on veut qu'il avance de 1020 px
+            transition.setDuration(Duration.seconds(10)); //On veut que l'anim dure 10 s
+            transition.setCycleCount(TranslateTransition.INDEFINITE); //Cela va durer jusqu'à quon stop la fenêtre
+            transition.setAutoReverse(true); //va faire d'abord -> 520 px puis -520px puis ainsi de suite
+            transition.play();
+        }
 
 
     }
