@@ -23,7 +23,9 @@ public class  Environnement {
 		//ce que j'ai rajouté(musa le japonais)
 		this.lesAlliees = new ArrayList<>();
 		this.lesMonstres = new ArrayList<>();
-
+		//à voir, pour l'instant
+		MonstreDeBase.compteurID = 0;
+		EntiteAllieeDeBase.compteurID = 0;
 	}
 
 	public final IntegerProperty nbToursProperty(){
@@ -42,7 +44,18 @@ public class  Environnement {
 		return height;
 	}
 
-	
+
+
+	public void unTour() {
+		//faut les supp quand ils sont morts / sinon avance
+		for (int i = lesMonstres.size() - 1; i >= 0; i--){
+			if (!lesMonstres.get(i).estVivant()){
+				lesMonstres.remove(i);
+			} else {
+				lesMonstres.get(i).agir();
+			}
+		}
+	}
 
 
 

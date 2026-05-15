@@ -16,9 +16,6 @@ public class Terrain {
             codeTuiles[6][j] = 5;
         }
 
-
-
-
         for(int i=7; i<16; i++){
             for(int j=0; j<48; j++) {
                 codeTuiles[i][j] = 3;
@@ -56,11 +53,7 @@ public class Terrain {
             codeTuiles[16][j] = 10;
         }
 
-
-
     }
-
-
 
     public int hauteur() {return this.codeTuiles.length;}
     public int largeur() {return this.codeTuiles[0].length;}

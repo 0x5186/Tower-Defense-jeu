@@ -42,12 +42,22 @@ public abstract class MonstreDeBase implements Monstre{
         }
     }
 
+    public void agir() {
+        this.PosX.set(this.PosX.get() + vitesse);
+    }
 
     public void retirerPV(int degat) {
         this.nombreDePV -= degat;
         if (this.nombreDePV <= 0){
             this.nombreDePV = 0;
         }
+    }
+
+    public boolean estVivant() {
+        if (this.nombreDePV != 0){
+            return true;
+        }
+        return false;
     }
 
     public int getPV(){
@@ -57,4 +67,8 @@ public abstract class MonstreDeBase implements Monstre{
     public String getId(){
         return this.id;
     }
+
+    public int getPosX() { return this.PosX.get(); }
+
+    public int getPosY() { return this.PosY.get(); }
 }
