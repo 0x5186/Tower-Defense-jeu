@@ -1,8 +1,6 @@
 package universite_paris8.iut.nchaieb.sae_jeux;
 import javafx.fxml.FXML;
-import javafx.scene.image.Image;
 import javafx.fxml.Initializable;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.TilePane;
 import universite_paris8.iut.nchaieb.sae_jeux.modele.Environnement;
 import universite_paris8.iut.nchaieb.sae_jeux.modele.Terrain;
@@ -34,7 +32,7 @@ public class Controller implements Initializable{
     @FXML
     public void onBoutonJouerClique() throws Exception {
         Main.map=2;
-        Main.changerScene("fenetreJeu.fxml");
+        Main.changerScene("universite_paris8/iut/nchaieb/sae_jeux/fenetreJeu.fxml");
 
     }
 

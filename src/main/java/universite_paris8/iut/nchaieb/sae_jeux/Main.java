@@ -4,17 +4,18 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import universite_paris8.iut.nchaieb.sae_jeux.modele.Terrain;
 
 
 import java.io.IOException;
 
 public class Main extends Application {
+
     public static Stage stage;
     public static int map = 1;
 
     @Override
     public void start(Stage premierstage) throws IOException {
+        System.out.println(Main.class.getResource("universite_paris8/iut/nchaieb/sae_jeux/fenetreMenu.fxml"));
         stage=premierstage;
 
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("fenetreMenu.fxml"));
