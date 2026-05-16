@@ -7,18 +7,19 @@ import java.util.ArrayList;
 
 public class  Environnement {
 
-	private int width,height;	
+	private int largeur,hauteur;
 
 	private IntegerProperty nbTours;
 
 	//ce que j'ai rajouté(musa le japonais)
+	//t pas japonais heee heee
 	private ArrayList<EntiteAllieeDeBase> lesAlliees;
 	private ArrayList<MonstreDeBase> lesMonstres;
 
-	public Environnement(int width, int height) {
+	public Environnement(int largeur, int hauteur) {
 		super();
-		this.width = width;
-		this.height = height;
+		this.largeur = largeur;
+		this.hauteur = hauteur;
 		this.nbTours = new SimpleIntegerProperty();
 		//ce que j'ai rajouté(musa le japonais)
 		this.lesAlliees = new ArrayList<>();
@@ -37,11 +38,11 @@ public class  Environnement {
 	}
 
 	public int getWidth() {
-		return width;
+		return largeur;
 	}
 
 	public int getHeight() {
-		return height;
+		return hauteur;
 	}
 
 

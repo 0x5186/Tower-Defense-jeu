@@ -52,17 +52,22 @@ public class TerrainVue {
 
         int largeurCase = 240;
         int hauteurCase = 240;
-        int totalFrames = 11;
+        int totalFrames = 17;
+        int compt=0;
 
         int[] frameIndex = {12};
         this.stackPane.getChildren().add(iv);
         Timeline squeletteMarche = new Timeline(
                 new KeyFrame(Duration.millis(120), e -> {
-                    int x = frameIndex[0] % 5;
-                    int y = frameIndex[0] / 5;
-                    if(frameIndex[0]/5==0){
-                        x = frameIndex[0] % 2;
-                        y =  5;
+                    int x, y;
+                    if (frameIndex[0] < 25) {
+
+                        x = frameIndex[0] % 5;
+                        y = frameIndex[0] / 5;
+                    } else {
+
+                        x = frameIndex[0] - 25;
+                        y = 5;
                     }
 
                     System.out.println(frameIndex[0]);
@@ -71,7 +76,7 @@ public class TerrainVue {
 
                     iv.setViewport(new Rectangle2D(x * largeurCase, y * hauteurCase, largeurCase, hauteurCase));
                     frameIndex[0] = (frameIndex[0] + 1) ;
-                    if (frameIndex[0]==22){
+                    if (frameIndex[0]==28){
                         frameIndex[0]=12;
                     }
 

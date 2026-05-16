@@ -1,4 +1,6 @@
 package universite_paris8.iut.nchaieb.sae_jeux;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -56,9 +58,25 @@ public class Controller implements Initializable{
             transition.setAutoReverse(true); //va faire d'abord -> 520 px puis -520px puis ainsi de suite
             transition.play();
             terrainVue.animation();
+
+
+            Timeline gameLoop = new Timeline(
+                    new KeyFrame(Duration.millis(1), e -> {
+                        mettreAJour();
+                        afficher();
+                    })
+            );
         }
 
 
+    }
+
+    private void mettreAJour() {
+
+
+    }
+
+    private void afficher() {
     }
     @FXML
     public void onBoutonJouerClique() throws Exception {

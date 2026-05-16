@@ -3,7 +3,8 @@ package universite_paris8.iut.nchaieb.sae_jeux.modele;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
-public abstract class MonstreDeBase implements Monstre{
+public abstract class MonstreDeBase implements EntiteAlliee{
+    private String type;
     protected int nombreDePV;
     protected int pvMax;
     protected int atq;
@@ -11,7 +12,7 @@ public abstract class MonstreDeBase implements Monstre{
     private String id;
     private IntegerProperty PosX;
     private IntegerProperty PosY;
-    private int vitesse;
+    private int vitesse;// multiplicateur de vitesse ou pixels par sec ?
     public static int compteurID = 0;
     private int recompenseArgent;
 
@@ -43,15 +44,9 @@ public abstract class MonstreDeBase implements Monstre{
     }
 
     public void agir() {
-        this.PosX.set(this.PosX.get() + vitesse);
+        this.PosX.set(this.PosX.get()+ vitesse);
     }
 
-    public void retirerPV(int degat) {
-        this.nombreDePV -= degat;
-        if (this.nombreDePV <= 0){
-            this.nombreDePV = 0;
-        }
-    }
 
     public boolean estVivant() {
         if (this.nombreDePV != 0){
@@ -73,17 +68,5 @@ public abstract class MonstreDeBase implements Monstre{
     public int getPosY() { return this.PosY.get(); }
 
 
-    public void animationMonstre(int typeAnime, String monstre ){
-        switch(monstre){
-            case "squelette":
-                switch(typeAnime){
-                    case 1:
 
-
-
-                }
-
-
-        }
-    }
 }
