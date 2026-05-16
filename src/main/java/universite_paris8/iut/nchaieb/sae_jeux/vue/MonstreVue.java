@@ -48,7 +48,8 @@ public class MonstreVue {
 
         iv.setTranslateX(-700); // position X en pixels
         iv.setTranslateY(-70);
-
+        this.stackPane.getChildren().add(iv);
+        iv.setViewport(new Rectangle2D(2 * largeurCase, 3 * hauteurCase, largeurCase, hauteurCase));
         Timeline squeletteMarche = new Timeline(
                 new KeyFrame(Duration.millis(120), e -> {
                     int x, y;
