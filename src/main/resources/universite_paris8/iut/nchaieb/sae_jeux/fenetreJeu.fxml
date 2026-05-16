@@ -8,10 +8,9 @@
    <center>
       <StackPane fx:id="stackPane">
          <TilePane fx:id="tilePane" alignment="TOP_CENTER" prefColumns="30" prefRows="25" prefTileHeight="32" prefTileWidth="32" BorderPane.alignment="TOP_LEFT">
-            <children>
-               <Pane fx:id="panneauAnimation" mouseTransparent="true">
-               </Pane>
-            </children></TilePane>
+         </TilePane>
+         <Pane fx:id="panneauAnimation" mouseTransparent="true">
+         </Pane>
          <Button fx:id="symboleCroix" mnemonicParsing="false" onAction="#AppuyerSurSymboleCroix" prefHeight="7.0" prefWidth="2.0" style="-fx-background-color: transparent; -fx-border-color: transparent; -fx-padding: 0;">
             <graphic>
                <ImageView fitHeight="64.0" fitWidth="64.0" preserveRatio="true">

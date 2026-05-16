@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
@@ -16,6 +17,7 @@ import javafx.util.Duration;
 import universite_paris8.iut.nchaieb.sae_jeux.modele.EntiteAllieeDeBase;
 import universite_paris8.iut.nchaieb.sae_jeux.modele.Environnement;
 import universite_paris8.iut.nchaieb.sae_jeux.modele.Terrain;
+import universite_paris8.iut.nchaieb.sae_jeux.vue.InterfaceVue;
 import universite_paris8.iut.nchaieb.sae_jeux.vue.MonstreVue;
 import universite_paris8.iut.nchaieb.sae_jeux.vue.TerrainVue;
 
@@ -39,6 +41,7 @@ public class Controller implements Initializable{
     TerrainVue terrainVue;
     Terrain terrain;
     MonstreVue monstreVue;
+    InterfaceVue interfaceVue;
 
 
 
@@ -69,6 +72,8 @@ public class Controller implements Initializable{
         this.terrain = new Terrain();
         this.terrainVue = new TerrainVue(terrain, tilePane);
         this.monstreVue= new MonstreVue(stackPane);
+        this.interfaceVue = new InterfaceVue(stackPane);
+       // this.interfaceVue.dessinMenu();
         System.out.println(Main.map);
         terrainVue.dessine(Main.map);
         this.environnement= new Environnement(terrain.largeur(),terrain.hauteur());
@@ -77,7 +82,7 @@ public class Controller implements Initializable{
         //un if car le cube se mettait en mouvement automatiquement quand on lancait le jeu
         if (Main.map == 2) {
 
-
+            this.interfaceVue.dessinMenu();
             Rectangle rectangle = new Rectangle(50, 50, Color.RED);
             panneauAnimation.getChildren().add(rectangle);
             rectangle.setX(10);
@@ -150,8 +155,6 @@ public class Controller implements Initializable{
     public void AppuyerSurSymboleCroix() {
         System.out.println("ok okgdgfdofgdk");
     }
-
-
 
 
 }
