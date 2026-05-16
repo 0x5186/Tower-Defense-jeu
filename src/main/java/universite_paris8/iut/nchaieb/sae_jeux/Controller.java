@@ -2,6 +2,8 @@ package universite_paris8.iut.nchaieb.sae_jeux;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
@@ -27,7 +29,6 @@ public class Controller implements Initializable{
     private Pane panneauAnimation;
 
 
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -36,9 +37,12 @@ public class Controller implements Initializable{
         System.out.println(Main.map);
         terrainVue.dessine(Main.map);
 
+
         //ajout du rectangle rouge(tempo) à changer plus tard
         //un if car le cube se mettait en mouvement automatiquement quand on lancait le jeu
         if (Main.map == 2) {
+
+
             Rectangle rectangle = new Rectangle(50, 50, Color.RED);
             panneauAnimation.getChildren().add(rectangle);
             rectangle.setX(10);
@@ -51,6 +55,7 @@ public class Controller implements Initializable{
             transition.setCycleCount(TranslateTransition.INDEFINITE); //Cela va durer jusqu'à quon stop la fenêtre
             transition.setAutoReverse(true); //va faire d'abord -> 520 px puis -520px puis ainsi de suite
             transition.play();
+            terrainVue.animation();
         }
 
 
@@ -61,6 +66,13 @@ public class Controller implements Initializable{
         Main.changerScene("universite_paris8/iut/nchaieb/sae_jeux/fenetreJeu.fxml");
 
     }
+    @FXML
+    public void onBoutonTestClique() throws Exception {
+
+
+    }
+
+
 
 
 }

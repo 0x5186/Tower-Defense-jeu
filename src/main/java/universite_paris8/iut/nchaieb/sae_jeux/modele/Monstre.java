@@ -6,4 +6,6 @@ public interface Monstre {
     public void retirerPV(int degat);
     public int getPV();
     public String getId();
+
+
 }

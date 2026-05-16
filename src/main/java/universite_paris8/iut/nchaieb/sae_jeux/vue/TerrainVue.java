@@ -1,11 +1,16 @@
 package universite_paris8.iut.nchaieb.sae_jeux.vue;
 
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
+import javafx.util.Duration;
 import universite_paris8.iut.nchaieb.sae_jeux.modele.Terrain;
 import universite_paris8.iut.nchaieb.sae_jeux.Main;
 
@@ -27,6 +32,11 @@ public class TerrainVue {
     Image  tableauHaut2 = new Image(Main.class.getResourceAsStream("images/tableauHaut2.png"));
     Image  menutest = new Image(Main.class.getResourceAsStream("images/menutest.png"));
 
+
+
+
+    Image  squelette = new Image(Main.class.getResourceAsStream("images/squelette.png"));
+
     private TilePane tilePane;
     private Terrain terrain;
     private StackPane stackPane;
@@ -36,6 +46,56 @@ public class TerrainVue {
         this.tilePane = tilePane;
         this.stackPane= stackPane;
 
+    }
+    public void animation()  {
+        ImageView iv = ajouterEntite("squelette");
+        if (iv == null) return;
+
+        int largeurCase = 240;
+        int hauteurCase = 240;
+        int totalFrames = 32;
+
+        int[] frameIndex = {0};
+
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.millis(100), e -> {
+                    int x = frameIndex[0] % 16;  // colonne (0 à 15)
+                    int y = frameIndex[0] / 16;  // ligne (0 ou 1)
+                    iv.setViewport(new Rectangle2D(
+                            x * largeurCase,  // position x en pixels
+                            y * hauteurCase,  // position y en pixels
+                            largeurCase,
+                            hauteurCase
+
+                    ));
+                    frameIndex[0] = (frameIndex[0] + 1) % totalFrames;
+                    this.stackPane.getChildren().add(iv);
+                })
+        );
+
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
+
+
+
+    }
+    public Image verifMonstre(String typeMonstre) {
+        if (typeMonstre.equals("squelette")) {
+            return squelette;
+        }
+        return null;
+    }
+
+    @FXML
+    public ImageView ajouterEntite(String entite) {
+        Image image = verifMonstre(entite);
+        if (image != null) {
+
+
+
+        }
+        ImageView squeletteView = new ImageView(image);
+        return squeletteView;
     }
 
     public void dessine(int map) {
@@ -48,6 +108,7 @@ public class TerrainVue {
                 terrain.terrainPlainesCode();
                 break;
         }
+
 
         for (int l = 0; l < this.terrain.hauteur(); l++) {
             for (int col = 0; col < this.terrain.largeur(); col++) {

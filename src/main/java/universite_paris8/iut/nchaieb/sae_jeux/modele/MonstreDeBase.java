@@ -71,4 +71,19 @@ public abstract class MonstreDeBase implements Monstre{
     public int getPosX() { return this.PosX.get(); }
 
     public int getPosY() { return this.PosY.get(); }
+
+
+    public void animationMonstre(int typeAnime, String monstre ){
+        switch(monstre){
+            case "squelette":
+                switch(typeAnime){
+                    case 1:
+
+
+
+                }
+
+
+        }
+    }
 }

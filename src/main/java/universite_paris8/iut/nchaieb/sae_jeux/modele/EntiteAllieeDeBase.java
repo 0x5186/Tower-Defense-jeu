@@ -44,4 +44,25 @@ public abstract class EntiteAllieeDeBase implements EntiteAlliee{
     public String getId(){
         return this.id;
     }
+
+
+
+
+
+
+    //typeAnim 1= mouvement
+    //typeAnim 2= attaque
+    //typeAnim 3= mort
+    //typeEntite 1=
+//    public void animation(int typeAnim, int typeEntite){
+//        switch (typeEntite){
+//            case 1:
+//                System.out.printf("truc");
+//                break;
+//                }
+//
+//
+//
+//        }
+//    }
 }
