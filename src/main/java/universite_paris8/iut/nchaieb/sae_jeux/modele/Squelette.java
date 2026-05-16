@@ -20,4 +20,5 @@ public class Squelette extends MonstreDeBase{
 
     }
 
+
 }

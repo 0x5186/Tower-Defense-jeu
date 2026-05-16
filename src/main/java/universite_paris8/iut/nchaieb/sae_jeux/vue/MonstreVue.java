@@ -10,11 +10,15 @@ import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
 import universite_paris8.iut.nchaieb.sae_jeux.Main;
 import javafx.scene.layout.StackPane;
+import universite_paris8.iut.nchaieb.sae_jeux.modele.MonstreDeBase;
 import universite_paris8.iut.nchaieb.sae_jeux.modele.Terrain;
+
+import java.util.ArrayList;
 
 
 public class MonstreVue {
     private StackPane stackPane;
+    private ArrayList<MonstreDeBase> listeMonstre;
 
     public MonstreVue(StackPane stackPane) {
 
@@ -24,7 +28,7 @@ public class MonstreVue {
     }
     Image  squelette = new Image(Main.class.getResourceAsStream("images/squelette.png"));
 
-    public void animationSquelette()  {
+    public void animationSquelette(MonstreDeBase monstre)  {
         ImageView iv = ajouterEntite("squelette");
 
         int largeurCase = 240;
@@ -40,7 +44,7 @@ public class MonstreVue {
 
 
         this.stackPane.getChildren().add(iv);
-        iv.setViewport(new Rectangle2D(12 * largeurCase, 12 * hauteurCase, largeurCase, hauteurCase));
+        iv.setViewport(new Rectangle2D(2 * largeurCase, 3 * hauteurCase, largeurCase, hauteurCase));
 
         iv.setTranslateX(-700); // position X en pixels
         iv.setTranslateY(-70);
@@ -76,7 +80,10 @@ public class MonstreVue {
 
 
 
+        int actionMonstre = monstre.getActionActuel();
 
+        switch (monstre.getActionActuel()){
+        }
     }
 
     public Image verifMonstre(String typeMonstre) {

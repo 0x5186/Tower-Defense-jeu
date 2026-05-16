@@ -73,6 +73,7 @@ public abstract class MonstreDeBase implements EntiteAlliee{
 
     public int getPosY() { return this.PosY.get(); }
 
-
-
+    public int getActionActuel() {
+        return actionActuel;
+    }
 }

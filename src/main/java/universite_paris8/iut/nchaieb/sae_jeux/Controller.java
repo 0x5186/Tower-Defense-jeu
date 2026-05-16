@@ -13,9 +13,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
-import universite_paris8.iut.nchaieb.sae_jeux.modele.EntiteAllieeDeBase;
-import universite_paris8.iut.nchaieb.sae_jeux.modele.Environnement;
-import universite_paris8.iut.nchaieb.sae_jeux.modele.Terrain;
+import universite_paris8.iut.nchaieb.sae_jeux.modele.*;
 import universite_paris8.iut.nchaieb.sae_jeux.vue.MonstreVue;
 import universite_paris8.iut.nchaieb.sae_jeux.vue.TerrainVue;
 
@@ -126,12 +124,12 @@ public class Controller implements Initializable{
     }
     @FXML
     public void AjouterMonstreAllie() {
-
+        MonstreDeBase squelette=new Squelette();
         if(this.environnement==null){
             return;
         }
-        this.environnement.ajouterEntiteAllie();
-        this.monstreVue.animationSquelette();
+        this.environnement.ajouterEntite(squelette);
+        this.monstreVue.animationSquelette(squelette);
     }
 
 

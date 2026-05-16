@@ -30,9 +30,9 @@ public class  Environnement {
 		EntiteAllieeDeBase.compteurID = 0;
 	}
 
-	public void ajouterEntiteAllie(){
-		MonstreDeBase squelette=new Squelette();
-		lesMonstres.add(squelette);
+	public void ajouterEntite(MonstreDeBase entite){
+
+		lesMonstres.add(entite);
 
 
 
