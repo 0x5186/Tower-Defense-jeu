@@ -16,7 +16,7 @@ public abstract class MonstreDeBase implements EntiteAlliee{
     private int vitesse;// multiplicateur de vitesse ou pixels par sec ?
     public static int compteurID = 0;
     private int recompenseArgent;
-    private int actionActuel; //1=fixe 2=avance  3=frappe 4=meurt
+    protected int actionActuel; //1=fixe 2=avance  3=frappe 4=meurt
 
 
     public MonstreDeBase(int pvMax, int atq, int PosX, int PosY){

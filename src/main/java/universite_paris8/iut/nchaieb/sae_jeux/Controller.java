@@ -16,6 +16,7 @@ import javafx.util.Duration;
 import universite_paris8.iut.nchaieb.sae_jeux.modele.EntiteAllieeDeBase;
 import universite_paris8.iut.nchaieb.sae_jeux.modele.Environnement;
 import universite_paris8.iut.nchaieb.sae_jeux.modele.Terrain;
+import universite_paris8.iut.nchaieb.sae_jeux.vue.MonstreVue;
 import universite_paris8.iut.nchaieb.sae_jeux.vue.TerrainVue;
 
 import java.net.URL;
@@ -35,10 +36,11 @@ public class Controller implements Initializable{
 
     private Timeline gameLoop;
     private int temps;
+    TerrainVue terrainVue;
+    Terrain terrain;
+    MonstreVue monstreVue;
 
 
-    @FXML
-    private Circle leCercle;
 
 
     private void initAnimation() {
@@ -64,8 +66,9 @@ public class Controller implements Initializable{
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        Terrain terrain = new Terrain();
-        TerrainVue terrainVue = new TerrainVue(terrain, tilePane, stackPane);
+        this.terrain = new Terrain();
+        this.terrainVue = new TerrainVue(terrain, tilePane);
+        this.monstreVue= new MonstreVue(stackPane);
         System.out.println(Main.map);
         terrainVue.dessine(Main.map);
         this.environnement= new Environnement(terrain.largeur(),terrain.hauteur());
@@ -87,7 +90,7 @@ public class Controller implements Initializable{
             transition.setCycleCount(TranslateTransition.INDEFINITE); //Cela va durer jusqu'à quon stop la fenêtre
             transition.setAutoReverse(true); //va faire d'abord -> 520 px puis -520px puis ainsi de suite
             transition.play();
-            terrainVue.animationSquelette();
+
             gameLoop.play();
 
 
@@ -122,16 +125,10 @@ public class Controller implements Initializable{
 //    }
 //
     private void afficher() {
-        for (int i=0; i< this.environnement.getLesAlliees().size();i++){
-            for (int j=0; j< this.environnement.getWidth();j++){
-
-            }
+        for (int i=0; i< this.environnement.getLesMonstres().size();i++){
+           this.environnement.getLesMonstres().get(i).agir();
         }
-        for (int i=0; i< this.environnement.getHeight();i++){
-            for (int j=0; j< this.environnement.getWidth();j++){
 
-            }
-        }
     }
     @FXML
     public void onBoutonJouerClique() throws Exception {
@@ -141,17 +138,12 @@ public class Controller implements Initializable{
     }
     @FXML
     public void AjouterMonstreAllie() {
-        System.out.println(1);
+
         if(this.environnement==null){
             return;
         }
         this.environnement.ajouterEntiteAllie();
-        for (int i=0; i< this.environnement.getLesMonstres().size();i++){
-            System.out.println( this.environnement.getLesMonstres().get(i));
-
-
-
-        }
+        this.monstreVue.animationSquelette();
     }
 
 
