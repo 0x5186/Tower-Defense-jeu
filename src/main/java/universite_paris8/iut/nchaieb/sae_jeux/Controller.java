@@ -90,6 +90,11 @@ public class Controller implements Initializable{
     public void AjouterMonstreAllie() {
         environnement.ajouterEntiteAllie();
     }
+    
+    @FXML
+    public void AppuyerSurSymboleCroix() {
+        System.out.println("ok okgdgfdofgdk");
+    }
 
 
 
