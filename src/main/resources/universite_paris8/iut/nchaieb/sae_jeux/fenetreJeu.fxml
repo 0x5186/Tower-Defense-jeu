@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
 <BorderPane prefHeight="576" prefWidth="576" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="universite_paris8.iut.nchaieb.sae_jeux.Controller">
@@ -11,4 +12,7 @@
          </Pane>
       </StackPane>
    </center>
+   <bottom>
+      <Button fx:id="boutontest" mnemonicParsing="false" text="Button" BorderPane.alignment="CENTER" />
+   </bottom>
 </BorderPane>

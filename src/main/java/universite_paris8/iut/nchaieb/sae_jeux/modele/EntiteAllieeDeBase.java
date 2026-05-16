@@ -17,18 +17,14 @@ public abstract class EntiteAllieeDeBase implements EntiteAlliee{
         this.compteurID++;
     }
 
-    public  void infligerDegat(MonstreDeBase ennemies){
-        if (ennemies.nombreDePV != 0){
-            ennemies.retirerPV(this.atq);
-        }
+    public EntiteAllieeDeBase() {
+
     }
 
-    public void ajouterPV(int soin){
-        this.nombreDePV += soin;
-        if (this.nombreDePV > this.pvMax){
-            this.nombreDePV = this.pvMax;
-        }
+    public  void infligerDegat(MonstreDeBase ennemies){
     }
+
+
 
     public void retirerPV(int degat) {
         this.nombreDePV -= degat;
@@ -44,4 +40,25 @@ public abstract class EntiteAllieeDeBase implements EntiteAlliee{
     public String getId(){
         return this.id;
     }
+
+
+
+
+
+
+    //typeAnim 1= mouvement
+    //typeAnim 2= attaque
+    //typeAnim 3= mort
+    //typeEntite 1=
+//    public void animation(int typeAnim, int typeEntite){
+//        switch (typeEntite){
+//            case 1:
+//                System.out.printf("truc");
+//                break;
+//                }
+//
+//
+//
+//        }
+//    }
 }
