@@ -12,6 +12,7 @@ import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
+import universite_paris8.iut.nchaieb.sae_jeux.modele.EntiteAllieeDeBase;
 import universite_paris8.iut.nchaieb.sae_jeux.modele.Environnement;
 import universite_paris8.iut.nchaieb.sae_jeux.modele.Terrain;
 import universite_paris8.iut.nchaieb.sae_jeux.vue.TerrainVue;
@@ -20,7 +21,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable{
-    private Environnement modele;
+    private Environnement environnement;
 
 
     @FXML
@@ -38,6 +39,7 @@ public class Controller implements Initializable{
         TerrainVue terrainVue = new TerrainVue(terrain, tilePane, stackPane);
         System.out.println(Main.map);
         terrainVue.dessine(Main.map);
+        Environnement environnement= new Environnement(terrain.largeur(),terrain.hauteur());
 
 
         //ajout du rectangle rouge(tempo) à changer plus tard
@@ -57,7 +59,7 @@ public class Controller implements Initializable{
             transition.setCycleCount(TranslateTransition.INDEFINITE); //Cela va durer jusqu'à quon stop la fenêtre
             transition.setAutoReverse(true); //va faire d'abord -> 520 px puis -520px puis ainsi de suite
             transition.play();
-            terrainVue.animation();
+            terrainVue.animationSquelette();
 
 
             Timeline gameLoop = new Timeline(
@@ -85,9 +87,8 @@ public class Controller implements Initializable{
 
     }
     @FXML
-    public void onBoutonTestClique() throws Exception {
-
-
+    public void AjouterMonstreAllie() {
+        environnement.ajouterEntiteAllie();
     }
 
 

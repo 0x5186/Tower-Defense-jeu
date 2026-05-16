@@ -2,6 +2,7 @@ package universite_paris8.iut.nchaieb.sae_jeux.modele;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.fxml.FXML;
 
 import java.util.ArrayList;
 
@@ -28,6 +29,13 @@ public class  Environnement {
 		MonstreDeBase.compteurID = 0;
 		EntiteAllieeDeBase.compteurID = 0;
 	}
+
+	public void ajouterEntiteAllie(){
+		MonstreDeBase test;
+
+
+
+    }
 
 	public final IntegerProperty nbToursProperty(){
 		return this.nbTours;	
