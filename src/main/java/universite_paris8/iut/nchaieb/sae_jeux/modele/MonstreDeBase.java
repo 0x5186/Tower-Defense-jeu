@@ -8,7 +8,7 @@ public abstract class MonstreDeBase implements EntiteAlliee{
     protected int nombreDePV;
     protected int pvMax;
     protected int atq;
-    protected String biome;
+//    protected String biome;
     private String id;
     private IntegerProperty PosX;
     private IntegerProperty PosY;
@@ -16,17 +16,21 @@ public abstract class MonstreDeBase implements EntiteAlliee{
     public static int compteurID = 0;
     private int recompenseArgent;
 
-    public MonstreDeBase(int pvMax, int atq, String biome, int recompenseArgent, int PosX, int PosY, int vitesse){
+
+    public MonstreDeBase(int pvMax, int atq, int PosX, int PosY){
         this.pvMax = pvMax;
         this.nombreDePV = pvMax;
         this.atq = atq;
-        this.biome = biome;
+//        this.biome = biome;
         this.id ="M"+ this.compteurID;
         this.compteurID++;
-        this.recompenseArgent = recompenseArgent;
+//        this.recompenseArgent = recompenseArgent;
         this.PosX = new SimpleIntegerProperty(PosX);
         this.PosY = new SimpleIntegerProperty(PosY);
-        this.vitesse = vitesse;
+//        this.vitesse = vitesse;
+    }
+
+    protected MonstreDeBase() {
     }
 
     public  void infligerDegat(EntiteAllieeDeBase alliee){

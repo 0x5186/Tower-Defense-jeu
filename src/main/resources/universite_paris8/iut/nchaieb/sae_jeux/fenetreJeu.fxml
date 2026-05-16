@@ -13,6 +13,6 @@
       </StackPane>
    </center>
    <bottom>
-      <Button fx:id="boutontest" mnemonicParsing="false" text="Button" BorderPane.alignment="CENTER" />
+      <Button fx:id="boutonAjouterMonstre" mnemonicParsing="false" onAction="#AjouterMonstreAllie" text="ajouter Monstre" BorderPane.alignment="CENTER" />
    </bottom>
 </BorderPane>

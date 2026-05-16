@@ -47,7 +47,7 @@ public class TerrainVue {
         this.stackPane= stackPane;
 
     }
-    public void animation()  {
+    public void animationSquelette()  {
         ImageView iv = ajouterEntite("squelette");
 
         int largeurCase = 240;
@@ -56,6 +56,9 @@ public class TerrainVue {
         int compt=0;
 
         int[] frameIndex = {12};
+
+        iv.setTranslateX(-700); // position X en pixels
+        iv.setTranslateY(-70);
         this.stackPane.getChildren().add(iv);
         Timeline squeletteMarche = new Timeline(
                 new KeyFrame(Duration.millis(120), e -> {
@@ -70,7 +73,7 @@ public class TerrainVue {
                         y = 5;
                     }
 
-                    System.out.println(frameIndex[0]);
+
 
 
 
