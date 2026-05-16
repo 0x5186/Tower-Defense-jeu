@@ -49,32 +49,37 @@ public class TerrainVue {
     }
     public void animation()  {
         ImageView iv = ajouterEntite("squelette");
-        if (iv == null) return;
 
         int largeurCase = 240;
         int hauteurCase = 240;
-        int totalFrames = 32;
+        int totalFrames = 11;
 
-        int[] frameIndex = {0};
+        int[] frameIndex = {12};
+        this.stackPane.getChildren().add(iv);
+        Timeline squeletteMarche = new Timeline(
+                new KeyFrame(Duration.millis(120), e -> {
+                    int x = frameIndex[0] % 5;
+                    int y = frameIndex[0] / 5;
+                    if(frameIndex[0]/5==0){
+                        x = frameIndex[0] % 2;
+                        y =  5;
+                    }
 
-        Timeline timeline = new Timeline(
-                new KeyFrame(Duration.millis(100), e -> {
-                    int x = frameIndex[0] % 16;  // colonne (0 à 15)
-                    int y = frameIndex[0] / 16;  // ligne (0 ou 1)
-                    iv.setViewport(new Rectangle2D(
-                            x * largeurCase,  // position x en pixels
-                            y * hauteurCase,  // position y en pixels
-                            largeurCase,
-                            hauteurCase
+                    System.out.println(frameIndex[0]);
 
-                    ));
-                    frameIndex[0] = (frameIndex[0] + 1) % totalFrames;
-                    this.stackPane.getChildren().add(iv);
+
+
+                    iv.setViewport(new Rectangle2D(x * largeurCase, y * hauteurCase, largeurCase, hauteurCase));
+                    frameIndex[0] = (frameIndex[0] + 1) ;
+                    if (frameIndex[0]==22){
+                        frameIndex[0]=12;
+                    }
+
                 })
         );
 
-        timeline.setCycleCount(Timeline.INDEFINITE);
-        timeline.play();
+        squeletteMarche.setCycleCount(Timeline.INDEFINITE);
+        squeletteMarche.play();
 
 
 
@@ -90,9 +95,6 @@ public class TerrainVue {
     public ImageView ajouterEntite(String entite) {
         Image image = verifMonstre(entite);
         if (image != null) {
-
-
-
         }
         ImageView squeletteView = new ImageView(image);
         return squeletteView;
