@@ -10,6 +10,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import universite_paris8.iut.nchaieb.sae_jeux.modele.EntiteAllieeDeBase;
@@ -32,6 +33,34 @@ public class Controller implements Initializable{
     private Pane panneauAnimation;
 
 
+    private Timeline gameLoop;
+    private int temps;
+
+
+    @FXML
+    private Circle leCercle;
+
+
+    private void initAnimation() {
+        gameLoop = new Timeline();
+        temps=0;
+        gameLoop.setCycleCount(Timeline.INDEFINITE);
+
+        KeyFrame kf = new KeyFrame(
+                // on définit le FPS (nbre de frame par seconde)
+                Duration.seconds(0.017),
+
+                (ev ->{
+                    mettreAJour();
+                    if(temps==100){
+                        gameLoop.stop();
+                    }
+                    temps++;
+                })
+        );
+        gameLoop.getKeyFrames().add(kf);
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -39,9 +68,8 @@ public class Controller implements Initializable{
         TerrainVue terrainVue = new TerrainVue(terrain, tilePane, stackPane);
         System.out.println(Main.map);
         terrainVue.dessine(Main.map);
-        Environnement environnement= new Environnement(terrain.largeur(),terrain.hauteur());
-
-
+        this.environnement= new Environnement(terrain.largeur(),terrain.hauteur());
+        initAnimation();
         //ajout du rectangle rouge(tempo) à changer plus tard
         //un if car le cube se mettait en mouvement automatiquement quand on lancait le jeu
         if (Main.map == 2) {
@@ -60,25 +88,50 @@ public class Controller implements Initializable{
             transition.setAutoReverse(true); //va faire d'abord -> 520 px puis -520px puis ainsi de suite
             transition.play();
             terrainVue.animationSquelette();
+            gameLoop.play();
 
 
-            Timeline gameLoop = new Timeline(
-                    new KeyFrame(Duration.millis(1), e -> {
-                        mettreAJour();
-                        afficher();
-                    })
-            );
         }
 
 
     }
 
     private void mettreAJour() {
-
+        if(this.environnement==null){
+            return;
+        }
+        this.environnement.unTour();
+        afficher();
 
     }
+//    private void avancer() {
+//        for (int i=0; i< this.environnement.getLesAlliees().size();i++){
+//
+//            for (int j=0; j< this.environnement.getWidth();j++){
+//
+//            }
+//        }
+//        for (int i=0; i< this.environnement.getHeight();i++){
+//            for (int j=0; j< this.environnement.getWidth();j++){
+//
+//            }
+//        }
+//
 
+
+//    }
+//
     private void afficher() {
+        for (int i=0; i< this.environnement.getLesAlliees().size();i++){
+            for (int j=0; j< this.environnement.getWidth();j++){
+
+            }
+        }
+        for (int i=0; i< this.environnement.getHeight();i++){
+            for (int j=0; j< this.environnement.getWidth();j++){
+
+            }
+        }
     }
     @FXML
     public void onBoutonJouerClique() throws Exception {
@@ -88,7 +141,17 @@ public class Controller implements Initializable{
     }
     @FXML
     public void AjouterMonstreAllie() {
-        environnement.ajouterEntiteAllie();
+        System.out.println(1);
+        if(this.environnement==null){
+            return;
+        }
+        this.environnement.ajouterEntiteAllie();
+        for (int i=0; i< this.environnement.getLesMonstres().size();i++){
+            System.out.println( this.environnement.getLesMonstres().get(i));
+
+
+
+        }
     }
 
 

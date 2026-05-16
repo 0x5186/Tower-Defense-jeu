@@ -31,7 +31,8 @@ public class  Environnement {
 	}
 
 	public void ajouterEntiteAllie(){
-		MonstreDeBase test;
+		MonstreDeBase squelette=new Squelette();
+		lesMonstres.add(squelette);
 
 
 
