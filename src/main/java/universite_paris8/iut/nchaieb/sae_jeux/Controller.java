@@ -43,6 +43,7 @@ public class Controller implements Initializable{
 
 
 
+
     private void initAnimation() {
         gameLoop = new Timeline();
         temps=0;
@@ -107,26 +108,13 @@ public class Controller implements Initializable{
         afficher();
 
     }
-//    private void avancer() {
-//        for (int i=0; i< this.environnement.getLesAlliees().size();i++){
-//
-//            for (int j=0; j< this.environnement.getWidth();j++){
-//
-//            }
-//        }
-//        for (int i=0; i< this.environnement.getHeight();i++){
-//            for (int j=0; j< this.environnement.getWidth();j++){
-//
-//            }
-//        }
-//
 
-
-//    }
-//
     private void afficher() {
-        for (int i=0; i< this.environnement.getLesMonstres().size();i++){
-           this.environnement.getLesMonstres().get(i).agir();
+//        for (int i=0; i< this.environnement.getLesMonstres().size();i++){
+//           this.environnement.getLesMonstres().get(i).agir();
+//        }
+        for (MonstreVue mv : terrainVue.getMonstreVues()) {
+            mv.mettreAJourPosition(); // iv.setTranslateX(monstre.getPosX())
         }
 
     }

@@ -5,8 +5,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import javafx.scene.layout.TilePane;
+import universite_paris8.iut.nchaieb.sae_jeux.modele.MonstreDeBase;
 import universite_paris8.iut.nchaieb.sae_jeux.modele.Terrain;
 import universite_paris8.iut.nchaieb.sae_jeux.Main;
+
+import java.util.ArrayList;
 
 public class TerrainVue {
 
@@ -33,7 +36,7 @@ public class TerrainVue {
 
     private TilePane tilePane;
     private Terrain terrain;
-
+    private ArrayList<MonstreVue> monstreVues = new ArrayList<>();
 
     public TerrainVue(Terrain terrain, TilePane tilePane) {
         this.terrain = terrain;
@@ -106,5 +109,14 @@ public class TerrainVue {
                 }
             }
         }
+    }
+    public void ajouterMonstre(MonstreDeBase monstre) {
+        ImageView iv = ajouterEntite("squelette");
+        this.stackPane.getChildren().add(iv);
+
+        MonstreVue mv = new MonstreVue(monstre, iv);
+        monstreVues.add(mv);
+
+        mv.lancerAnimation(); // lance la Timeline
     }
 }

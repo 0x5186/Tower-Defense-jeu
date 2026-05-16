@@ -42,7 +42,7 @@ public class MonstreVue {
 
         iv.setTranslateX(-700); // position X en pixels
         iv.setTranslateY(-70);
-        this.stackPane.getChildren().add(iv);
+
         Timeline squeletteMarche = new Timeline(
                 new KeyFrame(Duration.millis(120), e -> {
                     int x, y;
@@ -65,12 +65,13 @@ public class MonstreVue {
                     if (frameIndex[0]==28){
                         frameIndex[0]=12;
                     }
-
+                    this.stackPane.getChildren().add(iv);
                 })
         );
 
         squeletteMarche.setCycleCount(Timeline.INDEFINITE);
         squeletteMarche.play();
+
 
 
 
