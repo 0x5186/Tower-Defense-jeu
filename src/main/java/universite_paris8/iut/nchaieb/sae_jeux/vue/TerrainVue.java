@@ -110,13 +110,13 @@ public class TerrainVue {
             }
         }
     }
-    public void ajouterMonstre(MonstreDeBase monstre) {
-        ImageView iv = ajouterEntite("squelette");
-        this.stackPane.getChildren().add(iv);
-
-        MonstreVue mv = new MonstreVue(monstre, iv);
-        monstreVues.add(mv);
-
-        mv.lancerAnimation(); // lance la Timeline
-    }
+//    public void ajouterMonstre(MonstreDeBase monstre) {
+//        ImageView iv = ajouterEntite("squelette");
+//        this.stackPane.getChildren().add(iv);
+//
+//        MonstreVue mv = new MonstreVue(monstre, iv);
+//        monstreVues.add(mv);
+//
+//        mv.lancerAnimation(); // lance la Timeline
+//    }
 }

@@ -39,6 +39,8 @@ public class MonstreVue {
 
 
 
+        this.stackPane.getChildren().add(iv);
+        iv.setViewport(new Rectangle2D(12 * largeurCase, 12 * hauteurCase, largeurCase, hauteurCase));
 
         iv.setTranslateX(-700); // position X en pixels
         iv.setTranslateY(-70);
@@ -65,7 +67,7 @@ public class MonstreVue {
                     if (frameIndex[0]==28){
                         frameIndex[0]=12;
                     }
-                    this.stackPane.getChildren().add(iv);
+
                 })
         );
 

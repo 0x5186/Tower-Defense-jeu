@@ -110,12 +110,12 @@ public class Controller implements Initializable{
     }
 
     private void afficher() {
-//        for (int i=0; i< this.environnement.getLesMonstres().size();i++){
-//           this.environnement.getLesMonstres().get(i).agir();
-//        }
-        for (MonstreVue mv : terrainVue.getMonstreVues()) {
-            mv.mettreAJourPosition(); // iv.setTranslateX(monstre.getPosX())
+        for (int i=0; i< this.environnement.getLesMonstres().size();i++){
+           this.environnement.getLesMonstres().get(i).agir();
         }
+//        for (MonstreVue mv : terrainVue.getMonstreVues()) {
+//            mv.mettreAJourPosition(); // iv.setTranslateX(monstre.getPosX())
+//        }
 
     }
     @FXML
