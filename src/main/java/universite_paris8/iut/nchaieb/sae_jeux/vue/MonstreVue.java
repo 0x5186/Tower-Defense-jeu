@@ -21,7 +21,7 @@ import java.util.ArrayList;
 public class MonstreVue {
     private StackPane stackPane;
     private ArrayList<MonstreDeBase> listeMonstre= new ArrayList<>();;
-    private static int[] positionDeSpawn={-700,-70};
+    private static int[] positionDeSpawn={-700,-100};
     private Environnement environnement;
     int temps;
 
@@ -127,7 +127,7 @@ public class MonstreVue {
 
 
         Timeline squeletteMarche = new Timeline(
-                new KeyFrame(Duration.millis(120), e -> {
+                new KeyFrame(Duration.millis(90), e -> {
                     int x, y;
                     if (frameIndex[0] < 25) {
                         x = frameIndex[0] % 5;
@@ -138,7 +138,7 @@ public class MonstreVue {
                     }
                     iv.setViewport(new Rectangle2D(x * largeurCase, y * hauteurCase, largeurCase, hauteurCase));
                     frameIndex[0]++;
-                    if (frameIndex[0] == 28) frameIndex[0] = 12;
+                    if (frameIndex[0] == 27) frameIndex[0] = 12;
                 })
         );
         squeletteMarche.setCycleCount(Timeline.INDEFINITE);
