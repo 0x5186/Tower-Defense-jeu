@@ -5,7 +5,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 
 public abstract class MonstreDeBase implements EntiteAlliee{
 
-    private String type;
+    protected String type;
     protected int nombreDePV;
     protected int pvMax;
     protected int atq;
@@ -13,23 +13,25 @@ public abstract class MonstreDeBase implements EntiteAlliee{
     private String id;
     private IntegerProperty PosX;
     private IntegerProperty PosY;
-    private int vitesse;// multiplicateur de vitesse ou pixels par sec ?
+    protected int vitesse;// multiplicateur de vitesse ou pixels par sec ?
     public static int compteurID = 0;
     private int recompenseArgent;
-    protected int actionActuel; //1=fixe 2=avance  3=frappe 4=meurt
+    protected int actionActuel; //0=rien 1=fixe 2=avance  3=frappe 4=meurt
 
 
-    public MonstreDeBase(int pvMax, int atq, int PosX, int PosY){
+    public MonstreDeBase(int pvMax, int atq, int PosX, int PosY, int vitesse){
         this.pvMax = pvMax;
         this.nombreDePV = pvMax;
         this.atq = atq;
+        this.actionActuel=0;
+
 //        this.biome = biome;
         this.id ="M"+ this.compteurID;
         this.compteurID++;
 //        this.recompenseArgent = recompenseArgent;
         this.PosX = new SimpleIntegerProperty(PosX);
         this.PosY = new SimpleIntegerProperty(PosY);
-//        this.vitesse = vitesse;
+        this.vitesse = vitesse;
     }
 
     protected MonstreDeBase() {
@@ -50,7 +52,8 @@ public abstract class MonstreDeBase implements EntiteAlliee{
     }
 
     public void agir() {
-        this.PosX.set(this.PosX.get()+ vitesse);
+
+
     }
 
 
@@ -69,11 +72,19 @@ public abstract class MonstreDeBase implements EntiteAlliee{
         return this.id;
     }
 
+    public void setPosX(int posX) {
+        this.PosX.set(posX);
+    }
+
     public int getPosX() { return this.PosX.get(); }
 
     public int getPosY() { return this.PosY.get(); }
 
     public int getActionActuel() {
         return actionActuel;
+    }
+
+    public String getType() {
+        return type;
     }
 }

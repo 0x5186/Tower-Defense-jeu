@@ -94,18 +94,7 @@ public class TerrainVue {
                         ImageView solTerreBas = new ImageView(solbas);
                         this.tilePane.getChildren().add(solTerreBas);
                         break;
-                    case 9:
-                        ImageView tabBase = new ImageView(tableauBase);
-                        this.tilePane.getChildren().add(tabBase);
-                        break;
-                    case 10:
-                        ImageView tabHaut1 = new ImageView(tableauHaut1);
-                        this.tilePane.getChildren().add(tabHaut1);
-                        break;
-                    case 11:
-                        ImageView tabHaut2 = new ImageView(tableauHaut2);
-                        this.tilePane.getChildren().add(tabHaut2);
-                        break;
+
                 }
             }
         }

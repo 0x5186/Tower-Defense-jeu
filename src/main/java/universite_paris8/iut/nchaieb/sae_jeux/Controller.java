@@ -55,17 +55,16 @@ public class Controller implements Initializable{
 
         KeyFrame kf = new KeyFrame(
                 // on définit le FPS (nbre de frame par seconde)
-                Duration.seconds(0.017),
+                Duration.seconds(1),
 
                 (ev ->{
-                    mettreAJour();
-                    if(temps==100){
-                        gameLoop.stop();
-                    }
                     temps++;
+                    mettreAJour();
                 })
         );
+        gameLoop.setCycleCount(Timeline.INDEFINITE);
         gameLoop.getKeyFrames().add(kf);
+
     }
 
     @Override
@@ -73,12 +72,13 @@ public class Controller implements Initializable{
 
         this.terrain = new Terrain();
         this.terrainVue = new TerrainVue(terrain, tilePane);
-        this.monstreVue= new MonstreVue(stackPane);
+        this.environnement= new Environnement(terrain.largeur(),terrain.hauteur());
+        this.monstreVue= new MonstreVue(stackPane, environnement);
         this.interfaceVue = new InterfaceVue(stackPane);
        // this.interfaceVue.dessinMenu();
         System.out.println(Main.map);
         terrainVue.dessine(Main.map);
-        this.environnement= new Environnement(terrain.largeur(),terrain.hauteur());
+
         initAnimation();
         //ajout du rectangle rouge(tempo) à changer plus tard
         //un if car le cube se mettait en mouvement automatiquement quand on lancait le jeu
@@ -98,7 +98,11 @@ public class Controller implements Initializable{
             transition.setAutoReverse(true); //va faire d'abord -> 520 px puis -520px puis ainsi de suite
             transition.play();
 
-            gameLoop.play();
+            try {
+                gameLoop.play();
+            } catch (Exception e) {
+                initAnimation();
+            }
 
 
         }
@@ -107,23 +111,24 @@ public class Controller implements Initializable{
     }
 
     private void mettreAJour() {
-        if(this.environnement==null){
-            return;
-        }
-        this.environnement.unTour();
-        afficher();
-
-    }
-
-    private void afficher() {
-        for (int i=0; i< this.environnement.getLesMonstres().size();i++){
-           this.environnement.getLesMonstres().get(i).agir();
-        }
-//        for (MonstreVue mv : terrainVue.getMonstreVues()) {
-//            mv.mettreAJourPosition(); // iv.setTranslateX(monstre.getPosX())
+        this.monstreVue.unTour();
+//        if(this.environnement==null){
+//            return;
 //        }
+//        this.environnement.unTour();
+//        afficher();
 
     }
+
+//    private void afficher() {
+//        for (int i=0; i< this.environnement.getLesMonstres().size();i++){
+//           this.environnement.getLesMonstres().get(i).agir();
+//        }
+////        for (MonstreVue mv : terrainVue.getMonstreVues()) {
+////            mv.mettreAJourPosition(); // iv.setTranslateX(monstre.getPosX())
+////        }
+//
+//    }
     @FXML
     public void onBoutonJouerClique() throws Exception {
         Main.map=2;
@@ -137,7 +142,8 @@ public class Controller implements Initializable{
             return;
         }
         this.environnement.ajouterEntite(squelette);
-        this.monstreVue.animationSquelette(squelette);
+        this.monstreVue.ajouterMonstre(squelette);
+        this.monstreVue.animationMarche(squelette);
     }
     
     @FXML

@@ -3,11 +3,13 @@ package universite_paris8.iut.nchaieb.sae_jeux.modele;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXML;
+import universite_paris8.iut.nchaieb.sae_jeux.vue.MonstreVue;
 
 import java.util.ArrayList;
 
 public class  Environnement {
-
+	private MonstreDeBase[][] tabEnvironnement;
+	private MonstreVue monstreVue;
 	private int largeur,hauteur;
 
 	private IntegerProperty nbTours;
@@ -25,6 +27,7 @@ public class  Environnement {
 		//ce que j'ai rajouté(musa le japonais)
 		this.lesAlliees = new ArrayList<>();
 		this.lesMonstres = new ArrayList<>();
+
 		//à voir, pour l'instant
 		MonstreDeBase.compteurID = 0;
 		EntiteAllieeDeBase.compteurID = 0;
@@ -33,7 +36,9 @@ public class  Environnement {
 	public void ajouterEntite(MonstreDeBase entite){
 
 		lesMonstres.add(entite);
-
+//		if(this.monstreVue!=null){
+//			this.monstreVue.animation(entite);
+//		}
 
 
     }
@@ -58,16 +63,23 @@ public class  Environnement {
 
 	public void unTour() {
 		//faut les supp quand ils sont morts / sinon avance
-		for (int i = lesMonstres.size() - 1; i >= 0; i--){
-			if (!lesMonstres.get(i).estVivant()){
-				lesMonstres.remove(i);
-			} else {
-				lesMonstres.get(i).agir();
+		if(!lesMonstres.isEmpty()){
+			for (int i = lesMonstres.size() - 1; i >= 0; i--){
+				if (!lesMonstres.get(i).estVivant()){
+					lesMonstres.remove(i);
+
+				} else {
+					lesMonstres.get(i).agir();
+
+				}
 			}
 		}
+
 	}
 
-
+	public void avancer(MonstreDeBase monstre) {
+		monstre.setPosX(monstre.getPosX()+1);
+	}
 
 	//ce que j'ai rajouté(musa le japonais)
 
