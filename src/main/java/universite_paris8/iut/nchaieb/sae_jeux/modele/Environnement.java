@@ -8,9 +8,8 @@ import universite_paris8.iut.nchaieb.sae_jeux.vue.MonstreVue;
 import java.util.ArrayList;
 
 public class  Environnement {
-	private MonstreDeBase[][] tabEnvironnement;
-	private MonstreVue monstreVue;
-	private int largeur,hauteur;
+
+//	private int largeur,hauteur;
 
 	private IntegerProperty nbTours;
 
@@ -19,10 +18,7 @@ public class  Environnement {
 	private ArrayList<EntiteAllieeDeBase> lesAlliees;
 	private ArrayList<MonstreDeBase> lesMonstres;
 
-	public Environnement(int largeur, int hauteur) {
-		super();
-		this.largeur = largeur;
-		this.hauteur = hauteur;
+	public Environnement() {
 		this.nbTours = new SimpleIntegerProperty();
 		//ce que j'ai rajouté(musa le japonais)
 		this.lesAlliees = new ArrayList<>();
@@ -51,13 +47,6 @@ public class  Environnement {
 		return this.nbTours.getValue();
 	}
 
-	public int getWidth() {
-		return largeur;
-	}
-
-	public int getHeight() {
-		return hauteur;
-	}
 
 
 
@@ -70,7 +59,6 @@ public class  Environnement {
 
 				} else {
 					lesMonstres.get(i).agir();
-
 				}
 			}
 		}

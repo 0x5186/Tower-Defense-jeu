@@ -21,6 +21,7 @@ public class Terrain {
                 codeTuiles[i][j] = 3;
             }
         }
+
         for(int i=0; i<19; i++){
             int iAleatoire = (int)(Math.random() * 4);
             int jAleatoire = (int)(Math.random() * 48);

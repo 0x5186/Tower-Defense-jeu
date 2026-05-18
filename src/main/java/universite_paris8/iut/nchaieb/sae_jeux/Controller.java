@@ -4,18 +4,13 @@ import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Rectangle2D;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import universite_paris8.iut.nchaieb.sae_jeux.modele.*;
-import universite_paris8.iut.nchaieb.sae_jeux.modele.EntiteAllieeDeBase;
 import universite_paris8.iut.nchaieb.sae_jeux.modele.Environnement;
 import universite_paris8.iut.nchaieb.sae_jeux.modele.Terrain;
 import universite_paris8.iut.nchaieb.sae_jeux.vue.InterfaceVue;
@@ -33,8 +28,8 @@ public class Controller implements Initializable{
     private TilePane tilePane;
     @FXML
     private StackPane stackPane;
-    @FXML
-    private Pane panneauAnimation;
+
+
 
 
     private Timeline gameLoop;
@@ -72,7 +67,7 @@ public class Controller implements Initializable{
 
         this.terrain = new Terrain();
         this.terrainVue = new TerrainVue(terrain, tilePane);
-        this.environnement= new Environnement(terrain.largeur(),terrain.hauteur());
+        this.environnement= new Environnement();
         this.monstreVue= new MonstreVue(stackPane, environnement);
         this.interfaceVue = new InterfaceVue(stackPane);
        // this.interfaceVue.dessinMenu();
@@ -86,7 +81,7 @@ public class Controller implements Initializable{
 
             this.interfaceVue.dessinMenu();
             Rectangle rectangle = new Rectangle(50, 50, Color.RED);
-            panneauAnimation.getChildren().add(rectangle);
+            stackPane.getChildren().add(rectangle);
             rectangle.setX(10);
             rectangle.setY(340);
             //la translation du cube("monstre")
@@ -111,12 +106,12 @@ public class Controller implements Initializable{
     }
 
     private void mettreAJour() {
-        this.monstreVue.unTour();
+//        this.monstreVue.unTour();
 //        if(this.environnement==null){
 //            return;
 //        }
-//        this.environnement.unTour();
-//        afficher();
+        this.environnement.unTour();
+
 
     }
 
@@ -151,5 +146,9 @@ public class Controller implements Initializable{
         System.out.println("ok okgdgfdofgdk");
     }
 
+    @FXML
+    public void AppuyerSurSymboleGoutteDeau() {
+        System.out.println("ok okgdgfdofgdk");
+    }
 
 }

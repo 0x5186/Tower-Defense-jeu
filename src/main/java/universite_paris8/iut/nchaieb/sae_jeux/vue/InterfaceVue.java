@@ -2,11 +2,9 @@ package universite_paris8.iut.nchaieb.sae_jeux.vue;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import universite_paris8.iut.nchaieb.sae_jeux.Main;
-import universite_paris8.iut.nchaieb.sae_jeux.modele.Environnement;
-
-import java.util.Stack;
 
 public class InterfaceVue {
     Image FeuilleSort = new Image(Main.class.getResourceAsStream("images/FeuillePourLesSorts.png"));
@@ -19,19 +17,25 @@ public class InterfaceVue {
     }
 
     public void dessinMenu () {
+
         ImageView FeuillePentacle = new ImageView(FeuilleSort);
         ImageView InterfaceDuBas = new ImageView(InterfaceBas);
+        if( this.stackPane!=null){
+            this.stackPane.getChildren().add(InterfaceDuBas);
 
-        this.stackPane.getChildren().add(InterfaceDuBas);
+            InterfaceDuBas.setTranslateY(750);
+            InterfaceDuBas.setTranslateX(500);
+            InterfaceDuBas.setScaleX(1.25);
+            InterfaceDuBas.setScaleX(2.5);
 
-        InterfaceDuBas.setTranslateY(250);
-        InterfaceDuBas.setScaleX(2);
+            FeuillePentacle.setTranslateX(1400); // position X en pixels
+            FeuillePentacle.setTranslateY(650);
+            FeuillePentacle.setScaleX(0.65);
+            FeuillePentacle.setScaleY(0.65);
+            this.stackPane.getChildren().add(FeuillePentacle);
+        }
 
-        FeuillePentacle.setTranslateX(575); // position X en pixels
-        FeuillePentacle.setTranslateY(250);
-        FeuillePentacle.setScaleX(0.65);
-        FeuillePentacle.setScaleY(0.65);
-        this.stackPane.getChildren().add(FeuillePentacle);
+
     }
 
 }

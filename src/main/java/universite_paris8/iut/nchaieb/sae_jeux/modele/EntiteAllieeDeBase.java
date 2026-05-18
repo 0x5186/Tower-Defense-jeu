@@ -9,10 +9,10 @@ public abstract class EntiteAllieeDeBase implements EntiteAlliee{
     public static int compteurID = 0;
 
     public EntiteAllieeDeBase(int pvMax, int atq, String biome){
-        this.pvMax = pvMax;
-        this.nombreDePV = pvMax;
-        this.atq = atq;
-        this.biome = biome;
+//        this.pvMax = pvMax;
+//        this.nombreDePV = pvMax;
+//        this.atq = atq;
+//        this.biome = biome;
         this.id ="E"+ this.compteurID;
         this.compteurID++;
     }
