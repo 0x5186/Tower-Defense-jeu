@@ -2,27 +2,22 @@ package universite_paris8.iut.nchaieb.sae_jeux.vue;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.animation.TranslateTransition;
-import javafx.fxml.FXML;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
 import universite_paris8.iut.nchaieb.sae_jeux.Main;
-import javafx.scene.layout.Pane;
 import universite_paris8.iut.nchaieb.sae_jeux.modele.Environnement;
-import universite_paris8.iut.nchaieb.sae_jeux.modele.MonstreDeBase;
+import universite_paris8.iut.nchaieb.sae_jeux.modele.Monstre;
 import universite_paris8.iut.nchaieb.sae_jeux.modele.Squelette;
-import universite_paris8.iut.nchaieb.sae_jeux.modele.Terrain;
 
 import java.util.ArrayList;
 
 
 public class MonstreVue {
     private StackPane stackPane;
-    private ArrayList<MonstreDeBase> listeMonstre= new ArrayList<>();;
+    private ArrayList<Monstre> listeMonstre= new ArrayList<>();;
     private static int[] positionDeSpawn={-700,-100};
     private Environnement environnement;
     int temps;
@@ -113,7 +108,7 @@ public class MonstreVue {
 //    }
 
 
-    public void animationMarche(MonstreDeBase monstre) {
+    public void animationMarche(Monstre monstre) {
 
 
 
@@ -166,11 +161,11 @@ public class MonstreVue {
             avancer(listeMonstre.get(i));
         }
     }
-    public void avancer(MonstreDeBase monstre){
+    public void avancer(Monstre monstre){
         monstre.setPosX(monstre.getPosX()+5);
         System.out.println(monstre.getPosX());
     }
-    public void ajouterMonstre(MonstreDeBase monstre){
+    public void ajouterMonstre(Monstre monstre){
         listeMonstre.add(monstre);
 //        lancerAnimations();
     }

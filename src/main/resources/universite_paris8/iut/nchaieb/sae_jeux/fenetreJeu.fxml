@@ -19,6 +19,7 @@
                </ImageView>
             </graphic>
          </Button>
+
          <Button fx:id="symboleGoutteDeau" layoutX="500" layoutY="200" mnemonicParsing="false" onAction="#AppuyerSurSymboleGoutteDeau" prefHeight="7.0" prefWidth="2.0" style="-fx-background-color: transparent; -fx-border-color: transparent; -fx-padding: 0;">
             <graphic>
                <ImageView fitHeight="64.0" fitWidth="64.0" nodeOrientation="INHERIT" preserveRatio="true">
@@ -29,6 +30,18 @@
                </ImageView>
             </graphic>
          </Button>
+
+<!--         <Button fx:id="boutonResetCombinaison" layoutX="500" layoutY="200" mnemonicParsing="false" onAction="#AppuyerSurSymboleGoutteDeau" prefHeight="7.0" prefWidth="2.0" style="-fx-background-color: transparent; -fx-border-color: transparent; -fx-padding: 0;">-->
+<!--            <graphic>-->
+<!--               <ImageView fitHeight="64.0" fitWidth="64.0" nodeOrientation="INHERIT" preserveRatio="true">-->
+<!--                  <image>-->
+<!--                     <Image url="@images/symboleCroix.png">-->
+<!--                     </Image>-->
+<!--                  </image>-->
+<!--               </ImageView>-->
+<!--            </graphic>-->
+<!--         </Button>-->
+
       </StackPane>
    </center>
    <bottom>

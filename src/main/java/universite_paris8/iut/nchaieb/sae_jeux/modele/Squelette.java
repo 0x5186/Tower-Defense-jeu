@@ -1,6 +1,6 @@
 package universite_paris8.iut.nchaieb.sae_jeux.modele;
 
-public class Squelette extends MonstreDeBase{
+public class Squelette extends Monstre {
     public Squelette() {
         super(1, 1, 0, 300, 1);
         this.actionActuel = 1;
@@ -8,7 +8,7 @@ public class Squelette extends MonstreDeBase{
     }
 
     @Override
-    public void infligerDegat(MonstreDeBase entite) {
+    public void infligerDegat(Monstre entite) {
 
     }
 

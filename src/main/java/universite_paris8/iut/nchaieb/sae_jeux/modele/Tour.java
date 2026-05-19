@@ -13,13 +13,13 @@ public abstract class Tour extends EntiteAllieeDeBase{
         this.y = y;
     }
 
-    public void infligerDegat(MonstreDeBase entite){
+    public void infligerDegat(Monstre entite){
         if (entite.nombreDePV != 0){
-            //entite.retirerPV(this.atq);
+//            entite.retirerPV(this.atq);
         }
     }
 
-    public boolean estDansLeRayon (MonstreDeBase monstre){
+    public boolean estDansLeRayon (Monstre monstre){
         //on va calculer la distance entre la tour et le mosntre
         int distanceX = monstre.getPosX() - this.x;
         int distanceY = monstre.getPosY() - this.y;
@@ -35,8 +35,8 @@ public abstract class Tour extends EntiteAllieeDeBase{
         return false;
     }
 
-    public void agir(ArrayList<MonstreDeBase> monstres) {
-        MonstreDeBase monstreActuel;
+    public void agir(ArrayList<Monstre> monstres) {
+        Monstre monstreActuel;
 
         for (int i = 0; i < monstres.size(); i++){
             monstreActuel = monstres.get(i);

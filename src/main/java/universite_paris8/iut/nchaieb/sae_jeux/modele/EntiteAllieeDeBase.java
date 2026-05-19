@@ -21,7 +21,7 @@ public abstract class EntiteAllieeDeBase implements EntiteAlliee{
 
     }
 
-    public  void infligerDegat(MonstreDeBase ennemies){
+    public  void infligerDegat(Monstre ennemies){
     }
 
 

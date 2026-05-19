@@ -3,7 +3,9 @@ package universite_paris8.iut.nchaieb.sae_jeux.modele;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
-public abstract class MonstreDeBase implements EntiteAlliee{
+import java.util.ArrayList;
+
+public abstract class Monstre implements EntiteAlliee{
 
     protected int nombreDePV;
     //protected int pvMax;
@@ -13,10 +15,11 @@ public abstract class MonstreDeBase implements EntiteAlliee{
     private IntegerProperty PosY;
     protected int vitesse;// multiplicateur de vitesse ou pixels par sec ?
     public static int compteurID = 0;
+    public ArrayList<Symbole> type;
     //protected int actionActuel; //0=rien 1=fixe 2=avance  3=frappe 4=meurt
 
 
-    public MonstreDeBase(int pvMax, int atq, int PosX, int PosY, int vitesse){
+    public Monstre(int pvMax, int atq, int PosX, int PosY, int vitesse){
         //this.pvMax = pvMax;
         //this.nombreDePV = pvMax;
         //this.atq = atq;
@@ -31,7 +34,7 @@ public abstract class MonstreDeBase implements EntiteAlliee{
         this.vitesse = vitesse;
     }
 
-    protected MonstreDeBase() {
+    protected Monstre() {
     }
 
 //    public  void infligerDegat(EntiteAllieeDeBase alliee){
@@ -76,6 +79,8 @@ public abstract class MonstreDeBase implements EntiteAlliee{
     public int getPosX() { return this.PosX.get(); }
 
     public int getPosY() { return this.PosY.get(); }
+
+    public String getType() { return this.type; }
 
 //    public int getActionActuel() {
 //        return actionActuel;

@@ -4,18 +4,13 @@ import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Rectangle2D;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import universite_paris8.iut.nchaieb.sae_jeux.modele.*;
-import universite_paris8.iut.nchaieb.sae_jeux.modele.EntiteAllieeDeBase;
 import universite_paris8.iut.nchaieb.sae_jeux.modele.Environnement;
 import universite_paris8.iut.nchaieb.sae_jeux.modele.Terrain;
 import universite_paris8.iut.nchaieb.sae_jeux.vue.InterfaceVue;
@@ -23,11 +18,13 @@ import universite_paris8.iut.nchaieb.sae_jeux.vue.MonstreVue;
 import universite_paris8.iut.nchaieb.sae_jeux.vue.TerrainVue;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable{
     private Environnement environnement;
-
+    private ArrayList<Symbole> symboles;
+    private ArrayList<SortDeBase> lesSorts;
 
     @FXML
     private TilePane tilePane;
@@ -104,8 +101,13 @@ public class Controller implements Initializable{
                 initAnimation();
             }
 
+            //Partie sort
+            this.symboles = new ArrayList<>();
+            this.lesSorts = new ArrayList<>();
 
         }
+
+
 
 
     }
@@ -133,11 +135,11 @@ public class Controller implements Initializable{
     public void onBoutonJouerClique() throws Exception {
         Main.map=2;
         Main.changerScene("universite_paris8/iut/nchaieb/sae_jeux/fenetreJeu.fxml");
-
     }
+
     @FXML
     public void AjouterMonstreAllie() {
-        MonstreDeBase squelette=new Squelette();
+        Monstre squelette=new Squelette();
         if(this.environnement==null){
             return;
         }
@@ -148,8 +150,34 @@ public class Controller implements Initializable{
     
     @FXML
     public void AppuyerSurSymboleCroix() {
-        System.out.println("ok okgdgfdofgdk");
+        Symbole symboleCroix = new Symbole("Croix");
+        this.symboles.add(symboleCroix);
     }
 
+    @FXML
+    public void AppuyerSurSymboleGoutteDeau() {
+        Symbole symboleGoutteDeau= new Symbole("GoutteDeau");
+        this.symboles.add(symboleGoutteDeau);
+    }
+
+    @FXML
+    public void validerPentacle(){
+        SortDeBase sortActuel;
+
+        for (int i = 0; i < this.lesSorts.size(); i++){
+            sortActuel = this.lesSorts.get(i);
+
+            if (sortActuel.combinaisonValidee(this.symboles)){
+                //jsplus jhr aide moi
+            }
+
+        }
+
+        this.symboles.clear();
+    }
+
+    //bouton reset de la combinaisons
+    public void AppuyerSurBoutonReset(){
+    }
 
 }
