@@ -121,21 +121,16 @@ public class Controller implements Initializable{
     @FXML
     public void AjouterMonstreAllie() {
         MonstreDeBase squelette=new Squelette();
-        if(this.environnement==null){
-            this.environnement.ajouterEntite(squelette,0);
-
-        }
-
-
+        this.environnement.ajouterEntite(squelette,0);
 
     }
 
     @FXML
     public void AjouterMonstreEnnemi() {
         MonstreDeBase squelette=new Squelette();
-        if(this.environnement!=null){
-            this.environnement.ajouterEntite(squelette,1);
-        }
+
+        this.environnement.ajouterEntite(squelette,1);
+
     }
     
     @FXML
