@@ -3,6 +3,7 @@ package universite_paris8.iut.nchaieb.sae_jeux.modele;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXML;
+import universite_paris8.iut.nchaieb.sae_jeux.Main;
 import universite_paris8.iut.nchaieb.sae_jeux.vue.MonstreVue;
 
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ public class  Environnement {
 
 	//ce que j'ai rajouté(musa le japonais)
 	//t pas japonais heee heee
-	private ArrayList<EntiteAllieeDeBase> lesAlliees;
+	private ArrayList<MonstreDeBase> lesAlliees;
 	private ArrayList<MonstreDeBase> lesMonstres;
 
 	public Environnement() {
@@ -51,6 +52,7 @@ public class  Environnement {
 
 
 	public void unTour() {
+
 		//faut les supp quand ils sont morts / sinon avance
 		if(!lesMonstres.isEmpty()){
 			for (int i = lesMonstres.size() - 1; i >= 0; i--){
@@ -58,12 +60,57 @@ public class  Environnement {
 					lesMonstres.remove(i);
 
 				} else {
-					lesMonstres.get(i).agir();
+					lesMonstres.get(i).agir(lesAlliees);
+				}
+			}
+		}
+		if(!lesAlliees.isEmpty()){
+			for (int i = lesAlliees.size() - 1; i >= 0; i--){
+				if (!lesAlliees.get(i).estVivant()){
+					lesAlliees.remove(i);
+
+				} else {
+					lesAlliees.get(i).agir(lesMonstres);
 				}
 			}
 		}
 
 	}
+
+//	public ArrayList<MonstreDeBase> fusionnerListe(ArrayList<MonstreDeBase> monstreAllie, ArrayList<MonstreDeBase> monstreEnnemi){
+//		ArrayList<MonstreDeBase> listeFusion=new ArrayList<MonstreDeBase>();
+//		for(int i=0; i<monstreAllie.size()+monstreEnnemi.size(); i++){
+//			if(i>= monstreAllie.size()){
+//				listeFusion.add(monstreEnnemi.get(i));
+//			}
+//			else{
+//				listeFusion.add(monstreAllie.get(i));
+//			}
+//		}
+//		return listeFusion;
+//	}
+
+
+	public ArrayList<MonstreDeBase> triVitesse(ArrayList<MonstreDeBase> listMonstre){
+		ArrayList<MonstreDeBase> listeTrie= new ArrayList<MonstreDeBase>();
+		MonstreDeBase monstre;
+		int indexMax;
+		for(int i=0; i< listMonstre.size(); i++){
+			indexMax=i;
+			for(int j=i; j< listMonstre.size(); j++){
+				if(listMonstre.get(j).getVitesse()>listMonstre.get(i).getVitesse()){
+					indexMax= j;
+				}
+
+			}
+			listeTrie.add(listMonstre.get(indexMax));
+
+		}
+		return listMonstre;
+	}
+
+
+
 
 	public void avancer(MonstreDeBase monstre) {
 		monstre.setPosX(monstre.getPosX()+1);
@@ -71,13 +118,13 @@ public class  Environnement {
 
 	//ce que j'ai rajouté(musa le japonais)
 
-	public ArrayList<EntiteAllieeDeBase> getLesAlliees() {
+	public ArrayList<MonstreDeBase> getLesAlliees() {
 		return this.lesAlliees;
 	}
 	public ArrayList<MonstreDeBase> getLesMonstres() { return this.lesMonstres; }
 
-	public EntiteAllieeDeBase getLesAlliees(String id) {
-		for(EntiteAllieeDeBase a: this.lesAlliees){
+	public MonstreDeBase getLesAlliees(String id) {
+		for(MonstreDeBase a: this.lesAlliees){
 			if(a.getId().equals(id)){
 				return a;
 			}

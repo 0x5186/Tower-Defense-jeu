@@ -5,6 +5,7 @@ public class Squelette extends MonstreDeBase{
         super(1, 1, 0, 300, 1);
         this.actionActuel = 1;
         this.type = "squelette";
+        this.portee= 2;
     }
 
     @Override

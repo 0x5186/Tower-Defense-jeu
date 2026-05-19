@@ -40,7 +40,7 @@ public class Main extends Application {
 
     public static void changerScene(String fxml) throws Exception {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("fenetreJeu.fxml"));
-        Scene scene = new Scene(loader.load());
+        Scene scene = new Scene(loader.load(), 1700, 1000);
         stage.setScene(scene);
     }
 

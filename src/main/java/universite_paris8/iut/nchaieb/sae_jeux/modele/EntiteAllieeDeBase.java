@@ -1,6 +1,6 @@
 package universite_paris8.iut.nchaieb.sae_jeux.modele;
 
-public abstract class EntiteAllieeDeBase implements EntiteAlliee{
+public abstract class EntiteAllieeDeBase implements Entite{
     protected int nombreDePV;
     protected int pvMax;
     protected int atq;

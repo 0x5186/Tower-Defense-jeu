@@ -121,6 +121,7 @@ public class MonstreVue {
 
         if(monstre instanceof Squelette){
             ImageView iv = new ImageView(squelette);
+            int ancienX;
             this.stackPane.getChildren().add(iv);
 //            iv.setTranslateX(positionDeSpawn[0]);
 //            iv.setTranslateY(positionDeSpawn[1]);
@@ -128,9 +129,12 @@ public class MonstreVue {
             int hauteurCase = 240;
             int[] frameIndex = {12};
             iv.setViewport(new Rectangle2D(2 * largeurCase, 3 * hauteurCase, largeurCase, hauteurCase));
+//            TranslateTransition transition=new TranslateTransition();
 
 
             Timeline squeletteMarche = new Timeline(
+
+
                     new KeyFrame(Duration.millis(90), e -> {
                         int x, y;
                         if (frameIndex[0] < 25) {
@@ -143,8 +147,13 @@ public class MonstreVue {
                         iv.setViewport(new Rectangle2D(x * largeurCase, y * hauteurCase, largeurCase, hauteurCase));
                         frameIndex[0]++;
                         if (frameIndex[0] == 27) frameIndex[0] = 12;
+//                        transition.setNode(iv);
+//                        transition.setByX(monstre.getPosX());
+//                        transition.setDuration(Duration.seconds(30));
+//                        transition.play();
                         iv.setTranslateX(monstre.getPosX());
                         iv.setTranslateY(monstre.getPosY());
+
                     })
             );
             squeletteMarche.setCycleCount(Timeline.INDEFINITE);
