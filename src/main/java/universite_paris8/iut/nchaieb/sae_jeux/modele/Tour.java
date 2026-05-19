@@ -6,23 +6,19 @@ public abstract class Tour extends EntiteAllieeDeBase{
     protected double portee;
     protected int x, y;
 
-    //int atq
-    public Tour(double portee, int x, int y) {
+    public Tour(double portee, int atq, int x, int y) {
         super();
         this.portee = portee;
         this.x = x;
         this.y = y;
     }
 
-//    public void infligerDegat(MonstreDeBase entite){
-//        if (entite.nombreDePV != 0){
-//            entite.retirerPV(this.atq);
-//        }
-//    }
+    public void infligerDegat(MonstreDeBase entite){
+        if (entite.nombreDePV != 0){
+            //entite.retirerPV(this.atq);
+        }
+    }
 
-    //Le prof c conseillé de prendre en paramètres (x, y) mais personnellement je préfères laisser MonstreDeBase
-    //Cordialement
-    //Musa le japonais
     public boolean estDansLeRayon (MonstreDeBase monstre){
         //on va calculer la distance entre la tour et le mosntre
         int distanceX = monstre.getPosX() - this.x;

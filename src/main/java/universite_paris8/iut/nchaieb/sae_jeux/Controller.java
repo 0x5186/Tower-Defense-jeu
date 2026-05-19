@@ -151,10 +151,5 @@ public class Controller implements Initializable{
         System.out.println("ok okgdgfdofgdk");
     }
 
-    @FXML
-    public void AppuyerSurSymboleGoutteDeau(){
-        System.out.println("ca marche");
-    }
-
 
 }

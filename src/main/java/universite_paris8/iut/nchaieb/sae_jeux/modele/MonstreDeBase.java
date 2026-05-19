@@ -5,7 +5,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 
 public abstract class MonstreDeBase implements EntiteAlliee{
 
-    //protected int nombreDePV;
+    protected int nombreDePV;
     //protected int pvMax;
     //protected int atq;
     private String id;
