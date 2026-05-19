@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane prefHeight="576" prefWidth="576" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="universite_paris8.iut.nchaieb.sae_jeux.Controller">
+<BorderPane prefHeight="576" prefWidth="576" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="universite_paris8.iut.nchaieb.sae_jeux.Controller">
    <center>
       <StackPane fx:id="stackPane" alignment="TOP_LEFT">
          <TilePane fx:id="tilePane" alignment="TOP_CENTER" prefColumns="30" prefRows="25" prefTileHeight="32" prefTileWidth="32" BorderPane.alignment="TOP_LEFT">
@@ -32,6 +33,16 @@
       </StackPane>
    </center>
    <bottom>
-      <Button fx:id="boutonAjouterMonstre" mnemonicParsing="false" onAction="#AjouterMonstreAllie" text="ajouter Monstre" BorderPane.alignment="CENTER" />
+      <StackPane BorderPane.alignment="CENTER">
+         <children>
+            <Pane prefHeight="52.0" prefWidth="576.0">
+               <children>
+                  <Button fx:id="boutonMonstreEnnemi" layoutX="145.0" layoutY="13.0" mnemonicParsing="false" onAction="#AjouterMonstreEnnemi" text="Button" />
+            
+                   <Button fx:id="boutonAjouterMonstreAllie" layoutX="362.0" layoutY="13.0" mnemonicParsing="false" onAction="#AjouterMonstreAllie" text="ajouter Monstre" />
+               </children>
+            </Pane>
+         </children>
+      </StackPane>
    </bottom>
 </BorderPane>

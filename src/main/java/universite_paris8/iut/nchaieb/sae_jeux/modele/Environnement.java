@@ -30,9 +30,14 @@ public class  Environnement {
 		EntiteAllieeDeBase.compteurID = 0;
 	}
 
-	public void ajouterEntite(MonstreDeBase entite){
+	public void ajouterEntite(MonstreDeBase entite, int camp){
+		if(camp==0){
+			lesAlliees.add(entite);
+		}
+		else{
+			lesMonstres.add(entite);
+		}
 
-		lesMonstres.add(entite);
 //		if(this.monstreVue!=null){
 //			this.monstreVue.animation(entite);
 //		}

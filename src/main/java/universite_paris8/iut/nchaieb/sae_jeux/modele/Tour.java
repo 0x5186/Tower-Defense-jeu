@@ -7,7 +7,7 @@ public abstract class Tour extends EntiteAllieeDeBase{
     protected int x, y;
 
     public Tour(double portee, int atq, int x, int y) {
-        super();
+        super(atq);
         this.portee = portee;
         this.x = x;
         this.y = y;

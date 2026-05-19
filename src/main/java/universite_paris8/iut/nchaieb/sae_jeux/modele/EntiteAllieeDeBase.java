@@ -4,34 +4,31 @@ public abstract class EntiteAllieeDeBase implements Entite{
     protected int nombreDePV;
     protected int pvMax;
     protected int atq;
-    protected String biome;
+//    protected String biome;
     private String id;
     public static int compteurID = 0;
 
-    public EntiteAllieeDeBase(int pvMax, int atq, String biome){
+    public EntiteAllieeDeBase(int atq){
 //        this.pvMax = pvMax;
 //        this.nombreDePV = pvMax;
-//        this.atq = atq;
+        this.atq = atq;
 //        this.biome = biome;
         this.id ="E"+ this.compteurID;
         this.compteurID++;
     }
 
-    public EntiteAllieeDeBase() {
+    public  void infligerDegat(MonstreDeBase monstre){
+        System.out.println("nb pv" + monstre.nombreDePV);
+        System.out.println("atq" + this.atq);
+        if (monstre.nombreDePV != 0){
+            monstre.retirerPV(this.atq);
 
-    }
-
-    public  void infligerDegat(MonstreDeBase ennemies){
-    }
-
-
-
-    public void retirerPV(int degat) {
-        this.nombreDePV -= degat;
-        if (this.nombreDePV <= 0){
-            this.nombreDePV = 0;
         }
     }
+
+
+
+
 
     public int  getPV(){
         return this.nombreDePV;

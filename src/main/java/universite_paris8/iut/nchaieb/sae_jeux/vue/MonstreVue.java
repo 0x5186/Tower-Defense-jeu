@@ -113,6 +113,22 @@ public class MonstreVue {
 //    }
 
 
+    public void animationAjour(){
+        for(int i=0;i<environnement.getLesAlliees().size();i++){
+            this.animationMarche(environnement.getLesAlliees().get(i));
+        }
+        for(int i=0;i<environnement.getLesMonstres().size();i++){
+            animationMarche(environnement.getLesMonstres().get(i));
+        }
+
+
+        for(int i=0; i<stackPane.getChildren().size();i++){
+            System.out.println(stackPane.getChildren().get(i));
+
+        }
+    }
+
+
     public void animationMarche(MonstreDeBase monstre) {
 
 
@@ -121,44 +137,56 @@ public class MonstreVue {
 
         if(monstre instanceof Squelette){
             ImageView iv = new ImageView(squelette);
-            int ancienX;
             this.stackPane.getChildren().add(iv);
+            System.out.println(monstre.estVivant());
+            if(monstre.getActionActuel()==2){
+               // this.stackPane.getChildren().add(iv);
 //            iv.setTranslateX(positionDeSpawn[0]);
 //            iv.setTranslateY(positionDeSpawn[1]);
-            int largeurCase = 240;
-            int hauteurCase = 240;
-            int[] frameIndex = {12};
-            iv.setViewport(new Rectangle2D(2 * largeurCase, 3 * hauteurCase, largeurCase, hauteurCase));
+                int largeurCase = 240;
+                int hauteurCase = 240;
+                int[] frameIndex = {12};
+                iv.setViewport(new Rectangle2D(2 * largeurCase, 3 * hauteurCase, largeurCase, hauteurCase));
 //            TranslateTransition transition=new TranslateTransition();
 
 
-            Timeline squeletteMarche = new Timeline(
+                Timeline squeletteMarche = new Timeline(
 
 
-                    new KeyFrame(Duration.millis(90), e -> {
-                        int x, y;
-                        if (frameIndex[0] < 25) {
-                            x = frameIndex[0] % 5;
-                            y = frameIndex[0] / 5;
-                        } else {
-                            x = frameIndex[0] - 25;
-                            y = 5;
-                        }
-                        iv.setViewport(new Rectangle2D(x * largeurCase, y * hauteurCase, largeurCase, hauteurCase));
-                        frameIndex[0]++;
-                        if (frameIndex[0] == 27) frameIndex[0] = 12;
+                        new KeyFrame(Duration.millis(90), e -> {
+                            int x, y;
+                            if (frameIndex[0] < 25) {
+                                x = frameIndex[0] % 5;
+                                y = frameIndex[0] / 5;
+                            } else {
+                                x = frameIndex[0] - 25;
+                                y = 5;
+                            }
+                            iv.setViewport(new Rectangle2D(x * largeurCase, y * hauteurCase, largeurCase, hauteurCase));
+                            frameIndex[0]++;
+                            if (frameIndex[0] == 27) frameIndex[0] = 12;
 //                        transition.setNode(iv);
 //                        transition.setByX(monstre.getPosX());
 //                        transition.setDuration(Duration.seconds(30));
 //                        transition.play();
-                        iv.setTranslateX(monstre.getPosX());
-                        iv.setTranslateY(monstre.getPosY());
+                            iv.setTranslateX(monstre.getPosX());
+                            iv.setTranslateY(monstre.getPosY());
 
-                    })
-            );
-            squeletteMarche.setCycleCount(Timeline.INDEFINITE);
-            squeletteMarche.play();
+
+                        })
+                );
+//                squeletteMarche.setCycleCount(Timeline.INDEFINITE);
+                System.out.println("Anim marche");
+                squeletteMarche.play();
+            }
+            else if (monstre.getActionActuel()==0){
+//                for(int i=0; i<stackPane.getChildren().size();i++){
+//
+//                }
+                stackPane.getChildren().remove(iv);
+            }
         }
+
 
     }
 

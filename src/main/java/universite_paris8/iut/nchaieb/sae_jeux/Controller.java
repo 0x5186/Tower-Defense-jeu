@@ -55,6 +55,7 @@ public class Controller implements Initializable{
                 (ev ->{
                     temps++;
                     mettreAJour();
+                    monstreVue.animationAjour();
                 })
         );
         gameLoop.setCycleCount(Timeline.INDEFINITE);
@@ -93,6 +94,8 @@ public class Controller implements Initializable{
             transition.setAutoReverse(true); //va faire d'abord -> 520 px puis -520px puis ainsi de suite
             transition.play();
 
+
+
             try {
                 gameLoop.play();
             } catch (Exception e) {
@@ -106,24 +109,9 @@ public class Controller implements Initializable{
     }
 
     private void mettreAJour() {
-//        this.monstreVue.unTour();
-//        if(this.environnement==null){
-//            return;
-//        }
         this.environnement.unTour();
-
-
     }
 
-//    private void afficher() {
-//        for (int i=0; i< this.environnement.getLesMonstres().size();i++){
-//           this.environnement.getLesMonstres().get(i).agir();
-//        }
-////        for (MonstreVue mv : terrainVue.getMonstreVues()) {
-////            mv.mettreAJourPosition(); // iv.setTranslateX(monstre.getPosX())
-////        }
-//
-//    }
     @FXML
     public void onBoutonJouerClique() throws Exception {
         Main.map=2;
@@ -134,11 +122,20 @@ public class Controller implements Initializable{
     public void AjouterMonstreAllie() {
         MonstreDeBase squelette=new Squelette();
         if(this.environnement==null){
-            return;
+            this.environnement.ajouterEntite(squelette,0);
+
         }
-        this.environnement.ajouterEntite(squelette);
-        this.monstreVue.ajouterMonstre(squelette);
-        this.monstreVue.animationMarche(squelette);
+
+
+
+    }
+
+    @FXML
+    public void AjouterMonstreEnnemi() {
+        MonstreDeBase squelette=new Squelette();
+        if(this.environnement!=null){
+            this.environnement.ajouterEntite(squelette,1);
+        }
     }
     
     @FXML
