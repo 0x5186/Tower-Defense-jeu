@@ -30,8 +30,8 @@ public class Controller implements Initializable{
     private TilePane tilePane;
     @FXML
     private StackPane stackPane;
-    @FXML
-    private Pane panneauAnimation;
+
+
 
 
     private Timeline gameLoop;
@@ -57,6 +57,7 @@ public class Controller implements Initializable{
                 (ev ->{
                     temps++;
                     mettreAJour();
+                    monstreVue.animationAjour();
                 })
         );
         gameLoop.setCycleCount(Timeline.INDEFINITE);
@@ -69,7 +70,7 @@ public class Controller implements Initializable{
 
         this.terrain = new Terrain();
         this.terrainVue = new TerrainVue(terrain, tilePane);
-        this.environnement= new Environnement(terrain.largeur(),terrain.hauteur());
+        this.environnement= new Environnement();
         this.monstreVue= new MonstreVue(stackPane, environnement);
         this.interfaceVue = new InterfaceVue(stackPane);
        // this.interfaceVue.dessinMenu();
@@ -83,7 +84,7 @@ public class Controller implements Initializable{
 
             this.interfaceVue.dessinMenu();
             Rectangle rectangle = new Rectangle(50, 50, Color.RED);
-            panneauAnimation.getChildren().add(rectangle);
+            stackPane.getChildren().add(rectangle);
             rectangle.setX(10);
             rectangle.setY(340);
             //la translation du cube("monstre")
@@ -94,6 +95,8 @@ public class Controller implements Initializable{
             transition.setCycleCount(TranslateTransition.INDEFINITE); //Cela va durer jusqu'à quon stop la fenêtre
             transition.setAutoReverse(true); //va faire d'abord -> 520 px puis -520px puis ainsi de suite
             transition.play();
+
+
 
             try {
                 gameLoop.play();
@@ -113,39 +116,29 @@ public class Controller implements Initializable{
     }
 
     private void mettreAJour() {
-        this.monstreVue.unTour();
-//        if(this.environnement==null){
-//            return;
-//        }
-//        this.environnement.unTour();
-//        afficher();
-
+        this.environnement.unTour();
     }
 
-//    private void afficher() {
-//        for (int i=0; i< this.environnement.getLesMonstres().size();i++){
-//           this.environnement.getLesMonstres().get(i).agir();
-//        }
-////        for (MonstreVue mv : terrainVue.getMonstreVues()) {
-////            mv.mettreAJourPosition(); // iv.setTranslateX(monstre.getPosX())
-////        }
-//
-//    }
     @FXML
     public void onBoutonJouerClique() throws Exception {
         Main.map=2;
         Main.changerScene("universite_paris8/iut/nchaieb/sae_jeux/fenetreJeu.fxml");
+
     }
 
     @FXML
     public void AjouterMonstreAllie() {
-        Monstre squelette=new Squelette();
-        if(this.environnement==null){
-            return;
-        }
-        this.environnement.ajouterEntite(squelette);
-        this.monstreVue.ajouterMonstre(squelette);
-        this.monstreVue.animationMarche(squelette);
+        MonstreDeBase squelette=new Squelette();
+        this.environnement.ajouterEntite(squelette,0);
+
+    }
+
+    @FXML
+    public void AjouterMonstreEnnemi() {
+        MonstreDeBase squelette=new Squelette();
+
+        this.environnement.ajouterEntite(squelette,1);
+
     }
     
     @FXML
