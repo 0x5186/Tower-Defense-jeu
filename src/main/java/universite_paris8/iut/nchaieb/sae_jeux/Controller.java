@@ -127,6 +127,7 @@ public class Controller implements Initializable{
 
     @FXML
     public void AjouterMonstreEnnemi() {
+        System.out.println(5);
         MonstreDeBase squelette=new Squelette();
 
         this.environnement.ajouterEntite(squelette,1);
