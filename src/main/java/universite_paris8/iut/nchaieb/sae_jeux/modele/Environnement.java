@@ -33,16 +33,14 @@ public class  Environnement {
 	public void ajouterEntite(MonstreDeBase entite, int camp){
 		if(camp==0){
 			entite.setCamp(0);
-			entite.setPosX(700);
+			entite.setSpawnAllie();
 			lesAlliees.add(entite);
 		}
 		else{
+			entite.setCamp(1);
+			entite.setSpawnEnnemi();
 			lesMonstres.add(entite);
 		}
-
-//		if(this.monstreVue!=null){
-//			this.monstreVue.animation(entite);
-//		}
 
 
     }
@@ -67,16 +65,19 @@ public class  Environnement {
 					lesMonstres.remove(i);
 
 				} else {
+					System.out.println("Action Monstre");
 					lesMonstres.get(i).agir(lesAlliees);
 				}
 			}
 		}
 		if(!lesAlliees.isEmpty()){
+
 			for (int i = lesAlliees.size() - 1; i >= 0; i--){
 				if (!lesAlliees.get(i).estVivant()){
 					lesAlliees.remove(i);
 
 				} else {
+					System.out.println("Action Allié");
 					lesAlliees.get(i).agir(lesMonstres);
 				}
 			}
