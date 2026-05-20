@@ -107,7 +107,6 @@ public class Controller implements Initializable{
             //Partie sort
             this.symboles = new ArrayList<>();
             this.lesSorts = new ArrayList<>();
-
         }
 
 
@@ -169,8 +168,10 @@ public class Controller implements Initializable{
         this.symboles.clear();
     }
 
-    //bouton reset de la combinaisons
-    public void AppuyerSurBoutonReset(){
+    @FXML
+    public void AppuyerSurSymboleSpirale() {
+        Symbole symboleSpirale = new Symbole("Spirale");
+        this.symboles.add(symboleSpirale); 
     }
 
 }

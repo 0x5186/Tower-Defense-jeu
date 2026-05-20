@@ -30,7 +30,6 @@ public abstract class SortDeBase implements Sort {
                 return false;
             }
         }
-
         return true;
     }
 

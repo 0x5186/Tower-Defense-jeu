@@ -5,7 +5,9 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane prefHeight="576" prefWidth="576" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="universite_paris8.iut.nchaieb.sae_jeux.Controller">
+
+
+<BorderPane  stylesheets="@application.css"  prefHeight="576" prefWidth="576" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="universite_paris8.iut.nchaieb.sae_jeux.Controller">
    <center>
       <StackPane fx:id="stackPane" alignment="TOP_LEFT">
          <TilePane fx:id="tilePane" alignment="TOP_CENTER" prefColumns="30" prefRows="25" prefTileHeight="32" prefTileWidth="32" BorderPane.alignment="TOP_LEFT">
@@ -21,7 +23,7 @@
             </graphic>
          </Button>
 
-         <Button fx:id="symboleGoutteDeau" layoutX="500" layoutY="200" mnemonicParsing="false" onAction="#AppuyerSurSymboleGoutteDeau" prefHeight="7.0" prefWidth="2.0" style="-fx-background-color: transparent; -fx-border-color: transparent; -fx-padding: 0;">
+         <Button fx:id="symboleGoutteDeau" layoutX="620" layoutY="220" mnemonicParsing="false" onAction="#AppuyerSurSymboleGoutteDeau" prefHeight="7.0" prefWidth="2.0" style="-fx-background-color: transparent; -fx-border-color: transparent; -fx-padding: 0;">
             <graphic>
                <ImageView fitHeight="64.0" fitWidth="64.0" nodeOrientation="INHERIT" preserveRatio="true">
                   <image>
@@ -32,16 +34,16 @@
             </graphic>
          </Button>
 
-<!--         <Button fx:id="boutonResetCombinaison" layoutX="500" layoutY="200" mnemonicParsing="false" onAction="#AppuyerSurSymboleGoutteDeau" prefHeight="7.0" prefWidth="2.0" style="-fx-background-color: transparent; -fx-border-color: transparent; -fx-padding: 0;">-->
-<!--            <graphic>-->
-<!--               <ImageView fitHeight="64.0" fitWidth="64.0" nodeOrientation="INHERIT" preserveRatio="true">-->
-<!--                  <image>-->
-<!--                     <Image url="@images/symboleCroix.png">-->
-<!--                     </Image>-->
-<!--                  </image>-->
-<!--               </ImageView>-->
-<!--            </graphic>-->
-<!--         </Button>-->
+         <Button fx:id="symboleSpirale" layoutX="740" layoutY="240" mnemonicParsing="false" onAction="#AppuyerSurSymboleSpirale" prefHeight="7.0" prefWidth="2.0" style="-fx-background-color: transparent; -fx-border-color: transparent; -fx-padding: 0;">
+            <graphic>
+               <ImageView fitHeight="64.0" fitWidth="64.0" nodeOrientation="INHERIT" preserveRatio="true">
+                  <image>
+                     <Image url="@images/symboleSpirale.png">
+                     </Image>
+                  </image>
+               </ImageView>
+            </graphic>
+         </Button>
 
       </StackPane>
    </center>
@@ -51,7 +53,7 @@
             <Pane prefHeight="52.0" prefWidth="576.0">
                <children>
                   <Button fx:id="boutonMonstreEnnemi" layoutX="145.0" layoutY="13.0" mnemonicParsing="false" onAction="#AjouterMonstreEnnemi" text="Button" />
-            
+
                    <Button fx:id="boutonAjouterMonstreAllie" layoutX="362.0" layoutY="13.0" mnemonicParsing="false" onAction="#AjouterMonstreAllie" text="ajouter Monstre" />
                </children>
             </Pane>

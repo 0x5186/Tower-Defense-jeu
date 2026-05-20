@@ -20,6 +20,7 @@ public class Main extends Application {
 
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("fenetreMenu.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 800, 600);
+        scene.getStylesheets().add(Main.class.getResource("application.css").toExternalForm());
         stage.setTitle("witch hat atelier defense");
         stage.setScene(scene);
         stage.show();
