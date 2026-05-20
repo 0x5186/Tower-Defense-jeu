@@ -7,8 +7,7 @@
 <BorderPane prefHeight="576" prefWidth="576" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="universite_paris8.iut.nchaieb.sae_jeux.Controller">
    <center>
       <StackPane fx:id="stackPane" alignment="TOP_LEFT">
-         <TilePane fx:id="tilePane" alignment="TOP_CENTER" prefColumns="30" prefRows="25" prefTileHeight="32" prefTileWidth="32" BorderPane.alignment="TOP_LEFT">
-         </TilePane>
+         <TilePane fx:id="tilePane" alignment="TOP_LEFT" prefColumns="30" prefRows="25" prefTileHeight="32" prefTileWidth="32" BorderPane.alignment="TOP_LEFT"> </TilePane>
          <Button fx:id="symboleCroix" layoutX="500" layoutY="200" mnemonicParsing="false" onAction="#AppuyerSurSymboleCroix" prefHeight="7.0" prefWidth="2.0" style="-fx-background-color: transparent; -fx-border-color: transparent; -fx-padding: 0;">
             <graphic>
                <ImageView fitHeight="64.0" fitWidth="64.0" preserveRatio="true">

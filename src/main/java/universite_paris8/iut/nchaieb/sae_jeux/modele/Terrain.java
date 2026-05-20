@@ -60,4 +60,12 @@ public class Terrain {
             }
         }
     }
+
+    public boolean estPraticable(int x, int y){
+        if(x < 0 || x >= largeur() || y < 0 || y >= hauteur() ){
+            return false;
+        }
+        int typeTuile = codeTuile(y, x);
+        return typeTuile != 1 && typeTuile != 2 && typeTuile != 5;
+    }
 }
