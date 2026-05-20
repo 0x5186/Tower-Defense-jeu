@@ -65,7 +65,7 @@ public class  Environnement {
 					lesMonstres.remove(i);
 
 				} else {
-					System.out.println("Action Monstre");
+
 					lesMonstres.get(i).agir(lesAlliees);
 				}
 			}
@@ -77,7 +77,7 @@ public class  Environnement {
 					lesAlliees.remove(i);
 
 				} else {
-					System.out.println("Action Allié");
+
 					lesAlliees.get(i).agir(lesMonstres);
 				}
 			}

@@ -44,18 +44,17 @@ public abstract class MonstreDeBase extends EntiteAllieeDeBase{
             MonstreDeBase monstrePlusProche = plusProche(listeMonstre);
             if (monstrePlusProche != null) {
 
-                System.out.println("blablabla");
                 this.infligerDegat(monstrePlusProche);
             }
             else {
-                System.out.println("miaou");
+
                 this.setActionActuel(2);
                 this.avancer();
             }
 
         }
         else {
-            System.out.println("miaou");
+
             this.setActionActuel(2);
             this.avancer();
         }
@@ -85,11 +84,11 @@ public abstract class MonstreDeBase extends EntiteAllieeDeBase{
     private void avancer() {
         if(this.getCamp()==0){
             setPosX(getPosX()-25);
-            System.out.println("j'avance");
+
         }
         else{
             setPosX(getPosX()+25);
-            System.out.println("j'avance");
+
         }
 
     }
@@ -120,15 +119,10 @@ public abstract class MonstreDeBase extends EntiteAllieeDeBase{
         //on va calculer la distance entre la tour et le mosntre
         int distanceX = Math.abs(monstre.getPosX() - this.getPosX());
         int distanceY = Math.abs(monstre.getPosY() - this.getPosY());
-        System.out.println("distance X monstre1 "+monstre.getPosX());
-        System.out.println("distance Y monstre1 "+monstre.getPosY());
-        System.out.println("distance X monstre2 "+this.getPosX());
-        System.out.println("distance Y monstre2 "+this.getPosY());
-        System.out.println("distance Y"+distanceY);
+
         //on va multiplier la distance de monstre*tour(x) et monstre*tour(y)
         int distance = distanceX+distanceY;
-        System.out.println("distance"+distance);
-        System.out.println("portee"+this.portee);
+
 
         //on compare la distance a la porte mais on doit les mettre à unité égale
         if (distance <= this.portee) {
@@ -139,9 +133,9 @@ public abstract class MonstreDeBase extends EntiteAllieeDeBase{
     }
 
     public boolean estVivant() {
-        if(this.nombreDePV==0){
-            setActionActuel(0);
-        }
+//        if(this.nombreDePV==0){
+//            setActionActuel(0);
+//        }
 
         return this.nombreDePV > 0;
     }

@@ -18,8 +18,7 @@ public abstract class EntiteAllieeDeBase implements Entite{
     }
 
     public  void infligerDegat(MonstreDeBase monstre){
-        System.out.println("nb pv" + monstre.nombreDePV);
-        System.out.println("atq" + this.atq);
+
         if (monstre.nombreDePV != 0){
             monstre.retirerPV(this.atq);
 
