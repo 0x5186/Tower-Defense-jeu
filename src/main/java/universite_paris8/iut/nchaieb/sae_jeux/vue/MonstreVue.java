@@ -40,12 +40,10 @@ public class MonstreVue {
 
 
     public void animationAjour() {
-
         for (int i = 0; i < environnement.getLesMonstres().size(); i++) {
             MonstreDeBase monstre = environnement.getLesMonstres().get(i);
 
             if (!hashMap.containsKey(monstre)) {
-                // nouveau monstre → créer son animation
                 animationMarche(monstre);
             }
             else {
@@ -56,15 +54,11 @@ public class MonstreVue {
 
 
                 if (!monstre.estVivant()) {
-
-                    if (animeLoop.get(monstre) != null){
-                        animeLoop.get(monstre).stop();
-                    }
                     ((ImageView) hashMap.get(monstre)).setImage(null);
                     ((ImageView) hashMap.get(monstre)).setVisible(false);
                     stackPane.getChildren().remove(iv);
                     hashMap.remove(monstre);
-                    animeLoop.remove(monstre);
+
                 }
             }
         }
@@ -85,15 +79,10 @@ public class MonstreVue {
 
                 if (!monstre.estVivant()) {
 
-                    if (animeLoop.get(monstre) != null){
-                        animeLoop.get(monstre).stop();
-                    }
-                    ((ImageView) hashMap.get(monstre)).setImage(null);
 
                     ((ImageView) hashMap.get(monstre)).setVisible(false);
                     stackPane.getChildren().remove(iv);
                     hashMap.remove(monstre);
-                    animeLoop.remove(monstre);
                 }
             }
         }
@@ -113,14 +102,15 @@ public class MonstreVue {
 
     public void animationMarche(MonstreDeBase monstre) {
 
-
-
-
-
         if(monstre instanceof Squelette){
-            ImageView iv = new ImageView(squelette);
+            ImageView iv=new ImageView(squelette);
             hashMap.put(monstre, iv);
+            if(monstre.getCamp()==0) {
+                iv.setScaleX(-1);
+            }
 
+            iv.setTranslateX(monstre.getPosX());
+            iv.setTranslateY(monstre.getPosY());
             this.stackPane.getChildren().add(iv);
             System.out.println(monstre.estVivant());
             if(monstre.getActionActuel()==2){
@@ -131,16 +121,18 @@ public class MonstreVue {
 
 
 
+
                 Timeline squeletteMarche = new Timeline(
 
 
                         new KeyFrame(Duration.millis(90), e -> {
+
+                            iv.setTranslateX(monstre.getPosX());
+                            iv.setTranslateY(monstre.getPosY());
                             if (!monstre.estVivant()) {
                                 iv.setImage(null);
                                 return;
                             }
-                            if(monstre.getCamp()==0)
-                                iv.setScaleY(-1f);
 
                             int x, y;
                             if (frameIndex[0] < 25) {
@@ -150,13 +142,14 @@ public class MonstreVue {
                                 x = frameIndex[0] - 25;
                                 y = 5;
                             }
-                            iv.setViewport(new Rectangle2D(x * largeurCase, y * hauteurCase, largeurCase, hauteurCase));
                             frameIndex[0]++;
                             if (frameIndex[0] == 27) frameIndex[0] = 12;
+                            iv.setViewport(new Rectangle2D(x* largeurCase, y * hauteurCase, largeurCase, hauteurCase));
+
                         })
                 );
+
                 squeletteMarche.setCycleCount(Timeline.INDEFINITE);
-                System.out.println("Anim marche");
                 squeletteMarche.play();
                 animeLoop.put(monstre, squeletteMarche);
             }
