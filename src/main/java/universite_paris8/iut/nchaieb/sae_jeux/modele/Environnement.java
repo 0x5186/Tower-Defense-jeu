@@ -32,6 +32,8 @@ public class  Environnement {
 
 	public void ajouterEntite(MonstreDeBase entite, int camp){
 		if(camp==0){
+			entite.setCamp(0);
+			entite.setPosX(700);
 			lesAlliees.add(entite);
 		}
 		else{

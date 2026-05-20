@@ -20,6 +20,7 @@ public abstract class MonstreDeBase extends EntiteAllieeDeBase{
     private int recompenseArgent;
     protected int actionActuel; //0=rien 1=fixe 2=avance  3=frappe 4=meurt
     protected int portee;
+    private int camp;
 
     public MonstreDeBase(int pvMax, int atq, int PosX, int PosY, int vitesse){
         super(atq);
@@ -35,13 +36,14 @@ public abstract class MonstreDeBase extends EntiteAllieeDeBase{
         this.PosX = new SimpleIntegerProperty(PosX);
         this.PosY = new SimpleIntegerProperty(PosY);
         this.vitesse = vitesse;
+
     }
 
     public void agir(ArrayList<MonstreDeBase> listeMonstre) {
         if (!listeMonstre.isEmpty()) {
             MonstreDeBase monstrePlusProche = plusProche(listeMonstre);
             if (monstrePlusProche != null) {
-                this.setActionActuel(1);
+
                 System.out.println("blablabla");
                 this.infligerDegat(monstrePlusProche);
             } else {
@@ -70,11 +72,6 @@ public abstract class MonstreDeBase extends EntiteAllieeDeBase{
 
 
 
-//        MonstreDeBase monstreAdverse= null;
-//        for(int i=0; i <listeMonstre.size(); i++){
-//            if(listeMonstre.get(i).estDansLeRayon()){
-//                if()
-//            }
 //        }
 
         
@@ -83,7 +80,13 @@ public abstract class MonstreDeBase extends EntiteAllieeDeBase{
 
 
     private void avancer() {
-        setPosX(getPosX()+25);
+        if(this.getCamp()==0){
+            setPosX(getPosX()-25);
+        }
+        else{
+            setPosX(getPosX()+25);
+        }
+
     }
 
     public MonstreDeBase plusProche(ArrayList<MonstreDeBase> listeMonstre){
@@ -129,6 +132,15 @@ public abstract class MonstreDeBase extends EntiteAllieeDeBase{
         }
 
         return this.nombreDePV > 0;
+    }
+
+    public int getCamp() {
+
+        return camp;
+    }
+
+    public void setCamp(int camp) {
+        this.camp = camp;
     }
 
     public int getVitesse() {
