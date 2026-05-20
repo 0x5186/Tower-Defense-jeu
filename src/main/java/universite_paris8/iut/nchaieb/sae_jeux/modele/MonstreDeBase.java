@@ -18,7 +18,7 @@ public abstract class MonstreDeBase extends EntiteAllieeDeBase{
     protected int vitesse;// multiplicateur de vitesse ou pixels par sec ?
     public static int compteurID = 0;
     private int recompenseArgent;
-    protected int actionActuel; //0=rien 1=fixe 2=avance  3=frappe 4=meurt
+    protected boolean attaque; //0=rien 1=fixe 2=avance  3=frappe 4=meurt
     protected int portee;
     private int camp;
 
@@ -27,7 +27,7 @@ public abstract class MonstreDeBase extends EntiteAllieeDeBase{
         this.pvMax = pvMax;
         this.nombreDePV = pvMax;
         this.atq = atq;
-        this.actionActuel=0;
+        this.attaque=false;
 
 //        this.biome = biome;
         this.id ="M"+ this.compteurID;
@@ -43,19 +43,18 @@ public abstract class MonstreDeBase extends EntiteAllieeDeBase{
         if (!listeMonstre.isEmpty()) {
             MonstreDeBase monstrePlusProche = plusProche(listeMonstre);
             if (monstrePlusProche != null) {
-
+                this.setAttaque(true);
                 this.infligerDegat(monstrePlusProche);
             }
             else {
 
-                this.setActionActuel(2);
+                this.setAttaque(false);
                 this.avancer();
             }
 
         }
         else {
-
-            this.setActionActuel(2);
+            this.setAttaque(false);
             this.avancer();
         }
     }
@@ -173,9 +172,14 @@ public abstract class MonstreDeBase extends EntiteAllieeDeBase{
 
     public int getPosY() { return this.PosY.get(); }
 
-    public int getActionActuel() {
-        return actionActuel;
+    public boolean getAttaque() {
+        return this.attaque;
     }
+
+    public void setAttaque(boolean attaque) {
+        this.attaque = attaque;
+    }
+
     public void setSpawnAllie(){
         this.setPosX(700);
         this.setPosY(120);
@@ -189,7 +193,5 @@ public abstract class MonstreDeBase extends EntiteAllieeDeBase{
 
 
 
-    public void setActionActuel(int actionActuel) {
-        this.actionActuel = actionActuel;
-    }
+
 }
