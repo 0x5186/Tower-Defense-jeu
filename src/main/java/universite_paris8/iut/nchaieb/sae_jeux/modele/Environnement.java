@@ -37,7 +37,15 @@ public class  Environnement {
 	}
 	public ObservableList<MonstreDeBase> getLesMonstres() { return this.lesMonstres; }
 
+	private ArrayList<MonstreDeBase> getmonstreAdverse(ArrayList<MonstreDeBase> monstreAdverse, int camp) {
+		for(int i=monstreAdverse.size();i>=0; i --){
+			if (monstreAdverse.get(i).getCamp()!=camp){
+				monstreAdverse.remove(i);
+			}
 
+		}
+		return monstreAdverse;
+	}
 
 
 
@@ -73,6 +81,7 @@ public class  Environnement {
 		if(!(lesMonstres ==null) && !lesMonstres.isEmpty() ){
 			for (int i = lesMonstres.size() - 1; i >= 0; i--){
 				if (lesMonstres.get(i).estVivant()){
+
 					lesMonstres.get(i).agir((ObservableList<MonstreDeBase>) lesMonstres);
 
 				} else {

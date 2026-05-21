@@ -42,6 +42,8 @@ public abstract class MonstreDeBase extends Entite{
     }
 
     public void agir(ObservableList<MonstreDeBase> listeMonstre) {
+        ArrayList<MonstreDeBase> monstreAdverse= new ArrayList<>();
+        monstreAdverse=getmonstreAdverse(monstreAdverse, this.getCamp());
         if (!listeMonstre.isEmpty()) {
             MonstreDeBase monstrePlusProche = plusProche(listeMonstre);
             if (monstrePlusProche != null) {
@@ -60,6 +62,10 @@ public abstract class MonstreDeBase extends Entite{
             this.avancer();
         }
     }
+
+   private ArrayList<MonstreDeBase> getmonstreAdverse(ArrayList<MonstreDeBase> monstreAdverse) {
+    }
+
     public  void infligerDegat(MonstreDeBase monstre){
 
         if (monstre.nombreDePV != 0){

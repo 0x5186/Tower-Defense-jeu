@@ -8,6 +8,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import universite_paris8.iut.nchaieb.sae_jeux.Main;
 import javafx.collections.FXCollections;
+import universite_paris8.iut.nchaieb.sae_jeux.MonObservateurSymbole;
 
 public class InterfaceVue {
     Image FeuilleSort = new Image(Main.class.getResourceAsStream("images/FeuillePourLesSorts.png"));
@@ -23,6 +24,7 @@ public class InterfaceVue {
     public InterfaceVue(StackPane stackPane) {
         this.stackPane = stackPane;
         this.tableauDimages = FXCollections.observableArrayList();
+//        this.tableauDimages.addListener(new MonObservateurSymbole(stackPane));
     }
 
     public void dessinMenu () {
