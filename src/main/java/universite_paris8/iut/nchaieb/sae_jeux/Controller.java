@@ -33,7 +33,7 @@ public class Controller implements Initializable{
 
 
     private Timeline gameLoop;
-    private int temps;
+    private int temps; //TODO supprimer car remplacé par nbTours dans Env
     TerrainVue terrainVue;
     Terrain terrain;
     MonstreVue monstreVue;
@@ -50,7 +50,7 @@ public class Controller implements Initializable{
 
         KeyFrame kf = new KeyFrame(
                 // on définit le FPS (nbre de frame par seconde)
-                Duration.seconds(.51),
+                Duration.seconds(1),
 
                 (ev ->{
                     temps++;

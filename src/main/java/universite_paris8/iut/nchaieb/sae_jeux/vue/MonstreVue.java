@@ -47,6 +47,7 @@ public class MonstreVue {
             }
             else {
 
+                // TODO ça va dans le listener posé sur l'observablelist
                 ImageView iv = (ImageView) hashMap.get(monstre);
                 iv.setTranslateX(monstre.getPosX());
                 iv.setTranslateY(monstre.getPosY());

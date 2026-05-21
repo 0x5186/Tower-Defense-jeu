@@ -16,7 +16,7 @@ public class  Environnement {
 
 	//ce que j'ai rajouté(musa le japonais)
 	//t pas japonais heee heee
-	private ArrayList<MonstreDeBase> lesAlliees;
+	private ArrayList<MonstreDeBase> lesAlliees;  //TODO en faire une observableList
 	private ArrayList<MonstreDeBase> lesMonstres;
 
 	public Environnement() {

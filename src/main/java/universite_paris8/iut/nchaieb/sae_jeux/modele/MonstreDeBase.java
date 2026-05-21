@@ -7,16 +7,19 @@ import java.util.ArrayList;
 
 public abstract class MonstreDeBase extends EntiteAllieeDeBase{
 
+    public static int compteurID = 0;
+
+    private String id;
 
     protected int nombreDePV;
     protected int pvMax;
-    protected int atq;
+    protected int atq; // TODO supprimer car fait doublon
 //    protected String biome;
-    private String id;
+
     private IntegerProperty PosX;
     private IntegerProperty PosY;
     protected int vitesse;// multiplicateur de vitesse ou pixels par sec ?
-    public static int compteurID = 0;
+
     private int recompenseArgent;
     protected boolean attaque; //0=rien 1=fixe 2=avance  3=frappe 4=meurt
     protected int portee;

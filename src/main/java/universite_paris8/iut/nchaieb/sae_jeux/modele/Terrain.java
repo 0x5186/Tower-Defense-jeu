@@ -1,7 +1,9 @@
 package universite_paris8.iut.nchaieb.sae_jeux.modele;
 
 import java.util.jar.JarEntry;
+/*
 
+ */
 public class Terrain {
 
     private int[][] codeTuiles= new int[25][48];
