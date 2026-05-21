@@ -3,9 +3,10 @@ package universite_paris8.iut.nchaieb.sae_jeux;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
+import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.layout.Pane;
+import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
@@ -14,8 +15,8 @@ import javafx.util.Duration;
 import universite_paris8.iut.nchaieb.sae_jeux.modele.*;
 import universite_paris8.iut.nchaieb.sae_jeux.modele.Environnement;
 import universite_paris8.iut.nchaieb.sae_jeux.modele.Terrain;
+import universite_paris8.iut.nchaieb.sae_jeux.vue.EntiteVue;
 import universite_paris8.iut.nchaieb.sae_jeux.vue.InterfaceVue;
-import universite_paris8.iut.nchaieb.sae_jeux.vue.MonstreVue;
 import universite_paris8.iut.nchaieb.sae_jeux.vue.TerrainVue;
 
 import java.net.URL;
@@ -27,6 +28,9 @@ public class Controller implements Initializable{
     private ArrayList<Symbole> symboles;
     private ArrayList<SortDeBase> lesSorts;
 
+
+    @FXML
+    private Button boutonAjouterMonstre;
     @FXML
     private TilePane tilePane;
     @FXML
@@ -36,10 +40,10 @@ public class Controller implements Initializable{
 
 
     private Timeline gameLoop;
-    private int temps; //TODO supprimer car remplacé par nbTours dans Env
+    private int temps=0; //TODO supprimer car remplacé par nbTours dans Env
     TerrainVue terrainVue;
     Terrain terrain;
-    MonstreVue monstreVue;
+    EntiteVue monstreVue;
     InterfaceVue interfaceVue;
 
 
@@ -48,17 +52,15 @@ public class Controller implements Initializable{
 
     private void initAnimation() {
         gameLoop = new Timeline();
-        temps=0;
-        gameLoop.setCycleCount(Timeline.INDEFINITE);
+
 
         KeyFrame kf = new KeyFrame(
-                // on définit le FPS (nbre de frame par seconde)
                 Duration.seconds(1),
 
                 (ev ->{
                     temps++;
-                    mettreAJour();
-                    monstreVue.animationAjour();
+                    environnement.unTour();
+//                    monstreVue.animationAjour();
                 })
         );
         gameLoop.setCycleCount(Timeline.INDEFINITE);
@@ -72,11 +74,14 @@ public class Controller implements Initializable{
         this.terrain = new Terrain();
         this.terrainVue = new TerrainVue(terrain, tilePane);
         this.environnement= new Environnement();
-        this.monstreVue= new MonstreVue(stackPane, environnement);
+        this.monstreVue= new EntiteVue(stackPane);
         this.interfaceVue = new InterfaceVue(stackPane);
        // this.interfaceVue.dessinMenu();
         System.out.println(Main.map);
         terrainVue.dessine(Main.map);
+        MonObservateurEntite observateur = new MonObservateurEntite(stackPane);
+        environnement.getLesMonstres().addListener(observateur);
+        MonObservateurSymbole symbole = new MonObservateurSymbole(stackPane);
 
         initAnimation();
         //ajout du rectangle rouge(tempo) à changer plus tard
@@ -136,7 +141,12 @@ public class Controller implements Initializable{
     }
     @FXML
     public void AjouterMonstreEnnemi() {
+
+
+
         MonstreDeBase squelette=new Squelette();
+//        ChangeListener<Entite> ll = ((obs, old, nouv)-> );
+
         this.environnement.ajouterEntite(squelette,1);
 
     }

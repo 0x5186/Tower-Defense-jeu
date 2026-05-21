@@ -2,22 +2,17 @@ package universite_paris8.iut.nchaieb.sae_jeux.modele;
 
 import java.util.ArrayList;
 
-public abstract class Tour extends EntiteAllieeDeBase{
+public abstract class Tour extends Entite{
     protected double portee;
     protected int x, y;
 
     public Tour(double portee, int atq, int x, int y) {
-        super(atq);
+
         this.portee = portee;
         this.x = x;
         this.y = y;
     }
 
-    public void infligerDegat(MonstreDeBase entite){
-        if (entite.nombreDePV != 0){
-//            entite.retirerPV(this.atq);
-        }
-    }
 
     public boolean estDansLeRayon (MonstreDeBase monstre){
         //on va calculer la distance entre la tour et le mosntre
@@ -36,14 +31,14 @@ public abstract class Tour extends EntiteAllieeDeBase{
     }
 
     public void agir(ArrayList<MonstreDeBase> monstres) {
-        MonstreDeBase monstreActuel;
-
-        for (int i = 0; i < monstres.size(); i++){
-            monstreActuel = monstres.get(i);
-            if (estDansLeRayon(monstreActuel)){
-                infligerDegat(monstreActuel);
-            }
-        }
+//        MonstreDeBase monstreActuel;
+//
+//        for (int i = 0; i < monstres.size(); i++){
+//            monstreActuel = monstres.get(i);
+//            if (estDansLeRayon(monstreActuel)){
+//                infligerDegat(monstreActuel);
+//            }
+//        }
     }
 }
 

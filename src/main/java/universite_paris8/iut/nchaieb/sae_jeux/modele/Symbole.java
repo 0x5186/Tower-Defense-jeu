@@ -13,4 +13,6 @@ public class Symbole {
     public String getType(){
         return this.type;
     }
+
+
 }

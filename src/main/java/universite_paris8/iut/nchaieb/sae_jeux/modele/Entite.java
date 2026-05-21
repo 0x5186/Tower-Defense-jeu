@@ -1,12 +1,34 @@
 package universite_paris8.iut.nchaieb.sae_jeux.modele;
 
-public interface Entite {
-    public void infligerDegat(MonstreDeBase entite);
+public class Entite implements EntiteInterface{
 
-    void infligerDegat(EntiteAllieeDeBase monstre);
+    protected int nombreDePV;
+    protected int pvMax;
+    //    protected String biome;
+    private String id;
+    public static int compteurID = 0;
 
-    public void ajouterPV(int soin);
-    public void retirerPV(int degat);
-    public int getPV();
-    public String getId();
+    public Entite(){
+
+
+//        this.biome = biome;
+        this.id ="E"+ this.compteurID;
+        this.compteurID++;
+    }
+
+
+
+
+
+
+    public int  getPV(){
+        return this.nombreDePV;
+    }
+
+    public String getId(){
+        return this.id;
+    }
+
+
+
 }

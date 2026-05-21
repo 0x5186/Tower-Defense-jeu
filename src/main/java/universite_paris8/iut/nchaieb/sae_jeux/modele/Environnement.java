@@ -1,10 +1,11 @@
 package universite_paris8.iut.nchaieb.sae_jeux.modele;
 
+import javafx.beans.Observable;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.fxml.FXML;
-import universite_paris8.iut.nchaieb.sae_jeux.Main;
-import universite_paris8.iut.nchaieb.sae_jeux.vue.MonstreVue;
+import javafx.beans.value.ChangeListener;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
 
@@ -14,33 +15,43 @@ public class  Environnement {
 
 	private IntegerProperty nbTours;
 
-	//ce que j'ai rajouté(musa le japonais)
-	//t pas japonais heee heee
-	private ArrayList<MonstreDeBase> lesAlliees;  //TODO en faire une observableList
-	private ArrayList<MonstreDeBase> lesMonstres;
+
+	private ObservableList<MonstreDeBase> lesTours;  //TODO en faire une observableList
+	private ObservableList<MonstreDeBase> lesMonstres;
 
 	public Environnement() {
+
 		this.nbTours = new SimpleIntegerProperty();
-		//ce que j'ai rajouté(musa le japonais)
-		this.lesAlliees = new ArrayList<>();
-		this.lesMonstres = new ArrayList<>();
+		this.lesTours =FXCollections.observableArrayList();
+		this.lesMonstres = FXCollections.observableArrayList();
 
 		//à voir, pour l'instant
 		MonstreDeBase.compteurID = 0;
-		EntiteAllieeDeBase.compteurID = 0;
+		Entite.compteurID = 0;
 	}
 
+// 	les Get :
+
+	public ObservableList<MonstreDeBase> getLesTours() {
+		return this.lesTours;
+	}
+	public ObservableList<MonstreDeBase> getLesMonstres() { return this.lesMonstres; }
+
+
+
+
+
+	// autres Méthodes:
+
+
 	public void ajouterEntite(MonstreDeBase entite, int camp){
-		if(camp==0){
-			entite.setCamp(0);
-			entite.setSpawnAllie();
-			lesAlliees.add(entite);
-		}
-		else{
-			entite.setCamp(1);
-			entite.setSpawnEnnemi();
-			lesMonstres.add(entite);
-		}
+
+		entite.setCamp(1);
+		entite.setSpawnEnnemi();
+		lesMonstres.add(entite);
+
+
+
 
 
     }
@@ -59,29 +70,18 @@ public class  Environnement {
 	public void unTour() {
 
 		//faut les supp quand ils sont morts / sinon avance
-		if(!lesMonstres.isEmpty()){
+		if(!(lesMonstres ==null) && !lesMonstres.isEmpty() ){
 			for (int i = lesMonstres.size() - 1; i >= 0; i--){
-				if (!lesMonstres.get(i).estVivant()){
+				if (lesMonstres.get(i).estVivant()){
+					lesMonstres.get(i).agir((ObservableList<MonstreDeBase>) lesMonstres);
+
+				} else {
 					lesMonstres.remove(i);
 
-				} else {
-
-					lesMonstres.get(i).agir(lesAlliees);
 				}
 			}
 		}
-		if(!lesAlliees.isEmpty()){
 
-			for (int i = lesAlliees.size() - 1; i >= 0; i--){
-				if (!lesAlliees.get(i).estVivant()){
-					lesAlliees.remove(i);
-
-				} else {
-
-					lesAlliees.get(i).agir(lesMonstres);
-				}
-			}
-		}
 
 	}
 
@@ -126,28 +126,6 @@ public class  Environnement {
 
 	//ce que j'ai rajouté(musa le japonais)
 
-	public ArrayList<MonstreDeBase> getLesAlliees() {
-		return this.lesAlliees;
-	}
-	public ArrayList<MonstreDeBase> getLesMonstres() { return this.lesMonstres; }
-
-	public MonstreDeBase getLesAlliees(String id) {
-		for(MonstreDeBase a: this.lesAlliees){
-			if(a.getId().equals(id)){
-				return a;
-			}
-		}
-		return null;
-	}
-
-	public MonstreDeBase getLesMonstres(String id) {
-		for(MonstreDeBase m: this.lesMonstres){
-			if(m.getId().equals(id)){
-				return m;
-			}
-		}
-		return null;
-	}
 
 	public ArrayList<MonstreDeBase> voirLesMonstresElimines(){
 		ArrayList<MonstreDeBase> historiqueDeKill = new ArrayList<>();

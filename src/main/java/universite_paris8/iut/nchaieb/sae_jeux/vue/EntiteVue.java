@@ -1,26 +1,19 @@
 package universite_paris8.iut.nchaieb.sae_jeux.vue;
 
 import javafx.animation.*;
-import javafx.fxml.FXML;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
 import universite_paris8.iut.nchaieb.sae_jeux.Main;
-import javafx.scene.layout.Pane;
-import universite_paris8.iut.nchaieb.sae_jeux.modele.Environnement;
-import universite_paris8.iut.nchaieb.sae_jeux.modele.MonstreDeBase;
-import universite_paris8.iut.nchaieb.sae_jeux.modele.Squelette;
-import universite_paris8.iut.nchaieb.sae_jeux.modele.Terrain;
+import universite_paris8.iut.nchaieb.sae_jeux.modele.*;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 
-public class MonstreVue {
+public class EntiteVue {
     private StackPane stackPane;
     private ArrayList<MonstreDeBase> listeMonstre= new ArrayList<>();;
     private Environnement environnement;
@@ -31,47 +24,55 @@ public class MonstreVue {
     Image  squelette = new Image(Main.class.getResourceAsStream("images/squelette.png"));
 
 
-    public MonstreVue(StackPane stackPane, Environnement environnement) {
+    public EntiteVue(StackPane stackPane) {
 
         this.stackPane= stackPane;
-        this.environnement= environnement;
+//        this.environnement.le;
     }
-
-
-    public void animeTest(ArrayList<MonstreDeBase> persos){
-        for (int i = 0; i < persos.size(); i++) {
-            MonstreDeBase monstre = persos.get(i);
-
-            if (!hashMap.containsKey(monstre) ) {
-                animationMarche(monstre);
-            }
-            else {
-
-                // TODO ça va dans le listener posé sur l'observablelist
-                ImageView iv = (ImageView) hashMap.get(monstre);
-                iv.setTranslateX(monstre.getPosX());
-                iv.setTranslateY(monstre.getPosY());
-
-
-                if (!monstre.estVivant()) {
-                    if(animeLoop.containsKey(monstre)){
-                        animeLoop.get(monstre).stop();
-                        animeLoop.remove(monstre);
-                    }
-                    this.stackPane.getChildren().remove(iv);
-//                    ((ImageView) hashMap.get(monstre)).setImage(null);
-                    hashMap.remove(monstre);
-                    animationMort(monstre);
-                }
-            }
+    public void ajouteEntite(Entite entite){
+        ImageView ivEntite;
+        if(entite instanceof Squelette){
+            ivEntite= new ImageView(squelette);
+            this.stackPane.getChildren().add(ivEntite);
         }
-    }
-
-    public void animationAjour() {
-        animeTest(environnement.getLesAlliees());
-        animeTest(environnement.getLesMonstres());
 
     }
+
+
+//    public void animeTest(ObservableList<MonstreDeBase> persos){
+//        for (int i = 0; i < persos.size(); i++) {
+//            MonstreDeBase monstre = persos.get(i);
+//
+//            if (!hashMap.containsKey(monstre) ) {
+//                animationMarche(monstre);
+//            }
+//            else {
+//
+//                // TODO ça va dans le listener posé sur l'observablelist
+//                ImageView iv = (ImageView) hashMap.get(monstre);
+//                iv.setTranslateX(monstre.getPosX());
+//                iv.setTranslateY(monstre.getPosY());
+//
+//
+//                if (!monstre.estVivant()) {
+//                    if(animeLoop.containsKey(monstre)){
+//                        animeLoop.get(monstre).stop();
+//                        animeLoop.remove(monstre);
+//                    }
+//                    this.stackPane.getChildren().remove(iv);
+////                    ((ImageView) hashMap.get(monstre)).setImage(null);
+//                    hashMap.remove(monstre);
+//                    animationMort(monstre);
+//                }
+//            }
+//        }
+//    }
+//
+//    public void animationAjour() {
+//        animeTest(environnement.getLesTours());
+//        animeTest(environnement.getLesMonstres());
+//
+//    }
 
     public boolean verifHashMap(MonstreDeBase monstre){
         for(int i=0;i <stackPane.getChildren().size();i++) {
@@ -84,6 +85,8 @@ public class MonstreVue {
 
 
     public void animationMarche(MonstreDeBase monstre) {
+
+
 
         if(monstre instanceof Squelette){
             ImageView iv=new ImageView(squelette);

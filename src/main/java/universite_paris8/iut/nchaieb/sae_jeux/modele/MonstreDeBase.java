@@ -2,10 +2,11 @@ package universite_paris8.iut.nchaieb.sae_jeux.modele;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
 
-public abstract class MonstreDeBase extends EntiteAllieeDeBase{
+public abstract class MonstreDeBase extends Entite{
 
     public static int compteurID = 0;
 
@@ -13,23 +14,21 @@ public abstract class MonstreDeBase extends EntiteAllieeDeBase{
 
     protected int nombreDePV;
     protected int pvMax;
-    protected int atq; // TODO supprimer car fait doublon
+    private int atq;
 //    protected String biome;
 
     private IntegerProperty PosX;
     private IntegerProperty PosY;
     protected int vitesse;// multiplicateur de vitesse ou pixels par sec ?
 
-    private int recompenseArgent;
+  //  private int recompenseArgent;
     protected boolean attaque; //0=rien 1=fixe 2=avance  3=frappe 4=meurt
     protected int portee;
     private int camp;
 
     public MonstreDeBase(int pvMax, int atq, int PosX, int PosY, int vitesse){
-        super(atq);
         this.pvMax = pvMax;
         this.nombreDePV = pvMax;
-        this.atq = atq;
         this.attaque=false;
 
 //        this.biome = biome;
@@ -42,7 +41,7 @@ public abstract class MonstreDeBase extends EntiteAllieeDeBase{
 
     }
 
-    public void agir(ArrayList<MonstreDeBase> listeMonstre) {
+    public void agir(ObservableList<MonstreDeBase> listeMonstre) {
         if (!listeMonstre.isEmpty()) {
             MonstreDeBase monstrePlusProche = plusProche(listeMonstre);
             if (monstrePlusProche != null) {
@@ -61,8 +60,12 @@ public abstract class MonstreDeBase extends EntiteAllieeDeBase{
             this.avancer();
         }
     }
-    @Override
-    public  void infligerDegat(EntiteAllieeDeBase monstre){
+    public  void infligerDegat(MonstreDeBase monstre){
+
+        if (monstre.nombreDePV != 0){
+            monstre.retirerPV(this.atq);
+
+        }
     }
 
     public void ajouterPV(int soin){
@@ -95,7 +98,7 @@ public abstract class MonstreDeBase extends EntiteAllieeDeBase{
 
     }
 
-    public MonstreDeBase plusProche(ArrayList<MonstreDeBase> listeMonstre){
+    public MonstreDeBase plusProche(ObservableList<MonstreDeBase> listeMonstre){
 
         MonstreDeBase monstrePlusProche= null;
         for(int i=0; i <listeMonstre.size(); i++){
