@@ -15,7 +15,7 @@ public abstract class Tour extends EntiteAllieeDeBase{
 
     public void infligerDegat(MonstreDeBase entite){
         if (entite.nombreDePV != 0){
-            //entite.retirerPV(this.atq);
+//            entite.retirerPV(this.atq);
         }
     }
 

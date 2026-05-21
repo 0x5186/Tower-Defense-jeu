@@ -18,11 +18,13 @@ import universite_paris8.iut.nchaieb.sae_jeux.vue.MonstreVue;
 import universite_paris8.iut.nchaieb.sae_jeux.vue.TerrainVue;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable{
     private Environnement environnement;
-
+    private ArrayList<Symbole> symboles;
+    private ArrayList<SortDeBase> lesSorts;
 
     @FXML
     private TilePane tilePane;
@@ -102,8 +104,14 @@ public class Controller implements Initializable{
                 initAnimation();
             }
 
-
+            //Partie sort
+            this.symboles = new ArrayList<>();
+            this.lesSorts = new ArrayList<>();
+            SortDeBase sc = new SortDeFeu();
+            this.lesSorts.add(sc);
         }
+
+
 
 
     }
@@ -118,6 +126,7 @@ public class Controller implements Initializable{
         Main.changerScene("universite_paris8/iut/nchaieb/sae_jeux/fenetreJeu.fxml");
 
     }
+
     @FXML
     public void AjouterMonstreAllie() {
         MonstreDeBase squelette=new Squelette();
@@ -133,12 +142,38 @@ public class Controller implements Initializable{
     
     @FXML
     public void AppuyerSurSymboleCroix() {
-        System.out.println("ok okgdgfdofgdk");
+        Symbole symboleCroix = new Symbole("Croix");
+        this.symboles.add(symboleCroix);
+        System.out.println("Croix ajouté dans la liste");
     }
 
     @FXML
     public void AppuyerSurSymboleGoutteDeau() {
-        System.out.println("ok okgdgfdofgdk");
+        Symbole symboleGoutteDeau= new Symbole("Goutte");
+        this.symboles.add(symboleGoutteDeau);
+        System.out.println("Goutte ajouté dans liste");
     }
 
+    @FXML
+    public void AppuyerSurSymboleSpirale() {
+        Symbole symboleSpirale = new Symbole("Spirale");
+        this.symboles.add(symboleSpirale);
+        System.out.println("Spirale ajouté dans la liste");
+    }
+
+    @FXML
+    public void AppuyerSurValideePentacle(){
+        SortDeBase sortActuel;
+
+        for (int i = 0; i < this.lesSorts.size(); i++){
+            sortActuel = this.lesSorts.get(i);
+
+            if (sortActuel.combinaisonValidee(this.symboles)){
+                sortActuel.invoquerSort();
+            }
+
+        }
+
+        this.symboles.clear();
+    }
 }
