@@ -35,4 +35,6 @@ public abstract class SortDeBase implements Sort {
         return true;
     }
 
+    public abstract void invoquerSort();
+
 }

@@ -169,7 +169,7 @@ public class Controller implements Initializable{
             sortActuel = this.lesSorts.get(i);
 
             if (sortActuel.combinaisonValidee(this.symboles)){
-                sortActuel.combinaisonValidee();
+                sortActuel.invoquerSort();
             }
 
         }

@@ -21,7 +21,11 @@ public class SortDeFeu extends SortDeBase{
     public ArrayList<Symbole> getCombinaison() { return this.combinaison; }
 
     @Override
-    public void combinaisonValidee(){
+    public boolean combinaisonValidee() {
+        return true;
+    }
+
+    public void invoquerSort(){
         System.out.println("BOOMBOOOOOSSSCCLAT un sort est lancé !!");
     }
 }
