@@ -18,7 +18,7 @@
          <children>
             <Pane prefHeight="164.0" prefWidth="718.0">
                <children>
-                  <ScrollPane cache="true" cacheHint="SCALE_AND_ROTATE" depthTest="DISABLE" layoutX="331.0" layoutY="59.0" prefHeight="78.0" prefWidth="231.0" stylesheets="@application.css">
+                  <ScrollPane cache="true" cacheHint="SCALE_AND_ROTATE" depthTest="DISABLE" layoutX="538.0" layoutY="56.0" prefHeight="78.0" prefWidth="220.0" stylesheets="@application.css">
                     <content>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="16.0" prefWidth="644.0">
                            <children>
@@ -63,7 +63,7 @@
                   <Button fx:id="boutonMonstreEnnemi" layoutX="22.0" layoutY="70.0" mnemonicParsing="false" onAction="#AjouterMonstreEnnemi" text="ajouter ennemi" />
 
                    <Button fx:id="boutonAjouterMonstre" layoutX="170.0" layoutY="70.0" mnemonicParsing="false" onAction="#AjouterMonstreAllie" text="ajouter allie" />
-                  <Button fx:id="boutonValiderPentacle" layoutX="239.0" layoutY="112.0" mnemonicParsing="false" onAction="#AppuyerSurValideePentacle" text="Valider Sort" />
+                  <Button fx:id="boutonValiderPentacle" layoutX="452.0" layoutY="109.0" mnemonicParsing="false" onAction="#AppuyerSurValideePentacle" text="Valider Sort" />
                </children>
             </Pane>
          </children>

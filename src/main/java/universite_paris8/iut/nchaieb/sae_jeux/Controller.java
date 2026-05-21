@@ -58,6 +58,7 @@ public class Controller implements Initializable{
                 (ev ->{
                     temps++;
                     mettreAJour();
+                    this.interfaceVue.dessinMenu();
                     monstreVue.animationAjour();
                 })
         );
@@ -82,20 +83,6 @@ public class Controller implements Initializable{
         //ajout du rectangle rouge(tempo) à changer plus tard
         //un if car le cube se mettait en mouvement automatiquement quand on lancait le jeu
         if (Main.map == 2) {
-
-            this.interfaceVue.dessinMenu();
-            Rectangle rectangle = new Rectangle(50, 50, Color.RED);
-            stackPane.getChildren().add(rectangle);
-            rectangle.setX(10);
-            rectangle.setY(340);
-            //la translation du cube("monstre")
-            TranslateTransition transition = new TranslateTransition();
-            transition.setNode(rectangle);
-            transition.setByX(1450); //on veut qu'il avance de 1020 px
-            transition.setDuration(Duration.seconds(10)); //On veut que l'anim dure 10 s
-            transition.setCycleCount(TranslateTransition.INDEFINITE); //Cela va durer jusqu'à quon stop la fenêtre
-            transition.setAutoReverse(true); //va faire d'abord -> 520 px puis -520px puis ainsi de suite
-            transition.play();
 
 
 
@@ -160,6 +147,7 @@ public class Controller implements Initializable{
         Symbole symboleSpirale = new Symbole("Spirale");
         this.symboles.add(symboleSpirale);
         System.out.println("Spirale ajouté dans la liste");
+        this.interfaceVue.ajouterSymboleaAfficher("symboleSpirale");
     }
 
     @FXML
