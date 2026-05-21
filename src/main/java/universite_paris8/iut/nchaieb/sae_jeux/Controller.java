@@ -107,6 +107,8 @@ public class Controller implements Initializable{
             //Partie sort
             this.symboles = new ArrayList<>();
             this.lesSorts = new ArrayList<>();
+            SortDeBase sc = new SortDeFeu();
+            this.lesSorts.add(sc);
         }
 
 
@@ -145,34 +147,36 @@ public class Controller implements Initializable{
     public void AppuyerSurSymboleCroix() {
         Symbole symboleCroix = new Symbole("Croix");
         this.symboles.add(symboleCroix);
+        System.out.println("Croix ajouté dans la liste");
     }
 
     @FXML
     public void AppuyerSurSymboleGoutteDeau() {
-        Symbole symboleGoutteDeau= new Symbole("GoutteDeau");
+        Symbole symboleGoutteDeau= new Symbole("Goutte");
         this.symboles.add(symboleGoutteDeau);
+        System.out.println("Goutte ajouté dans liste");
     }
 
     @FXML
-    public void validerPentacle(){
+    public void AppuyerSurSymboleSpirale() {
+        Symbole symboleSpirale = new Symbole("Spirale");
+        this.symboles.add(symboleSpirale);
+        System.out.println("Spirale ajouté dans la liste");
+    }
+
+    @FXML
+    public void AppuyerSurValideePentacle(){
         SortDeBase sortActuel;
 
         for (int i = 0; i < this.lesSorts.size(); i++){
             sortActuel = this.lesSorts.get(i);
 
             if (sortActuel.combinaisonValidee(this.symboles)){
-                //jsplus jhr aide moi
+                sortActuel.combinaisonValidee();
             }
 
         }
 
         this.symboles.clear();
     }
-
-    @FXML
-    public void AppuyerSurSymboleSpirale() {
-        Symbole symboleSpirale = new Symbole("Spirale");
-        this.symboles.add(symboleSpirale); 
-    }
-
 }

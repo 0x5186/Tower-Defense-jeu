@@ -14,19 +14,21 @@ public abstract class SortDeBase implements Sort {
     public abstract ArrayList<Symbole> getCombinaison();
 
     public boolean combinaisonValidee(ArrayList<Symbole> symboles){
-        ArrayList<Symbole> combinaisonSort = getCombinaison();
+        ArrayList<Symbole> combinaisonDuSort = getCombinaison();
         String bonneCombinaison;
-        String combinaisonProposee;
+        String combinaisonComposee;
 
-        if (symboles.size() != combinaisonSort.size()){
+        if (symboles.size() != combinaisonDuSort.size()){
+            System.out.println("Pas la même longueur");
             return false;
         }
 
         for (int i = 0; i < symboles.size(); i++){
-            bonneCombinaison = combinaisonSort.get(i).getType();
-            combinaisonProposee = symboles.get(i).getType();
+            bonneCombinaison = combinaisonDuSort.get(i).getType();
+            combinaisonComposee = symboles.get(i).getType();
 
-            if (bonneCombinaison != combinaisonProposee){
+            if (!bonneCombinaison.equals(combinaisonComposee)){
+                System.out.println("pas égale");
                 return false;
             }
         }
