@@ -18,7 +18,7 @@ public abstract class MonstreDeBase extends EntiteAllieeDeBase{
     protected int vitesse;// multiplicateur de vitesse ou pixels par sec ?
     public static int compteurID = 0;
     private int recompenseArgent;
-    protected int actionActuel; //0=rien 1=fixe 2=avance  3=frappe 4=meurt
+    protected boolean attaque; //0=rien 1=fixe 2=avance  3=frappe 4=meurt
     protected int portee;
     private int camp;
 
@@ -27,7 +27,7 @@ public abstract class MonstreDeBase extends EntiteAllieeDeBase{
         this.pvMax = pvMax;
         this.nombreDePV = pvMax;
         this.atq = atq;
-        this.actionActuel=0;
+        this.attaque=false;
 
 //        this.biome = biome;
         this.id ="M"+ this.compteurID;
@@ -43,20 +43,18 @@ public abstract class MonstreDeBase extends EntiteAllieeDeBase{
         if (!listeMonstre.isEmpty()) {
             MonstreDeBase monstrePlusProche = plusProche(listeMonstre);
             if (monstrePlusProche != null) {
-
-                System.out.println("blablabla");
+                this.setAttaque(true);
                 this.infligerDegat(monstrePlusProche);
             }
             else {
-                System.out.println("miaou");
-                this.setActionActuel(2);
+
+                this.setAttaque(false);
                 this.avancer();
             }
 
         }
         else {
-            System.out.println("miaou");
-            this.setActionActuel(2);
+            this.setAttaque(false);
             this.avancer();
         }
     }
@@ -85,11 +83,11 @@ public abstract class MonstreDeBase extends EntiteAllieeDeBase{
     private void avancer() {
         if(this.getCamp()==0){
             setPosX(getPosX()-25);
-            System.out.println("j'avance");
+
         }
         else{
             setPosX(getPosX()+25);
-            System.out.println("j'avance");
+
         }
 
     }
@@ -120,15 +118,10 @@ public abstract class MonstreDeBase extends EntiteAllieeDeBase{
         //on va calculer la distance entre la tour et le mosntre
         int distanceX = Math.abs(monstre.getPosX() - this.getPosX());
         int distanceY = Math.abs(monstre.getPosY() - this.getPosY());
-        System.out.println("distance X monstre1 "+monstre.getPosX());
-        System.out.println("distance Y monstre1 "+monstre.getPosY());
-        System.out.println("distance X monstre2 "+this.getPosX());
-        System.out.println("distance Y monstre2 "+this.getPosY());
-        System.out.println("distance Y"+distanceY);
+
         //on va multiplier la distance de monstre*tour(x) et monstre*tour(y)
         int distance = distanceX+distanceY;
-        System.out.println("distance"+distance);
-        System.out.println("portee"+this.portee);
+
 
         //on compare la distance a la porte mais on doit les mettre à unité égale
         if (distance <= this.portee) {
@@ -139,9 +132,9 @@ public abstract class MonstreDeBase extends EntiteAllieeDeBase{
     }
 
     public boolean estVivant() {
-        if(this.nombreDePV==0){
-            setActionActuel(0);
-        }
+//        if(this.nombreDePV==0){
+//            setActionActuel(0);
+//        }
 
         return this.nombreDePV > 0;
     }
@@ -179,9 +172,14 @@ public abstract class MonstreDeBase extends EntiteAllieeDeBase{
 
     public int getPosY() { return this.PosY.get(); }
 
-    public int getActionActuel() {
-        return actionActuel;
+    public boolean getAttaque() {
+        return this.attaque;
     }
+
+    public void setAttaque(boolean attaque) {
+        this.attaque = attaque;
+    }
+
     public void setSpawnAllie(){
         this.setPosX(700);
         this.setPosY(120);
@@ -195,7 +193,5 @@ public abstract class MonstreDeBase extends EntiteAllieeDeBase{
 
 
 
-    public void setActionActuel(int actionActuel) {
-        this.actionActuel = actionActuel;
-    }
+
 }

@@ -52,7 +52,7 @@ public class Controller implements Initializable{
 
         KeyFrame kf = new KeyFrame(
                 // on définit le FPS (nbre de frame par seconde)
-                Duration.seconds(1),
+                Duration.seconds(.51),
 
                 (ev ->{
                     temps++;
@@ -133,12 +133,9 @@ public class Controller implements Initializable{
         this.environnement.ajouterEntite(squelette,0);
 
     }
-
     @FXML
     public void AjouterMonstreEnnemi() {
-        System.out.println(5);
         MonstreDeBase squelette=new Squelette();
-
         this.environnement.ajouterEntite(squelette,1);
 
     }

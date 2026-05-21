@@ -1,9 +1,6 @@
 package universite_paris8.iut.nchaieb.sae_jeux.vue;
 
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.animation.TranslateTransition;
+import javafx.animation.*;
 import javafx.fxml.FXML;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
@@ -18,6 +15,7 @@ import universite_paris8.iut.nchaieb.sae_jeux.modele.MonstreDeBase;
 import universite_paris8.iut.nchaieb.sae_jeux.modele.Squelette;
 import universite_paris8.iut.nchaieb.sae_jeux.modele.Terrain;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -28,7 +26,8 @@ public class MonstreVue {
     private Environnement environnement;
     private HashMap hashMap= new HashMap<MonstreDeBase,ImageView>();
     private HashMap<MonstreDeBase, Timeline> animeLoop = new HashMap<>();
-
+    private HashMap<MonstreDeBase, ImageView> hashMapMorts = new HashMap<>();
+    private HashMap<MonstreDeBase, Timeline> animeLoopMorts = new HashMap<>();
     Image  squelette = new Image(Main.class.getResourceAsStream("images/squelette.png"));
 
 
@@ -39,57 +38,40 @@ public class MonstreVue {
     }
 
 
+    public void animeTest(ArrayList<MonstreDeBase> persos){
+        for (int i = 0; i < persos.size(); i++) {
+            MonstreDeBase monstre = persos.get(i);
+
+            if (!hashMap.containsKey(monstre) ) {
+                animationMarche(monstre);
+            }
+            else {
+
+                ImageView iv = (ImageView) hashMap.get(monstre);
+                iv.setTranslateX(monstre.getPosX());
+                iv.setTranslateY(monstre.getPosY());
+
+
+                if (!monstre.estVivant()) {
+                    if(animeLoop.containsKey(monstre)){
+                        animeLoop.get(monstre).stop();
+                        animeLoop.remove(monstre);
+                    }
+                    this.stackPane.getChildren().remove(iv);
+//                    ((ImageView) hashMap.get(monstre)).setImage(null);
+                    hashMap.remove(monstre);
+                    animationMort(monstre);
+                }
+            }
+        }
+    }
+
     public void animationAjour() {
-        for (int i = 0; i < environnement.getLesMonstres().size(); i++) {
-            MonstreDeBase monstre = environnement.getLesMonstres().get(i);
-
-            if (!hashMap.containsKey(monstre)) {
-                animationMarche(monstre);
-            }
-            else {
-                // monstre existant → mettre à jour position
-                ImageView iv = (ImageView) hashMap.get(monstre);
-                iv.setTranslateX(monstre.getPosX());
-                iv.setTranslateY(monstre.getPosY());
-
-
-                if (!monstre.estVivant()) {
-                    ((ImageView) hashMap.get(monstre)).setImage(null);
-                    ((ImageView) hashMap.get(monstre)).setVisible(false);
-                    stackPane.getChildren().remove(iv);
-                    hashMap.remove(monstre);
-
-                }
-            }
-        }
-
-        for (int i = 0; i < environnement.getLesAlliees().size(); i++) {
-            MonstreDeBase monstre = environnement.getLesAlliees().get(i);
-
-            if (!hashMap.containsKey(monstre)) {
-
-                animationMarche(monstre);
-            }
-            else {
-                ImageView iv = (ImageView) hashMap.get(monstre);
-                iv.setTranslateX(monstre.getPosX());
-                iv.setTranslateY(monstre.getPosY());
-
-
-
-                if (!monstre.estVivant()) {
-
-
-                    ((ImageView) hashMap.get(monstre)).setVisible(false);
-                    stackPane.getChildren().remove(iv);
-                    hashMap.remove(monstre);
-                }
-            }
-        }
-
-
+        animeTest(environnement.getLesAlliees());
+        animeTest(environnement.getLesMonstres());
 
     }
+
     public boolean verifHashMap(MonstreDeBase monstre){
         for(int i=0;i <stackPane.getChildren().size();i++) {
             if (hashMap.get(stackPane.getChildren().get(i)) == monstre) {
@@ -104,55 +86,124 @@ public class MonstreVue {
 
         if(monstre instanceof Squelette){
             ImageView iv=new ImageView(squelette);
-            hashMap.put(monstre, iv);
+
             if(monstre.getCamp()==0) {
                 iv.setScaleX(-1);
             }
 
+
             iv.setTranslateX(monstre.getPosX());
             iv.setTranslateY(monstre.getPosY());
+
+
+            hashMap.put(monstre, iv);
             this.stackPane.getChildren().add(iv);
-            System.out.println(monstre.estVivant());
-            if(monstre.getActionActuel()==2){
-                int largeurCase = 240;
-                int hauteurCase = 240;
-                int[] frameIndex = {12};
-                iv.setViewport(new Rectangle2D(2 * largeurCase, 3 * hauteurCase, largeurCase, hauteurCase));
+
+            int largeurCase = 240;
+            int hauteurCase = 240;
+            int[] frameIndex = {13};
+            iv.setViewport(new Rectangle2D(2 * largeurCase, 3 * hauteurCase, largeurCase, hauteurCase));
 
 
 
 
-                Timeline squeletteMarche = new Timeline(
+            Timeline squeletteMarche = new Timeline(
+
+                    new KeyFrame(Duration.millis(100), e -> {
+
+                        iv.setTranslateX(monstre.getPosX());
+                        iv.setTranslateY(monstre.getPosY());
+                        int x, y;
+                        if (!monstre.estVivant()) {
+                            iv.setImage(null);
 
 
-                        new KeyFrame(Duration.millis(90), e -> {
-
-                            iv.setTranslateX(monstre.getPosX());
-                            iv.setTranslateY(monstre.getPosY());
-                            if (!monstre.estVivant()) {
-                                iv.setImage(null);
-                                return;
-                            }
-
-                            int x, y;
+                        }
+                        else{
                             if (frameIndex[0] < 25) {
-                                x = frameIndex[0] % 5;
-                                y = frameIndex[0] / 5;
+                                x = frameIndex[0] % 6;
+                                y = frameIndex[0] / 6;
                             } else {
-                                x = frameIndex[0] - 25;
-                                y = 5;
+                                x = frameIndex[0] - 24;
+                                y = 4;
                             }
                             frameIndex[0]++;
                             if (frameIndex[0] == 27) frameIndex[0] = 12;
                             iv.setViewport(new Rectangle2D(x* largeurCase, y * hauteurCase, largeurCase, hauteurCase));
+                        }
+                    })
+            );
+            squeletteMarche.setCycleCount(Timeline.INDEFINITE);
+            squeletteMarche.play();
+            animeLoop.put(monstre, squeletteMarche);
 
-                        })
-                );
 
-                squeletteMarche.setCycleCount(Timeline.INDEFINITE);
-                squeletteMarche.play();
-                animeLoop.put(monstre, squeletteMarche);
+
+        }
+
+
+    }
+
+    public void animationMort(MonstreDeBase monstre) {
+
+        System.out.println("animort");
+
+        if(monstre instanceof Squelette){
+            ImageView iv=new ImageView(squelette);
+
+            if(monstre.getCamp()==0) {
+                iv.setScaleX(-1);
             }
+
+
+            iv.setTranslateX(monstre.getPosX());
+            iv.setTranslateY(monstre.getPosY());
+
+
+
+
+            hashMapMorts.put(monstre,iv);
+
+            this.stackPane.getChildren().add(iv);
+
+            int largeurCase = 240;
+            int hauteurCase = 240;
+            int[] frameIndex = {27};
+            iv.setViewport(new Rectangle2D(2 * largeurCase, 3 * hauteurCase, largeurCase, hauteurCase));
+
+            iv.toFront();
+
+            Timeline squeletteMort = new Timeline(
+                    new KeyFrame(Duration.millis(120), e -> {
+                        int x = frameIndex[0] % 6;
+                        int y = frameIndex[0] / 6;
+
+                        iv.setViewport(new Rectangle2D(x * largeurCase, y * hauteurCase, largeurCase, hauteurCase));
+                        frameIndex[0]++;
+                    })
+            );
+            squeletteMort.setCycleCount(7);
+
+            // 3. Une fois les 7 cycles finis, on enchaîne sur le Fade
+            squeletteMort.setOnFinished(e -> {
+                FadeTransition fade = new FadeTransition(Duration.seconds(2), iv);
+                fade.setFromValue(1.0);
+                fade.setToValue(0.0);
+
+                fade.setOnFinished(fadeEvent -> {
+                    this.stackPane.getChildren().remove(iv);
+                    hashMapMorts.remove(monstre);
+                });
+
+                fade.play();
+            });
+            squeletteMort.play();
+            System.out.println("animort fin");
+
+
+
+
+
 
         }
 
