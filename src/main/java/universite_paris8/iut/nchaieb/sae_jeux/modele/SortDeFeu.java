@@ -2,7 +2,7 @@ package universite_paris8.iut.nchaieb.sae_jeux.modele;
 
 import java.util.ArrayList;
 
-public class SortDeFeu extends SortDeBase{
+public class SortDeFeu extends SortDeBase {
 
     private final ArrayList<Symbole> combinaison;
 

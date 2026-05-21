@@ -2,7 +2,7 @@ package universite_paris8.iut.nchaieb.sae_jeux.modele;
 
 import java.util.ArrayList;
 
-public abstract class SortDeBase implements Sort {
+public abstract class SortDeBase implements Sort   {
 
     protected int coutSort;
 
