@@ -12,8 +12,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import universite_paris8.iut.nchaieb.sae_jeux.modele.*;
-import universite_paris8.iut.nchaieb.sae_jeux.modele.Environnement;
-import universite_paris8.iut.nchaieb.sae_jeux.modele.Terrain;
 import universite_paris8.iut.nchaieb.sae_jeux.vue.InterfaceVue;
 import universite_paris8.iut.nchaieb.sae_jeux.vue.MonstreVue;
 import universite_paris8.iut.nchaieb.sae_jeux.vue.TerrainVue;
@@ -43,7 +41,6 @@ public class Controller implements Initializable{
 
         KeyFrame kf = new KeyFrame(
                 Duration.millis(16),
-
                 (ev -> {
                     temps++;
                     mettreAJour();
@@ -55,10 +52,10 @@ public class Controller implements Initializable{
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
         this.terrain = new Terrain();
         this.terrainVue = new TerrainVue(terrain, tilePane);
 
+        // LA MODIFICATION EST ICI : on passe le terrain à l'environnement
         this.environnement = new Environnement(this.terrain);
 
         this.monstreVue = new MonstreVue(stackPane, environnement);
@@ -66,24 +63,21 @@ public class Controller implements Initializable{
 
         System.out.println(Main.map);
         terrainVue.dessine(Main.map);
-
         initAnimation();
 
         if (Main.map == 2) {
-
             this.interfaceVue.dessinMenu();
             Rectangle rectangle = new Rectangle(50, 50, Color.RED);
             stackPane.getChildren().add(rectangle);
             rectangle.setX(10);
             rectangle.setY(340);
 
-            // la translation du cube("monstre")
             TranslateTransition transition = new TranslateTransition();
             transition.setNode(rectangle);
-            transition.setByX(1450); // on veut qu'il avance de 1450 px
-            transition.setDuration(Duration.seconds(10)); // On veut que l'anim dure 10 s
-            transition.setCycleCount(TranslateTransition.INDEFINITE); // Cela va durer jusqu'à qu'on stoppe la fenêtre
-            transition.setAutoReverse(true); // va faire d'abord -> puis <- puis ainsi de suite
+            transition.setByX(1450);
+            transition.setDuration(Duration.seconds(10));
+            transition.setCycleCount(TranslateTransition.INDEFINITE);
+            transition.setAutoReverse(true);
             transition.play();
 
             try {
@@ -96,6 +90,7 @@ public class Controller implements Initializable{
 
     private void mettreAJour() {
         this.environnement.unTour();
+        this.monstreVue.animationAjour();
     }
 
     @FXML
@@ -107,21 +102,22 @@ public class Controller implements Initializable{
     @FXML
     public void AjouterMonstreAllie() {
         MonstreDeBase squelette = new Squelette();
-        if (this.environnement == null) {
-            return;
-        }
-        this.environnement.ajouterEntite(squelette);
+        if (this.environnement == null) return;
+        this.environnement.ajouterEntite(squelette, 0); // 0 = Allié
         this.monstreVue.ajouterMonstre(squelette);
-        this.monstreVue.animationMarche(squelette);
     }
 
     @FXML
-    public void AppuyerSurSymboleCroix() {
-        System.out.println("ok okgdgfdofgdk");
+    public void AjouterMonstreEnnemi() {
+        MonstreDeBase squelette = new Squelette();
+        if (this.environnement == null) return;
+        this.environnement.ajouterEntite(squelette, 1); // 1 = Ennemi
+        this.monstreVue.ajouterMonstre(squelette);
     }
 
     @FXML
-    public void AppuyerSurSymboleGoutteDeau() {
-        System.out.println("ok okgdgfdofgdk");
-    }
+    public void AppuyerSurSymboleCroix() { System.out.println("ok okgdgfdofgdk"); }
+
+    @FXML
+    public void AppuyerSurSymboleGoutteDeau() { System.out.println("ok okgdgfdofgdk"); }
 }
