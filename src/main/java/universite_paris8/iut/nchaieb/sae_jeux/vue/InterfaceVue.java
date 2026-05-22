@@ -50,8 +50,7 @@ public class InterfaceVue {
             this.stackPane.getChildren().add(FeuillePentacle);
 
             for (int i = 0; i < this.tableauDimages.size(); i++){
-                System.out.println("On entre dans le for au moins");
-                if (this.tableauDimages.get(i).equals("symboleSpirale")){
+                if (this.tableauDimages.get(i).equals("Spirale")){
                     //Symbole SymboleSpirale
                     symboleSpirale.setTranslateX(1400); // position X en pixels
                     symboleSpirale.setTranslateY(670);
@@ -60,23 +59,24 @@ public class InterfaceVue {
                     symboleSpirale.toFront();
                     this.stackPane.getChildren().add(symboleSpirale);
 
+                } else if (this.tableauDimages.get(i).equals("Croix")){
+                    //Symbole Croix
+                    symboleCroix.setTranslateX(1320); // position X en pixels
+                    symboleCroix.setTranslateY(670);
+                    symboleCroix.setScaleX(0.1);
+                    symboleCroix.setScaleY(0.1);
+                    this.stackPane.getChildren().add(symboleCroix);
+                } else if (this.tableauDimages.get(i).equals("Goutte")){
+                    //Symbole Goute
+                    symboleGoutte.setTranslateX(1480); // position X en pixels
+                    symboleGoutte.setTranslateY(670);
+                    symboleGoutte.setScaleX(0.1);
+                    symboleGoutte.setScaleY(0.1);
+                    this.stackPane.getChildren().add(symboleGoutte);
                 }
-
             }
 
-            //Symbole Goute
-            symboleGoutte.setTranslateX(1480); // position X en pixels
-            symboleGoutte.setTranslateY(670);
-            symboleGoutte.setScaleX(0.1);
-            symboleGoutte.setScaleY(0.1);
-            this.stackPane.getChildren().add(symboleGoutte);
 
-            //Symbole Croix
-            symboleCroix.setTranslateX(1320); // position X en pixels
-            symboleCroix.setTranslateY(670);
-            symboleCroix.setScaleX(0.1);
-            symboleCroix.setScaleY(0.1);
-            this.stackPane.getChildren().add(symboleCroix);
         }
     }
 

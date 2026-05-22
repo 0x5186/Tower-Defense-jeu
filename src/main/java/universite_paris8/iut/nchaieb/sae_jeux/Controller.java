@@ -133,6 +133,7 @@ public class Controller implements Initializable{
         Symbole symboleCroix = new Symbole("Croix");
         this.symboles.add(symboleCroix);
         System.out.println("Croix ajouté dans la liste");
+        this.interfaceVue.ajouterSymboleaAfficher("Croix");
     }
 
     @FXML
@@ -140,6 +141,7 @@ public class Controller implements Initializable{
         Symbole symboleGoutteDeau= new Symbole("Goutte");
         this.symboles.add(symboleGoutteDeau);
         System.out.println("Goutte ajouté dans liste");
+        this.interfaceVue.ajouterSymboleaAfficher("Goutte");
     }
 
     @FXML
@@ -147,7 +149,7 @@ public class Controller implements Initializable{
         Symbole symboleSpirale = new Symbole("Spirale");
         this.symboles.add(symboleSpirale);
         System.out.println("Spirale ajouté dans la liste");
-        this.interfaceVue.ajouterSymboleaAfficher("symboleSpirale");
+        this.interfaceVue.ajouterSymboleaAfficher("Spirale");
     }
 
     @FXML
