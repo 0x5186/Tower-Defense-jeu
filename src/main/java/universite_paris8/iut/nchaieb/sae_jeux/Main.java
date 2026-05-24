@@ -19,7 +19,7 @@ public class Main extends Application {
         stage=premierstage;
 
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("fenetreMenu.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 800, 600);
+        Scene scene = new Scene(fxmlLoader.load(), 1200, 900);
         scene.getStylesheets().add(Main.class.getResource("application.css").toExternalForm());
         stage.setTitle("witch hat atelier defense");
         stage.setScene(scene);
@@ -41,7 +41,7 @@ public class Main extends Application {
 
     public static void changerScene(String fxml) throws Exception {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("fenetreJeu.fxml"));
-        Scene scene = new Scene(loader.load(), 1700, 1000);
+        Scene scene = new Scene(loader.load(), 1200, 900);
         stage.setScene(scene);
     }
 

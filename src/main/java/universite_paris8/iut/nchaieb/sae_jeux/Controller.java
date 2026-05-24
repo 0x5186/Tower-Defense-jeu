@@ -45,7 +45,7 @@ public class Controller implements Initializable{
     Terrain terrain;
     EntiteVue monstreVue;
     InterfaceVue interfaceVue;
-
+    protected MonObservateurEntite observateur;
 
 
 
@@ -58,9 +58,13 @@ public class Controller implements Initializable{
                 Duration.seconds(1),
 
                 (ev ->{
+                    if (temps%10==0){
+                        MonstreDeBase squelette=new Squelette();
+                        this.environnement.ajouterEntite(squelette, 1);
+                    }
                     temps++;
-                    environnement.unTour();
-//                    monstreVue.animationAjour();
+                    this.environnement.unTour();
+//
                 })
         );
         gameLoop.setCycleCount(Timeline.INDEFINITE);
@@ -73,14 +77,16 @@ public class Controller implements Initializable{
 
         this.terrain = new Terrain();
         this.terrainVue = new TerrainVue(terrain, tilePane);
-        this.environnement= new Environnement();
+
         this.monstreVue= new EntiteVue(stackPane);
         this.interfaceVue = new InterfaceVue(stackPane);
        // this.interfaceVue.dessinMenu();
         System.out.println(Main.map);
         terrainVue.dessine(Main.map);
-        MonObservateurEntite observateur = new MonObservateurEntite(stackPane);
-        environnement.getLesMonstres().addListener(observateur);
+        observateur = new MonObservateurEntite(stackPane);
+        environnement= new Environnement();
+        environnement.getEntites().addListener(observateur);
+
         MonObservateurSymbole symbole = new MonObservateurSymbole(stackPane);
 
         initAnimation();
@@ -93,14 +99,7 @@ public class Controller implements Initializable{
             stackPane.getChildren().add(rectangle);
             rectangle.setX(10);
             rectangle.setY(340);
-            //la translation du cube("monstre")
-            TranslateTransition transition = new TranslateTransition();
-            transition.setNode(rectangle);
-            transition.setByX(1450); //on veut qu'il avance de 1020 px
-            transition.setDuration(Duration.seconds(10)); //On veut que l'anim dure 10 s
-            transition.setCycleCount(TranslateTransition.INDEFINITE); //Cela va durer jusqu'à quon stop la fenêtre
-            transition.setAutoReverse(true); //va faire d'abord -> 520 px puis -520px puis ainsi de suite
-            transition.play();
+
 
 
 
@@ -145,8 +144,6 @@ public class Controller implements Initializable{
 
 
         MonstreDeBase squelette=new Squelette();
-//        ChangeListener<Entite> ll = ((obs, old, nouv)-> );
-
         this.environnement.ajouterEntite(squelette,1);
 
     }

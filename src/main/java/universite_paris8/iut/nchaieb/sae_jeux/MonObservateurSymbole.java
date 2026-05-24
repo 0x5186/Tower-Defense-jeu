@@ -22,7 +22,7 @@ public class MonObservateurSymbole implements ListChangeListener<Symbole> {
     public void onChanged(Change<? extends Symbole> change) {
         while(change.next()) {
             if (change.wasAdded()) {
-                for (String symbole : change.getAddedSubList()){
+                for (Symbole symbole : change.getAddedSubList()){
                     System.out.println(symbole + ": ajouté !");
                 }
             }

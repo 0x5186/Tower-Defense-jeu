@@ -1,11 +1,14 @@
 package universite_paris8.iut.nchaieb.sae_jeux.modele;
 
+import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import universite_paris8.iut.nchaieb.sae_jeux.Main;
+import universite_paris8.iut.nchaieb.sae_jeux.MonObservateurEntite;
 
 import java.util.ArrayList;
 
@@ -16,31 +19,64 @@ public class  Environnement {
 	private IntegerProperty nbTours;
 
 
-	private ObservableList<MonstreDeBase> lesTours;  //TODO en faire une observableList
+
+	private ObservableList<Entite> entites;
+	private ObservableList<Tour> lesTours;
 	private ObservableList<MonstreDeBase> lesMonstres;
+
 
 	public Environnement() {
 
 		this.nbTours = new SimpleIntegerProperty();
+
+
+		this.entites =FXCollections.observableArrayList();
+
 		this.lesTours =FXCollections.observableArrayList();
 		this.lesMonstres = FXCollections.observableArrayList();
 
-		//à voir, pour l'instant
+
 		MonstreDeBase.compteurID = 0;
 		Entite.compteurID = 0;
 	}
 
 // 	les Get :
 
-	public ObservableList<MonstreDeBase> getLesTours() {
+
+	public ObservableList<Entite> getEntites() {
+
+		return entites;
+	}
+
+	public ObservableList<MonstreDeBase> getLesMonstres() {
+		return lesMonstres;
+	}
+
+	public ObservableList<Tour> getLesTours() {
 		return this.lesTours;
 	}
-	public ObservableList<MonstreDeBase> getLesMonstres() { return this.lesMonstres; }
+	public ObservableList<MonstreDeBase> triLesMonstres() {
+		lesMonstres.clear();
+		MonstreDeBase monstre;
+		for(int i=0; i<this.entites.size(); i++){
+			if (entites.get(i) instanceof MonstreDeBase){
+				monstre = (MonstreDeBase) entites.get(i);
+				lesMonstres.add(monstre);
 
-	private ArrayList<MonstreDeBase> getmonstreAdverse(ArrayList<MonstreDeBase> monstreAdverse, int camp) {
-		for(int i=monstreAdverse.size();i>=0; i --){
+
+			}
+		}
+
+
+		return this.lesMonstres;
+	}
+
+	private ObservableList<MonstreDeBase> getmonstreAdverse(ObservableList<MonstreDeBase> monstreAdverse, int camp) {
+		ObservableList<MonstreDeBase> adversaires = FXCollections.observableArrayList();
+
+		for(int i=0;i>=monstreAdverse.size(); i ++){
 			if (monstreAdverse.get(i).getCamp()!=camp){
-				monstreAdverse.remove(i);
+				monstreAdverse.add(monstreAdverse.get(i));
 			}
 
 		}
@@ -53,10 +89,19 @@ public class  Environnement {
 
 
 	public void ajouterEntite(MonstreDeBase entite, int camp){
-
+		System.out.println("what");
 		entite.setCamp(1);
 		entite.setSpawnEnnemi();
-		lesMonstres.add(entite);
+		entites.add(entite);
+//		entite.getActionActuelle().addListener((InvalidationListener) this.observateur);
+		if (entite instanceof MonstreDeBase){
+			System.out.println("je suis un monstre");
+			lesMonstres.add(entite);
+
+		}
+//		else {
+//			lesTours.add(entite);
+//		}
 
 
 
@@ -76,16 +121,18 @@ public class  Environnement {
 
 
 	public void unTour() {
-
-		//faut les supp quand ils sont morts / sinon avance
+		System.out.println("untour");
+		//faut les supp quand ils sont morts / sinon ils continuent d'avancer
 		if(!(lesMonstres ==null) && !lesMonstres.isEmpty() ){
+			System.out.println("dans if");
 			for (int i = lesMonstres.size() - 1; i >= 0; i--){
 				if (lesMonstres.get(i).estVivant()){
 
-					lesMonstres.get(i).agir((ObservableList<MonstreDeBase>) lesMonstres);
+					lesMonstres.get(i).agir(getmonstreAdverse(lesMonstres, lesMonstres.get(i).getCamp()));
 
 				} else {
 					lesMonstres.remove(i);
+
 
 				}
 			}
@@ -108,23 +155,23 @@ public class  Environnement {
 //	}
 
 
-	public ArrayList<MonstreDeBase> triVitesse(ArrayList<MonstreDeBase> listMonstre){
-		ArrayList<MonstreDeBase> listeTrie= new ArrayList<MonstreDeBase>();
-		MonstreDeBase monstre;
-		int indexMax;
-		for(int i=0; i< listMonstre.size(); i++){
-			indexMax=i;
-			for(int j=i; j< listMonstre.size(); j++){
-				if(listMonstre.get(j).getVitesse()>listMonstre.get(i).getVitesse()){
-					indexMax= j;
-				}
-
-			}
-			listeTrie.add(listMonstre.get(indexMax));
-
-		}
-		return listMonstre;
-	}
+//	public ObservableList<MonstreDeBase> triVitesse(ObservableList<MonstreDeBase> listMonstre){
+//		ArrayList<MonstreDeBase> listeTrie= new ArrayList<MonstreDeBase>();
+//		MonstreDeBase monstre;
+//		int indexMax;
+//		for(int i=0; i< listMonstre.size(); i++){
+//			indexMax=i;
+//			for(int j=i; j< listMonstre.size(); j++){
+//				if(listMonstre.get(j).getVitesse()>listMonstre.get(i).getVitesse()){
+//					indexMax= j;
+//				}
+//
+//			}
+//			listeTrie.add(listMonstre.get(indexMax));
+//
+//		}
+//		return listMonstre;
+//	}
 
 
 
