@@ -31,19 +31,17 @@ public abstract class MonstreDeBase extends Entite{
         this.id ="M"+ this.compteurID;
         this.compteurID++;
 //        this.recompenseArgent = recompenseArgent;
-        this.PosX = new SimpleIntegerProperty(PosX);
-        this.PosY = new SimpleIntegerProperty(PosY);
         this.vitesse = vitesse;
         this.actionActuelle.set("fixe");
 
     }
 
     public void agir(ObservableList<MonstreDeBase> listeMonstre) {
-        System.out.println("j'agis");
+
         ArrayList<MonstreDeBase> monstreAdverse= new ArrayList<>();
         monstreAdverse=getmonstreAdverse(monstreAdverse, this.getCamp());
         if (!listeMonstre.isEmpty()) {
-            MonstreDeBase monstrePlusProche = plusProche(listeMonstre);
+            MonstreDeBase monstrePlusProche = plusProche(monstreAdverse);
             if (monstrePlusProche != null) {
 
                 this.infligerDegat(monstrePlusProche);
@@ -54,6 +52,7 @@ public abstract class MonstreDeBase extends Entite{
 
                 this.avancer();
                 this.setActionActuelle("marche");
+                System.out.println("j'avance");
             }
 
         }
@@ -113,7 +112,7 @@ public abstract class MonstreDeBase extends Entite{
 
     }
 
-    public MonstreDeBase plusProche(ObservableList<MonstreDeBase> listeMonstre){
+    public MonstreDeBase plusProche(ArrayList<MonstreDeBase> listeMonstre){
 
         MonstreDeBase monstrePlusProche= null;
         for(int i=0; i <listeMonstre.size(); i++){
@@ -172,18 +171,6 @@ public abstract class MonstreDeBase extends Entite{
     public String getId(){
         return this.id;
     }
-
-    public void setPosX(int posX) {
-        this.PosX.set(posX);
-    }
-
-    public void setPosY(int posY) {
-        this.PosY.set(posY);
-    }
-
-    public int getPosX() { return this.PosX.get(); }
-
-    public int getPosY() { return this.PosY.get(); }
 
 
     public void setSpawnAllie(){

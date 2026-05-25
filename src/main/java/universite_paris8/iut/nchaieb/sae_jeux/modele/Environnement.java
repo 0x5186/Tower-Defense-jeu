@@ -89,13 +89,15 @@ public class  Environnement {
 
 
 	public void ajouterEntite(MonstreDeBase entite, int camp){
-		System.out.println("what");
-		entite.setCamp(1);
-		entite.setSpawnEnnemi();
+		entite.setCamp(camp);
+
+		if(camp==0) {entite.setSpawnAllie();}
+
+		else { entite.setSpawnEnnemi();}
+
 		entites.add(entite);
-//		entite.getActionActuelle().addListener((InvalidationListener) this.observateur);
 		if (entite instanceof MonstreDeBase){
-			System.out.println("je suis un monstre");
+
 			lesMonstres.add(entite);
 
 		}

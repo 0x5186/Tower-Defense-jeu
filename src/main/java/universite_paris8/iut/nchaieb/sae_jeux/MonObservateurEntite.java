@@ -8,6 +8,8 @@ import universite_paris8.iut.nchaieb.sae_jeux.modele.MonstreDeBase;
 import universite_paris8.iut.nchaieb.sae_jeux.modele.Squelette;
 import universite_paris8.iut.nchaieb.sae_jeux.vue.EntiteVue;
 
+import javax.swing.*;
+
 public class MonObservateurEntite implements ListChangeListener<Entite> {
 
     private StackPane stackPane;
@@ -28,15 +30,14 @@ public class MonObservateurEntite implements ListChangeListener<Entite> {
 
 
     private void enleverSprite(Entite entite) {
-        if (entite instanceof MonstreDeBase) {
-            MonstreDeBase monstre = (MonstreDeBase) entite;
-            monstreVue.animationMort(monstre);
 
-        }
+        this.monstreVue.animationMort(entite);
+        this.monstreVue.retirer(entite);
     }
 
     @Override
     public void onChanged(Change<? extends Entite> change) {
+        System.out.println("ohh");
         while (change.next()) {
             if (change.wasAdded()) {
 
@@ -44,14 +45,15 @@ public class MonObservateurEntite implements ListChangeListener<Entite> {
                     creerSprite(nouveau);
                     nouveau.getActionActuelle().addListener((observable, oldValue, newValue) -> {
 
-                        if (nouveau.getActionActuelle().equals("fixe")){
+                        if (newValue.equals("fixe")){
 
                         }
-                        else if(nouveau.getActionActuelle().equals("marche")){
+                        if(newValue.equals("marche")){
+
                             this.monstreVue.animationMarche(nouveau);
 
                         }
-                        else if (nouveau.getActionActuelle().equals("attaque")){
+                        if (newValue.equals("attaque")){
 
                         }
                     });
@@ -59,9 +61,8 @@ public class MonObservateurEntite implements ListChangeListener<Entite> {
 
                 }
             }
-            else {
+            if(change.wasRemoved()) {
                 for (Entite mort : change.getRemoved()) {
-                    this.monstreVue.animationMort(mort);
                     enleverSprite(mort);
                 }
             }

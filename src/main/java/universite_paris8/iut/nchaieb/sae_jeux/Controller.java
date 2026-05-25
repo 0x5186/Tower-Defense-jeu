@@ -59,8 +59,10 @@ public class Controller implements Initializable{
 
                 (ev ->{
                     if (temps%10==0){
-                        MonstreDeBase squelette=new Squelette();
-                        this.environnement.ajouterEntite(squelette, 1);
+                        MonstreDeBase squelette1=new Squelette();
+                        MonstreDeBase squelette2=new Squelette();
+                        this.environnement.ajouterEntite(squelette1, 1);
+                        this.environnement.ajouterEntite(squelette2, 0);
                     }
                     temps++;
                     this.environnement.unTour();

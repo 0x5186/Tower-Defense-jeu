@@ -36,15 +36,24 @@ public class EntiteVue {
         ImageView  iv= new ImageView();
         if (entite instanceof Squelette)
             iv= new  ImageView(squelette);
+        iv.translateXProperty().bind(entite.posXProperty());
+        iv.translateYProperty().bind(
+                entite.posYProperty()
+        );
+        this.hashMap.put(entite, iv);
 
-        iv.setTranslateX(entite.getPosX());
-        iv.setTranslateY(entite.getPosY());
         if(entite.getCamp()==0) iv.setScaleX(-1);
         iv.setViewport(new Rectangle2D(5*240,0,240,240));
 
         this.stackPane.getChildren().add(iv);
     }
 
+    public void retirer(Entite entite){
+        ImageView  iv= (ImageView) hashMap.get(entite);
+        iv.setImage(null);
+        this.stackPane.getChildren().remove(iv);
+        this.hashMap.remove(entite, iv);
+    }
 
 //    public void animeTest(ObservableList<MonstreDeBase> persos){
 //        for (int i = 0; i < persos.size(); i++) {
@@ -89,12 +98,10 @@ public class EntiteVue {
     public void animationMarche(Entite monstre) {
 
 
+        System.out.println("marche");
 
         ImageView iv = (ImageView) this.hashMap.get(monstre);
 
-        iv.setTranslateX(monstre.getPosX());
-        iv.setTranslateY(monstre.getPosY());
-        this.stackPane.getChildren().add(iv);
 
         int largeurCase = 240;
         int hauteurCase = 240;
@@ -108,9 +115,7 @@ public class EntiteVue {
         Timeline squeletteMarche = new Timeline(
 
                 new KeyFrame(Duration.millis(100), e -> {
-
-                    iv.setTranslateX(monstre.getPosX());
-                    iv.setTranslateY(monstre.getPosY());
+                    System.out.println(monstre.getPosX());
                     int x, y;
                     if (frameIndex[0] < 25) {
                         x = frameIndex[0] % 6;
@@ -125,11 +130,11 @@ public class EntiteVue {
 
                 })
         );
-        squeletteMarche.setCycleCount(9);
+        squeletteMarche.setCycleCount(10);
         squeletteMarche.play();
 
 
-
+    monstre.setActionActuelle("fixe");
 
     }
 

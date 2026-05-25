@@ -1,6 +1,7 @@
 module universite_paris8.iut.nchaieb.sae_jeux {
     requires javafx.controls;
     requires javafx.fxml;
+    requires java.desktop;
 
 
     opens universite_paris8.iut.nchaieb.sae_jeux to javafx.fxml;

@@ -73,5 +73,7 @@ public class Entite implements EntiteInterface{
 
     public void setActionActuelle(String actionActuelle) {
         this.actionActuelle.set(actionActuelle);
+        System.out.println(actionActuelle);
+
     }
 }
