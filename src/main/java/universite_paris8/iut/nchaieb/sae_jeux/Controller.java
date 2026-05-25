@@ -3,6 +3,9 @@ package universite_paris8.iut.nchaieb.sae_jeux;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
+import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.Pane;
@@ -24,7 +27,7 @@ import java.util.ResourceBundle;
 
 public class Controller implements Initializable{
     private Environnement environnement;
-    private ArrayList<Symbole> symboles;
+    private ObservableList<Symbole> symboles;
     private ArrayList<SortDeBase> lesSorts;
 
     @FXML
@@ -80,11 +83,8 @@ public class Controller implements Initializable{
         terrainVue.dessine(Main.map);
 
         initAnimation();
-        //ajout du rectangle rouge(tempo) à changer plus tard
-        //un if car le cube se mettait en mouvement automatiquement quand on lancait le jeu
+
         if (Main.map == 2) {
-
-
 
             try {
                 gameLoop.play();
@@ -93,7 +93,15 @@ public class Controller implements Initializable{
             }
 
             //Partie sort
-            this.symboles = new ArrayList<>();
+            this.symboles = FXCollections.observableArrayList();
+            this.symboles.addListener(new ListChangeListener<Symbole>() {
+                @Override
+                public void onChanged(Change<? extends Symbole> change) {
+                    ArrayList<Symbole> copierlist = new ArrayList<>(symboles);
+                    interfaceVue.ajouterSymboleaAfficher(copierlist);
+                }
+            });
+
             this.lesSorts = new ArrayList<>();
             SortDeBase sc = new SortDeFeu();
             this.lesSorts.add(sc);
@@ -133,7 +141,6 @@ public class Controller implements Initializable{
         Symbole symboleCroix = new Symbole("Croix");
         this.symboles.add(symboleCroix);
         System.out.println("Croix ajouté dans la liste");
-        this.interfaceVue.ajouterSymboleaAfficher("Croix");
     }
 
     @FXML
@@ -141,7 +148,6 @@ public class Controller implements Initializable{
         Symbole symboleGoutteDeau= new Symbole("Goutte");
         this.symboles.add(symboleGoutteDeau);
         System.out.println("Goutte ajouté dans liste");
-        this.interfaceVue.ajouterSymboleaAfficher("Goutte");
     }
 
     @FXML
@@ -149,17 +155,18 @@ public class Controller implements Initializable{
         Symbole symboleSpirale = new Symbole("Spirale");
         this.symboles.add(symboleSpirale);
         System.out.println("Spirale ajouté dans la liste");
-        this.interfaceVue.ajouterSymboleaAfficher("Spirale");
     }
 
     @FXML
     public void AppuyerSurValideePentacle(){
         SortDeBase sortActuel;
 
+        ArrayList<Symbole> listeTempo = new ArrayList<>(this.symboles);
+
         for (int i = 0; i < this.lesSorts.size(); i++){
             sortActuel = this.lesSorts.get(i);
 
-            if (sortActuel.combinaisonValidee(this.symboles)){
+            if (sortActuel.combinaisonValidee(listeTempo)){
                 sortActuel.invoquerSort();
             }
 
