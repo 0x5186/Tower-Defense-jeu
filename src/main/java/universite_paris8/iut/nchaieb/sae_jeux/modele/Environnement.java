@@ -123,17 +123,20 @@ public class  Environnement {
 
 
 	public void unTour() {
-		System.out.println("untour");
-		//faut les supp quand ils sont morts / sinon ils continuent d'avancer
-		if(!(lesMonstres ==null) && !lesMonstres.isEmpty() ){
-			System.out.println("dans if");
-			for (int i = lesMonstres.size() - 1; i >= 0; i--){
-				if (lesMonstres.get(i).estVivant()){
 
-					lesMonstres.get(i).agir(getmonstreAdverse(lesMonstres, lesMonstres.get(i).getCamp()));
+		//faut les supp quand ils sont morts / sinon ils continuent d'avancer
+		if(!(this.lesMonstres ==null) && !this.lesMonstres.isEmpty() ){
+
+			for (int i = this.lesMonstres.size() -1; i >= 0; i--){
+				if (this.lesMonstres.get(i).estVivant()){
+					System.out.println(this.lesMonstres.get(i).getPV());
+
+					this.lesMonstres.get(i).agir(this.lesMonstres);
 
 				} else {
-					lesMonstres.remove(i);
+					System.out.println("je suis remove");
+					this.lesMonstres.remove(i);
+					this.entites.remove(i);
 
 
 				}

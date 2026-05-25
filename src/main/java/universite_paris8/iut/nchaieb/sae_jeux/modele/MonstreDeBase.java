@@ -24,6 +24,7 @@ public abstract class MonstreDeBase extends Entite{
     protected int portee;
 
     public MonstreDeBase(int pvMax, int atq, int PosX, int PosY, int vitesse){
+        this.atq=atq;
         this.pvMax = pvMax;
         this.nombreDePV = pvMax;
 
@@ -37,12 +38,14 @@ public abstract class MonstreDeBase extends Entite{
     }
 
     public void agir(ObservableList<MonstreDeBase> listeMonstre) {
-
-        ArrayList<MonstreDeBase> monstreAdverse= new ArrayList<>();
-        monstreAdverse=getmonstreAdverse(monstreAdverse, this.getCamp());
+        MonstreDeBase monstrePlusProche;
+        ArrayList<MonstreDeBase> monstreAdverse;
+        monstreAdverse=getmonstreAdverse(listeMonstre, this.getCamp());
         if (!listeMonstre.isEmpty()) {
-            MonstreDeBase monstrePlusProche = plusProche(monstreAdverse);
+
+             monstrePlusProche = this.plusProche(monstreAdverse);
             if (monstrePlusProche != null) {
+                System.out.println("pas nul");
 
                 this.infligerDegat(monstrePlusProche);
                 this.setActionActuelle("attaque");
@@ -51,19 +54,21 @@ public abstract class MonstreDeBase extends Entite{
 
 
                 this.avancer();
+                this.setActionActuelle("fixe");
                 this.setActionActuelle("marche");
-                System.out.println("j'avance");
+
             }
 
         }
         else {
 
             this.avancer();
+            this.setActionActuelle("fixe");
             this.setActionActuelle("marche");
         }
     }
 
-   private ArrayList<MonstreDeBase> getmonstreAdverse(ArrayList<MonstreDeBase> monstreAdverse, int camp) {
+   private ArrayList<MonstreDeBase> getmonstreAdverse(ObservableList<MonstreDeBase> monstreAdverse, int camp) {
         ArrayList<MonstreDeBase> listeAdverse= new ArrayList<>();
         for(int i=0; i <monstreAdverse.size(); i++){
             if(monstreAdverse.get(i).getCamp()!= camp){

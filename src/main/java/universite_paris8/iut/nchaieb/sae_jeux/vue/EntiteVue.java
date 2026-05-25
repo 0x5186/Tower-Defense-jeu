@@ -97,9 +97,6 @@ public class EntiteVue {
 
     public void animationMarche(Entite monstre) {
 
-
-        System.out.println("marche");
-
         ImageView iv = (ImageView) this.hashMap.get(monstre);
 
 
@@ -107,15 +104,12 @@ public class EntiteVue {
         int hauteurCase = 240;
         int[] frameIndex = {13};
 
-        iv.setViewport(new Rectangle2D(2 * largeurCase, 3 * hauteurCase, largeurCase, hauteurCase));
-
-
 
 
         Timeline squeletteMarche = new Timeline(
 
                 new KeyFrame(Duration.millis(100), e -> {
-                    System.out.println(monstre.getPosX());
+
                     int x, y;
                     if (frameIndex[0] < 25) {
                         x = frameIndex[0] % 6;
@@ -134,31 +128,17 @@ public class EntiteVue {
         squeletteMarche.play();
 
 
-    monstre.setActionActuelle("fixe");
+
 
     }
 
     public void animationMort(Entite monstre) {
 
-        System.out.println("animort");
 
         ImageView iv=(ImageView) this.hashMap.get(monstre);
-//
-//            if(monstre.getCamp()==0) {
-//                iv.setScaleX(-1);
-//            }
-//
-//
-//            iv.setTranslateX(monstre.getPosX());
-//            iv.setTranslateY(monstre.getPosY());
-//
-//
-        this.stackPane.getChildren().add(iv);
-
         int largeurCase = 240;
         int hauteurCase = 240;
         int[] frameIndex = {27};
-        iv.toFront();
 
         Timeline squeletteMort = new Timeline(
                 new KeyFrame(Duration.millis(120), e -> {
@@ -178,8 +158,8 @@ public class EntiteVue {
             fade.setToValue(0.0);
 
             fade.setOnFinished(fadeEvent -> {
-                this.stackPane.getChildren().remove(iv);
-                hashMapMorts.remove(monstre);
+                this.hashMap.remove(iv);
+                this.retirer(monstre);
             });
 
             fade.play();

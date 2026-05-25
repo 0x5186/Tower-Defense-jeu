@@ -32,7 +32,7 @@ public class MonObservateurEntite implements ListChangeListener<Entite> {
     private void enleverSprite(Entite entite) {
 
         this.monstreVue.animationMort(entite);
-        this.monstreVue.retirer(entite);
+
     }
 
     @Override
@@ -62,6 +62,7 @@ public class MonObservateurEntite implements ListChangeListener<Entite> {
                 }
             }
             if(change.wasRemoved()) {
+                System.out.println("je suis morttttttttttttt");
                 for (Entite mort : change.getRemoved()) {
                     enleverSprite(mort);
                 }

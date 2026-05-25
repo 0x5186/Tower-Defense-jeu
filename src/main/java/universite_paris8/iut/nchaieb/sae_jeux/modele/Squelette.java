@@ -10,9 +10,4 @@ public class Squelette extends MonstreDeBase{
     }
 
 
-    public void infligerDegat(Entite monstre) {
-
-    }
-
-
 }
