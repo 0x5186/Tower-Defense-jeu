@@ -9,6 +9,7 @@ public class Environnement {
 	private ArrayList<MonstreDeBase> lesAlliees;
 	private ArrayList<MonstreDeBase> lesMonstres;
 	private Terrain terrain;
+	private ArrayList<Tour> lesTours;
 
 	public Environnement(Terrain terrain) {
 		this.terrain = terrain;
@@ -17,6 +18,7 @@ public class Environnement {
 		this.lesMonstres = new ArrayList<>();
 		MonstreDeBase.compteurID = 0;
 		EntiteAllieeDeBase.compteurID = 0;
+		this.lesTours = new ArrayList<>();
 	}
 
 	public void ajouterEntite(MonstreDeBase entite, int camp){
@@ -53,6 +55,11 @@ public class Environnement {
 				} else {
 					lesAlliees.get(i).agir(lesMonstres, lesAlliees);
 				}
+			}
+		}
+		if(!lesTours.isEmpty()){
+			for(Tour tour : lesTours){
+				tour.agir(lesMonstres);
 			}
 		}
 	}
@@ -100,5 +107,9 @@ public class Environnement {
 			this.lesMonstres.remove(i);
 		}
 		return historiqueDeKill;
+	}
+
+	public void ajouterTour(Tour tour){
+		this.lesTours.add(tour);
 	}
 }

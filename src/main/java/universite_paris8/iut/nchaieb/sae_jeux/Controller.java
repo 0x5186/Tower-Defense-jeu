@@ -19,7 +19,7 @@ import universite_paris8.iut.nchaieb.sae_jeux.vue.TerrainVue;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class Controller implements Initializable{
+public class Controller implements Initializable {
     private Environnement environnement;
 
     @FXML
@@ -33,6 +33,8 @@ public class Controller implements Initializable{
     Terrain terrain;
     MonstreVue monstreVue;
     InterfaceVue interfaceVue;
+
+    private boolean modePlacementTour = false;
 
     private void initAnimation() {
         gameLoop = new Timeline();
@@ -55,7 +57,6 @@ public class Controller implements Initializable{
         this.terrain = new Terrain();
         this.terrainVue = new TerrainVue(terrain, tilePane);
 
-        // LA MODIFICATION EST ICI : on passe le terrain à l'environnement
         this.environnement = new Environnement(this.terrain);
 
         this.monstreVue = new MonstreVue(stackPane, environnement);
@@ -65,10 +66,22 @@ public class Controller implements Initializable{
         terrainVue.dessine(Main.map);
         initAnimation();
 
+        if (stackPane != null) {
+            stackPane.setOnMouseClicked(event -> {
+                if (modePlacementTour) {
+                    placerTour(event.getX(), event.getY());
+                }
+            });
+        }
+
         if (Main.map == 2) {
             this.interfaceVue.dessinMenu();
             Rectangle rectangle = new Rectangle(50, 50, Color.RED);
-            stackPane.getChildren().add(rectangle);
+
+            if (stackPane != null) {
+                stackPane.getChildren().add(rectangle);
+            }
+
             rectangle.setX(10);
             rectangle.setY(340);
 
@@ -120,4 +133,37 @@ public class Controller implements Initializable{
 
     @FXML
     public void AppuyerSurSymboleGoutteDeau() { System.out.println("ok okgdgfdofgdk"); }
+
+
+
+    @FXML
+    public void activerModePlacementTour() {
+        this.modePlacementTour = true;
+        System.out.println("Mode placement de tour activé. Cliquez sur une case vide du terrain !");
+    }
+
+    private void placerTour(double xPixel, double yPixel) {
+        int TAILLE_TUILE = 32;
+        int gridX = (int) (xPixel / TAILLE_TUILE);
+        int gridY = (int) (yPixel / TAILLE_TUILE);
+
+        if (!this.terrain.estPraticable(gridX, gridY)) {
+
+            int posXGridPixel = gridX * TAILLE_TUILE;
+            int posYGridPixel = gridY * TAILLE_TUILE;
+
+            TourDeBase nouvelleTour = new TourDeBase(posXGridPixel, posYGridPixel);
+            this.environnement.ajouterTour(nouvelleTour);
+
+            Rectangle rectTour = new Rectangle(TAILLE_TUILE, TAILLE_TUILE, Color.DIMGRAY);
+            rectTour.setTranslateX(posXGridPixel);
+            rectTour.setTranslateY(posYGridPixel);
+            stackPane.getChildren().add(rectTour);
+
+            this.modePlacementTour = false;
+            System.out.println("Tour placée avec succès en X:" + gridX + " Y:" + gridY);
+        } else {
+            System.out.println("Impossible de placer une tour sur le chemin des monstres !");
+        }
+    }
 }
