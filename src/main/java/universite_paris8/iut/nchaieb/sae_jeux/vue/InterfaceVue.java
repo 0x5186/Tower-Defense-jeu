@@ -17,7 +17,7 @@ public class InterfaceVue {
     Image symboleCroix = new Image(Main.class.getResourceAsStream("images/symboleCroix.png"));
     Image symboleSpirale = new Image(Main.class.getResourceAsStream("images/symboleSpirale.png"));
 
-    private StackPane stackPane = new StackPane();
+    private StackPane stackPane;
     private StackPane contientSymbole;
 
 
@@ -30,9 +30,9 @@ public class InterfaceVue {
 
         ImageView FeuillePentacle = new ImageView(FeuilleSort);
         ImageView InterfaceDuBas = new ImageView(InterfaceBas);
-        System.out.println("bla");
+
         if( this.stackPane!=null){
-            System.out.println("blo");
+
             this.stackPane.getChildren().add(InterfaceDuBas);
 
             //Interface du bas
@@ -47,40 +47,40 @@ public class InterfaceVue {
             FeuillePentacle.setScaleX(0.65);
             FeuillePentacle.setScaleY(0.65);
             this.stackPane.getChildren().add(FeuillePentacle);
+            this.stackPane.getChildren().add(this.contientSymbole);
         }
     }
 
-    public void ajouterSymboleaAfficher (ArrayList<Symbole> tableauDimages){
-        this.contientSymbole.getChildren().clear();
+    public void afficherUnSeulSymbole(String typeSymbole){
+        ImageView image = null;
 
-        for (int i = 0; i < tableauDimages.size(); i++){
-            String typeSymbole = tableauDimages.get(i).getType();
-            ImageView image = null;
-
-            switch(typeSymbole){
-                case "Spirale":
-                    image = new ImageView(symboleSpirale);
-                    image.setTranslateX(1400);
-                    break;
-                case "Croix":
-                    image = new ImageView(symboleCroix);
-                    image.setTranslateX(1320);
-                    break;
-                case "Goutte":
-                    image = new ImageView(symboleGoutte);
-                    image.setTranslateX(1480);
-                    break;
-            }
-
-            if (image != null){
-                image.setTranslateY(670);
-                image.setScaleX(0.1);
-                image.setScaleY(0.1);
-                this.contientSymbole.getChildren().add(image);
-            }
-            this.stackPane.getChildren().add(this.contientSymbole);
+        switch(typeSymbole){
+            case "Spirale":
+                image = new ImageView(symboleSpirale);
+                image.setTranslateX(760);
+                break;
+            case "Croix":
+                image = new ImageView(symboleCroix);
+                image.setTranslateX(600);
+                break;
+            case "Goutte":
+                image = new ImageView(symboleGoutte);
+                image.setTranslateX(680);
+                break;
         }
 
+        if (image != null){
+            image.setTranslateY(480);
+            image.setFitWidth(64);
+            image.setFitHeight(64);
+            this.contientSymbole.getChildren().add(image);
+        }
+    }
+
+    public void viderSumbolesAffiches(){
+        if (this.contientSymbole != null){
+            this.contientSymbole.getChildren().clear();
+        }
     }
 
 

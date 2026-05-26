@@ -61,7 +61,7 @@ public class Controller implements Initializable{
                 (ev ->{
                     temps++;
                     mettreAJour();
-                    this.interfaceVue.dessinMenu();
+//                    this.interfaceVue.dessinMenu();
                     monstreVue.animationAjour();
                 })
         );
@@ -78,7 +78,7 @@ public class Controller implements Initializable{
         this.environnement= new Environnement();
         this.monstreVue= new MonstreVue(stackPane, environnement);
         this.interfaceVue = new InterfaceVue(stackPane);
-       // this.interfaceVue.dessinMenu();
+
         System.out.println(Main.map);
         terrainVue.dessine(Main.map);
 
@@ -94,17 +94,12 @@ public class Controller implements Initializable{
 
             //Partie sort
             this.symboles = FXCollections.observableArrayList();
-            this.symboles.addListener(new ListChangeListener<Symbole>() {
-                @Override
-                public void onChanged(Change<? extends Symbole> change) {
-                    ArrayList<Symbole> copierlist = new ArrayList<>(symboles);
-                    interfaceVue.ajouterSymboleaAfficher(copierlist);
-                }
-            });
-
+            MonObservateurSymbole observateur = new MonObservateurSymbole(this.interfaceVue);
+            this.symboles.addListener(observateur);
             this.lesSorts = new ArrayList<>();
             SortDeBase sc = new SortDeFeu();
             this.lesSorts.add(sc);
+            this.interfaceVue.dessinMenu();
         }
 
 
@@ -133,7 +128,6 @@ public class Controller implements Initializable{
     public void AjouterMonstreEnnemi() {
         MonstreDeBase squelette=new Squelette();
         this.environnement.ajouterEntite(squelette,1);
-
     }
     
     @FXML
@@ -173,5 +167,6 @@ public class Controller implements Initializable{
         }
 
         this.symboles.clear();
+        this.interfaceVue.viderSumbolesAffiches();
     }
 }

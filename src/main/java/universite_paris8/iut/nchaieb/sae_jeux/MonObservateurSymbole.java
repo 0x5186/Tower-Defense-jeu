@@ -1,29 +1,28 @@
 package universite_paris8.iut.nchaieb.sae_jeux;
 
-import javafx.beans.InvalidationListener;
 import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
 import universite_paris8.iut.nchaieb.sae_jeux.modele.Symbole;
+import universite_paris8.iut.nchaieb.sae_jeux.vue.InterfaceVue;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
+import java.util.*;
 
-public abstract class MonObservateurSymbole implements ObservableList<Symbole> {
+public class MonObservateurSymbole implements ListChangeListener<Symbole> {
 
+    private InterfaceVue interfaceVue;
 
-    @Override
-    public void addListener(ListChangeListener<? super Symbole> listChangeListener) {
+    public MonObservateurSymbole(InterfaceVue interfaceVue){
+        this.interfaceVue = interfaceVue;
     }
 
     @Override
-    public void removeListener(ListChangeListener<? super Symbole> listChangeListener) {
-
+    public void onChanged(Change<? extends Symbole> change){
+        while(change.next()){
+            if (change.wasAdded()){
+                for (Symbole symbole : change.getAddedSubList()){
+                    this.interfaceVue.afficherUnSeulSymbole(symbole.getType());
+                }
+            }
+        }
     }
 
-    @Override
-    public void addListener (InvalidationListener invalidationListener){
-
-    }
 }
