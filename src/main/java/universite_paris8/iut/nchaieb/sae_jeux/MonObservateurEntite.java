@@ -21,11 +21,11 @@ public class MonObservateurEntite implements ListChangeListener<Entite> {
         this.monstreVue = new EntiteVue(this.stackPane);
     }
 
+
+
     private void creerSprite(Entite entite) {
         this.monstreVue.ajouterSprite(entite);
     }
-
-
 
 
 
@@ -54,7 +54,7 @@ public class MonObservateurEntite implements ListChangeListener<Entite> {
 
                         }
                         if (newValue.equals("attaque")){
-
+                            this.monstreVue.animationAttaque(nouveau);
                         }
                     });
 

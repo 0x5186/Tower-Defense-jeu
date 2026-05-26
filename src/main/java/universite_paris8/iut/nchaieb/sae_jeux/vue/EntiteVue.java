@@ -9,6 +9,7 @@ import javafx.util.Duration;
 import universite_paris8.iut.nchaieb.sae_jeux.Main;
 import universite_paris8.iut.nchaieb.sae_jeux.modele.*;
 
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -16,26 +17,21 @@ import java.util.Map;
 
 public class EntiteVue {
     private StackPane stackPane;
-    private ArrayList<MonstreDeBase> listeMonstre= new ArrayList<>();;
-    private Environnement environnement;
     private HashMap hashMap= new HashMap<MonstreDeBase,ImageView>();
-    private HashMap<MonstreDeBase, Timeline> animeLoop = new HashMap<>();
-    private HashMap<Entite, ImageView> hashMapMorts = new HashMap<>();
-    private HashMap<Entite, Timeline> animeLoopMorts = new HashMap<>();
+    private HashMap hashMapAnimation= new HashMap<MonstreDeBase, Timeline>();
     Image  squelette = new Image(Main.class.getResourceAsStream("images/squelette.png"));
 
 
     public EntiteVue(StackPane stackPane) {
-
         this.stackPane= stackPane;
-
-//        this.environnement.le;
     }
 
     public void ajouterSprite(Entite entite){
+
         ImageView  iv= new ImageView();
-        if (entite instanceof Squelette)
-            iv= new  ImageView(squelette);
+        if (entite instanceof Squelette) {
+            iv = new ImageView(squelette);
+        }
         iv.translateXProperty().bind(entite.posXProperty());
         iv.translateYProperty().bind(
                 entite.posYProperty()
@@ -43,7 +39,7 @@ public class EntiteVue {
         this.hashMap.put(entite, iv);
 
         if(entite.getCamp()==0) iv.setScaleX(-1);
-        iv.setViewport(new Rectangle2D(5*240,0,240,240));
+        iv.setViewport(new Rectangle2D(0,0,240,240));
 
         this.stackPane.getChildren().add(iv);
     }
@@ -54,42 +50,6 @@ public class EntiteVue {
         this.stackPane.getChildren().remove(iv);
         this.hashMap.remove(entite, iv);
     }
-
-//    public void animeTest(ObservableList<MonstreDeBase> persos){
-//        for (int i = 0; i < persos.size(); i++) {
-//            MonstreDeBase monstre = persos.get(i);
-//
-//            if (!hashMap.containsKey(monstre) ) {
-//                animationMarche(monstre);
-//            }
-//            else {
-//
-//                // TODO ça va dans le listener posé sur l'observablelist
-//                ImageView iv = (ImageView) hashMap.get(monstre);
-//                iv.setTranslateX(monstre.getPosX());
-//                iv.setTranslateY(monstre.getPosY());
-//
-//
-//                if (!monstre.estVivant()) {
-//                    if(animeLoop.containsKey(monstre)){
-//                        animeLoop.get(monstre).stop();
-//                        animeLoop.remove(monstre);
-//                    }
-//                    this.stackPane.getChildren().remove(iv);
-////                    ((ImageView) hashMap.get(monstre)).setImage(null);
-//                    hashMap.remove(monstre);
-//                    animationMort(monstre);
-//                }
-//            }
-//        }
-//    }
-//
-//    public void animationAjour() {
-//        animeTest(environnement.getLesTours());
-//        animeTest(environnement.getLesMonstres());
-//
-//    }
-
 
 
 
@@ -104,7 +64,54 @@ public class EntiteVue {
         int hauteurCase = 240;
         int[] frameIndex = {13};
 
+        if(this.hashMapAnimation.containsKey(monstre)){
+            Timeline timeline= (Timeline) this.hashMapAnimation.get(monstre);
+            timeline.stop();
+            this.hashMapAnimation.remove(monstre);
+        }
 
+        Timeline squeletteMarche = new Timeline(
+
+                new KeyFrame(Duration.millis(90), e -> {
+
+                    int x, y;
+                    if (frameIndex[0] < 12) {
+                        x = frameIndex[0] % 6;
+                        y = frameIndex[0] / 6;
+                    } else {
+                        x = frameIndex[0] - 12;
+                        y = 2;
+                    }
+                    frameIndex[0]++;
+                    if (frameIndex[0] == 15) frameIndex[0] = 0;
+                    iv.setViewport(new Rectangle2D(x* largeurCase, y * hauteurCase, largeurCase, hauteurCase));
+
+                })
+        );
+        squeletteMarche.setCycleCount(15);
+        squeletteMarche.play();
+
+        this.hashMapAnimation.put(monstre, squeletteMarche);
+
+
+
+    }
+
+    public void animationAttaque(Entite monstre) {
+
+        ImageView iv = (ImageView) this.hashMap.get(monstre);
+
+
+        int largeurCase = 240;
+        int hauteurCase = 240;
+        int[] frameIndex = {13};
+
+        if(this.hashMapAnimation.containsKey(monstre)){
+            System.out.println("miaou");
+            Timeline timeline= (Timeline) this.hashMapAnimation.get(monstre);
+            timeline.stop();
+            this.hashMapAnimation.remove(monstre);
+        }
 
         Timeline squeletteMarche = new Timeline(
 
@@ -126,6 +133,8 @@ public class EntiteVue {
         );
         squeletteMarche.setCycleCount(10);
         squeletteMarche.play();
+        this.hashMapAnimation.put(monstre, squeletteMarche);
+
 
 
 
@@ -140,6 +149,12 @@ public class EntiteVue {
         int hauteurCase = 240;
         int[] frameIndex = {27};
 
+        if(this.hashMapAnimation.containsKey(monstre)){
+            Timeline timeline= (Timeline) this.hashMapAnimation.get(monstre);
+            timeline.stop();
+            this.hashMapAnimation.remove(monstre);
+        }
+
         Timeline squeletteMort = new Timeline(
                 new KeyFrame(Duration.millis(120), e -> {
                     int x = frameIndex[0] % 6;
@@ -151,7 +166,7 @@ public class EntiteVue {
         );
         squeletteMort.setCycleCount(7);
 
-        // 3. Une fois les 7 cycles finis, on enchaîne sur le Fade
+
         squeletteMort.setOnFinished(e -> {
             FadeTransition fade = new FadeTransition(Duration.seconds(2), iv);
             fade.setFromValue(1.0);
@@ -171,24 +186,6 @@ public class EntiteVue {
 
 
 
-    }
-
-    public Image verifMonstre(String typeMonstre) {
-        if (typeMonstre.equals("squelette")) {
-            return squelette;
-        }
-
-        return null;
-    }
-
-    public void unTour() {
-        for(int i=0; i<listeMonstre.size(); i++){
-            avancer(listeMonstre.get(i));
-        }
-    }
-    public void avancer(MonstreDeBase monstre){
-        monstre.setPosX(monstre.getPosX()+5);
-        System.out.println(monstre.getPosX());
     }
 
 }

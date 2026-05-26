@@ -5,7 +5,6 @@ public class Squelette extends MonstreDeBase{
         super(1, 1, 0, 0, 1);
         this.nombreDePV=pvMax;
         this.actionActuelle.set("fixe");
-
         this.portee= 100;
     }
 
