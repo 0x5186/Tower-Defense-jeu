@@ -45,6 +45,7 @@ public abstract class MonstreDeBase extends Entite{
 
              monstrePlusProche = this.plusProche(monstreAdverse);
             if (monstrePlusProche != null) {
+                this.setActionActuelle("fixe");
                 System.out.println("pas nul");
 
                 this.infligerDegat(monstrePlusProche);

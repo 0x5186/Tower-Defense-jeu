@@ -1,14 +1,9 @@
 package universite_paris8.iut.nchaieb.sae_jeux;
 
 import javafx.collections.ListChangeListener;
-import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 import universite_paris8.iut.nchaieb.sae_jeux.modele.Entite;
-import universite_paris8.iut.nchaieb.sae_jeux.modele.MonstreDeBase;
-import universite_paris8.iut.nchaieb.sae_jeux.modele.Squelette;
 import universite_paris8.iut.nchaieb.sae_jeux.vue.EntiteVue;
-
-import javax.swing.*;
 
 public class MonObservateurEntite implements ListChangeListener<Entite> {
 
@@ -37,7 +32,7 @@ public class MonObservateurEntite implements ListChangeListener<Entite> {
 
     @Override
     public void onChanged(Change<? extends Entite> change) {
-        System.out.println("ohh");
+
         while (change.next()) {
             if (change.wasAdded()) {
 
@@ -47,6 +42,7 @@ public class MonObservateurEntite implements ListChangeListener<Entite> {
 
                         if (newValue.equals("fixe")){
 
+                            this.monstreVue.stopAnimation(nouveau);
                         }
                         if(newValue.equals("marche")){
 

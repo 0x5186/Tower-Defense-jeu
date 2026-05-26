@@ -8,11 +8,10 @@ import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 import universite_paris8.iut.nchaieb.sae_jeux.Main;
 import universite_paris8.iut.nchaieb.sae_jeux.modele.*;
+import universite_paris8.iut.nchaieb.sae_jeux.modele.monstres.Sorcier;
+import universite_paris8.iut.nchaieb.sae_jeux.modele.monstres.Squelette;
 
-import java.sql.Time;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 
 public class EntiteVue {
@@ -20,6 +19,8 @@ public class EntiteVue {
     private HashMap hashMap= new HashMap<MonstreDeBase,ImageView>();
     private HashMap hashMapAnimation= new HashMap<MonstreDeBase, Timeline>();
     Image  squelette = new Image(Main.class.getResourceAsStream("images/squelette.png"));
+    Image  sorcier = new Image(Main.class.getResourceAsStream("images/sorcier.png"));
+
 
 
     public EntiteVue(StackPane stackPane) {
@@ -31,6 +32,9 @@ public class EntiteVue {
         ImageView  iv= new ImageView();
         if (entite instanceof Squelette) {
             iv = new ImageView(squelette);
+        }
+        if (entite instanceof Sorcier) {
+            iv = new ImageView(sorcier);
         }
         iv.translateXProperty().bind(entite.posXProperty());
         iv.translateYProperty().bind(
@@ -51,6 +55,13 @@ public class EntiteVue {
         this.hashMap.remove(entite, iv);
     }
 
+    public void stopAnimation(Entite entite){
+        if(this.hashMapAnimation.containsKey(entite)){
+            Timeline timeline= (Timeline) this.hashMapAnimation.get(entite);
+            timeline.stop();
+            this.hashMapAnimation.remove(entite);
+        }
+    }
 
 
 
@@ -64,11 +75,6 @@ public class EntiteVue {
         int hauteurCase = 240;
         int[] frameIndex = {13};
 
-        if(this.hashMapAnimation.containsKey(monstre)){
-            Timeline timeline= (Timeline) this.hashMapAnimation.get(monstre);
-            timeline.stop();
-            this.hashMapAnimation.remove(monstre);
-        }
 
         Timeline squeletteMarche = new Timeline(
 
@@ -88,10 +94,11 @@ public class EntiteVue {
 
                 })
         );
+        this.hashMapAnimation.put(monstre, squeletteMarche);
         squeletteMarche.setCycleCount(15);
         squeletteMarche.play();
 
-        this.hashMapAnimation.put(monstre, squeletteMarche);
+
 
 
 
@@ -106,12 +113,7 @@ public class EntiteVue {
         int hauteurCase = 240;
         int[] frameIndex = {13};
 
-        if(this.hashMapAnimation.containsKey(monstre)){
-            System.out.println("miaou");
-            Timeline timeline= (Timeline) this.hashMapAnimation.get(monstre);
-            timeline.stop();
-            this.hashMapAnimation.remove(monstre);
-        }
+
 
         Timeline squeletteMarche = new Timeline(
 
@@ -131,9 +133,10 @@ public class EntiteVue {
 
                 })
         );
+        this.hashMapAnimation.put(monstre, squeletteMarche);
         squeletteMarche.setCycleCount(10);
         squeletteMarche.play();
-        this.hashMapAnimation.put(monstre, squeletteMarche);
+
 
 
 
