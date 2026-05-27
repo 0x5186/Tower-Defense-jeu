@@ -26,7 +26,6 @@ public class  Environnement {
 
 
 	public Environnement() {
-
 		this.nbTours = new SimpleIntegerProperty();
 
 
@@ -35,7 +34,7 @@ public class  Environnement {
 		this.lesTours =FXCollections.observableArrayList();
 		this.lesMonstres = FXCollections.observableArrayList();
 
-
+		//à voir, pour l'instant
 		MonstreDeBase.compteurID = 0;
 		Entite.compteurID = 0;
 	}
@@ -101,12 +100,6 @@ public class  Environnement {
 			lesMonstres.add(entite);
 
 		}
-//		else {
-//			lesTours.add(entite);
-//		}
-
-
-
 
 
     }

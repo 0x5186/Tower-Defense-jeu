@@ -2,6 +2,10 @@ package universite_paris8.iut.nchaieb.sae_jeux;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.animation.TranslateTransition;
+import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -24,7 +28,7 @@ import java.util.ResourceBundle;
 
 public class Controller implements Initializable{
     private Environnement environnement;
-    private ArrayList<Symbole> symboles;
+    private ObservableList<Symbole> symboles;
     private ArrayList<SortDeBase> lesSorts;
 
 
@@ -54,6 +58,7 @@ public class Controller implements Initializable{
 
 
         KeyFrame kf = new KeyFrame(
+                // on définit le FPS (nbre de frame par seconde)
                 Duration.seconds(1),
 
                 (ev ->{
@@ -66,6 +71,9 @@ public class Controller implements Initializable{
                     temps++;
                     this.environnement.unTour();
 //
+                    mettreAJour();
+//                    this.interfaceVue.dessinMenu();
+                    monstreVue.animationAjour();
                 })
         );
         gameLoop.setCycleCount(Timeline.INDEFINITE);
@@ -111,10 +119,13 @@ public class Controller implements Initializable{
             }
 
             //Partie sort
-            this.symboles = new ArrayList<>();
+            this.symboles = FXCollections.observableArrayList();
+            MonObservateurSymbole observateur = new MonObservateurSymbole(this.interfaceVue);
+            this.symboles.addListener(observateur);
             this.lesSorts = new ArrayList<>();
             SortDeBase sc = new SortDeFeu();
             this.lesSorts.add(sc);
+            this.interfaceVue.dessinMenu();
         }
 
 
@@ -141,9 +152,6 @@ public class Controller implements Initializable{
     }
     @FXML
     public void AjouterMonstreEnnemi() {
-
-
-
         MonstreDeBase squelette=new Squelette();
         this.environnement.ajouterEntite(squelette,1);
 
@@ -171,18 +179,42 @@ public class Controller implements Initializable{
     }
 
     @FXML
+    public void AppuyerSurSymboleOeil(){
+        Symbole symboleOeil = new Symbole("Oeil");
+        this.symboles.add(symboleOeil);
+        System.out.println("Oeil d'horus ajouté dans la liste");
+    }
+
+    @FXML
+    public void AppuyerSurSymboleEclipse() {
+        Symbole symboleEclipse = new Symbole("Eclipse");
+        this.symboles.add(symboleEclipse);
+        System.out.println("Eclipse ajouté dans la liste");
+    }
+
+    @FXML
+    public void AppuyerSurSymboleOiseau(){
+        Symbole symboleOiseau = new Symbole("Oiseau");
+        this.symboles.add(symboleOiseau);
+        System.out.println("Oiseau ajouté dans la liste");
+    }
+
+    @FXML
     public void AppuyerSurValideePentacle(){
         SortDeBase sortActuel;
+
+        ArrayList<Symbole> listeTempo = new ArrayList<>(this.symboles);
 
         for (int i = 0; i < this.lesSorts.size(); i++){
             sortActuel = this.lesSorts.get(i);
 
-            if (sortActuel.combinaisonValidee(this.symboles)){
+            if (sortActuel.combinaisonValidee(listeTempo)){
                 sortActuel.invoquerSort();
             }
 
         }
 
         this.symboles.clear();
+        this.interfaceVue.viderSumbolesAffiches();
     }
 }

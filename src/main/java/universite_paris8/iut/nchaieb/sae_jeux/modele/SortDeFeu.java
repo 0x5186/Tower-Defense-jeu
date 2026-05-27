@@ -21,7 +21,7 @@ public class SortDeFeu extends SortDeBase {
     public ArrayList<Symbole> getCombinaison() { return this.combinaison; }
 
     @Override
-    public boolean combinaisonValidee() {
+    public boolean combinaisonValidee(){
         return true;
     }
 
