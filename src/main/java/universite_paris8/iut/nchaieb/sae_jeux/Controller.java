@@ -152,6 +152,20 @@ public class Controller implements Initializable{
     }
 
     @FXML
+    public void AppuyerSurSymboleOeil(){
+        Symbole symboleOeil = new Symbole("Oeil");
+        this.symboles.add(symboleOeil);
+        System.out.println("Oeil d'horus ajouté dans la liste");
+    }
+
+    @FXML
+    public void AppuyerSurSymboleEclipse() {
+        Symbole symboleEclipse = new Symbole("Eclipse");
+        this.symboles.add(symboleEclipse);
+        System.out.println("Eclipse ajouté dans la liste");
+    }
+
+    @FXML
     public void AppuyerSurValideePentacle(){
         SortDeBase sortActuel;
 

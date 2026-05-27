@@ -16,6 +16,8 @@ public class InterfaceVue {
     Image symboleGoutte = new Image(Main.class.getResourceAsStream("images/symboleGoutteDeau.png"));
     Image symboleCroix = new Image(Main.class.getResourceAsStream("images/symboleCroix.png"));
     Image symboleSpirale = new Image(Main.class.getResourceAsStream("images/symboleSpirale.png"));
+    Image symboleOeil = new Image(Main.class.getResourceAsStream("images/symboleOeil.png"));
+    Image symboleEclipse = new Image(Main.class.getResourceAsStream("images/symboleEclipse.png"));
 
     private StackPane stackPane;
     private StackPane contientSymbole;
@@ -67,12 +69,30 @@ public class InterfaceVue {
                 image = new ImageView(symboleGoutte);
                 image.setTranslateX(680);
                 break;
+            case "Oeil":
+                image = new ImageView(symboleOeil);
+                image.setTranslateX(680);
+                break;
+            case "Eclipse":
+                image = new ImageView(symboleEclipse);
+                image.setTranslateX(680);
+                break;
         }
 
         if (image != null){
-            image.setTranslateY(480);
-            image.setFitWidth(64);
-            image.setFitHeight(64);
+            if (image.getImage().equals(symboleOeil)){
+                image.setTranslateY(440);
+                image.setScaleY(0.05);
+                image.setScaleX(0.05);
+            } else if (image.getImage().equals(symboleEclipse)){
+                image.setTranslateY(530);
+                image.setScaleY(0.05);
+                image.setScaleX(0.05);
+            } else {
+                image.setTranslateY(485);
+                image.setScaleY(0.1);
+                image.setScaleX(0.1);
+            }
             this.contientSymbole.getChildren().add(image);
         }
     }
