@@ -66,11 +66,22 @@
                                    </graphic>
                                </Button>
 
-                               <Button fx:id="symboleEclipsel" mnemonicParsing="false" onAction="#AppuyerSurSymboleEclipse" prefHeight="7.0" prefWidth="2.0" style="-fx-background-color: transparent; -fx-border-color: transparent; -fx-padding: 0;" layoutX="320">
+                               <Button fx:id="symboleEclipse" mnemonicParsing="false" onAction="#AppuyerSurSymboleEclipse" prefHeight="7.0" prefWidth="2.0" style="-fx-background-color: transparent; -fx-border-color: transparent; -fx-padding: 0;" layoutX="320">
                                    <graphic>
                                        <ImageView fitHeight="64.0" fitWidth="64.0" nodeOrientation="INHERIT" preserveRatio="true">
                                            <image>
                                                <Image url="@images/symboleEclipse.png">
+                                               </Image>
+                                           </image>
+                                       </ImageView>
+                                   </graphic>
+                               </Button>
+
+                               <Button fx:id="symboleOiseau" mnemonicParsing="false" onAction="#AppuyerSurSymboleOiseau" prefHeight="7.0" prefWidth="2.0" style="-fx-background-color: transparent; -fx-border-color: transparent; -fx-padding: 0;" layoutX="400">
+                                   <graphic>
+                                       <ImageView fitHeight="64.0" fitWidth="64.0" nodeOrientation="INHERIT" preserveRatio="true">
+                                           <image>
+                                               <Image url="@images/symboleOiseau.png">
                                                </Image>
                                            </image>
                                        </ImageView>

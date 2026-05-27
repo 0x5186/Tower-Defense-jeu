@@ -166,6 +166,13 @@ public class Controller implements Initializable{
     }
 
     @FXML
+    public void AppuyerSurSymboleOiseau(){
+        Symbole symboleOiseau = new Symbole("Oiseau");
+        this.symboles.add(symboleOiseau);
+        System.out.println("Oiseau ajouté dans la liste");
+    }
+
+    @FXML
     public void AppuyerSurValideePentacle(){
         SortDeBase sortActuel;
 

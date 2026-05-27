@@ -18,6 +18,7 @@ public class InterfaceVue {
     Image symboleSpirale = new Image(Main.class.getResourceAsStream("images/symboleSpirale.png"));
     Image symboleOeil = new Image(Main.class.getResourceAsStream("images/symboleOeil.png"));
     Image symboleEclipse = new Image(Main.class.getResourceAsStream("images/symboleEclipse.png"));
+    Image symboleOiseau = new Image(Main.class.getResourceAsStream("images/symboleOiseau.png"));
 
     private StackPane stackPane;
     private StackPane contientSymbole;
@@ -77,6 +78,9 @@ public class InterfaceVue {
                 image = new ImageView(symboleEclipse);
                 image.setTranslateX(680);
                 break;
+            case "Oiseau":
+                image = new ImageView(symboleOiseau);
+                image.setTranslateX(740);
         }
 
         if (image != null){
@@ -86,6 +90,10 @@ public class InterfaceVue {
                 image.setScaleX(0.05);
             } else if (image.getImage().equals(symboleEclipse)){
                 image.setTranslateY(530);
+                image.setScaleY(0.05);
+                image.setScaleX(0.05);
+            } else if (image.getImage().equals(symboleOiseau)){
+                image.setTranslateY(550);
                 image.setScaleY(0.05);
                 image.setScaleX(0.05);
             } else {
