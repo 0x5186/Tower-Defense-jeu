@@ -2,10 +2,6 @@ package universite_paris8.iut.nchaieb.sae_jeux;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.animation.TranslateTransition;
-import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -17,8 +13,9 @@ import javafx.util.Duration;
 import universite_paris8.iut.nchaieb.sae_jeux.modele.*;
 import universite_paris8.iut.nchaieb.sae_jeux.modele.Environnement;
 import universite_paris8.iut.nchaieb.sae_jeux.modele.Terrain;
-import universite_paris8.iut.nchaieb.sae_jeux.modele.monstres.Squelette;
-import universite_paris8.iut.nchaieb.sae_jeux.vue.EntiteVue;
+import universite_paris8.iut.nchaieb.sae_jeux.modele.combinaisonSorts.SortDeBase;
+import universite_paris8.iut.nchaieb.sae_jeux.modele.combinaisonSorts.SortDeFeu;
+import universite_paris8.iut.nchaieb.sae_jeux.vue.MonstreVue;
 import universite_paris8.iut.nchaieb.sae_jeux.vue.InterfaceVue;
 import universite_paris8.iut.nchaieb.sae_jeux.vue.TerrainVue;
 
@@ -46,7 +43,7 @@ public class Controller implements Initializable{
     private int temps; //TODO supprimer car remplacé par nbTours dans Env
     TerrainVue terrainVue;
     Terrain terrain;
-    EntiteVue monstreVue;
+    MonstreVue monstreVue;
     InterfaceVue interfaceVue;
     protected MonObservateurEntite observateur;
 
@@ -77,14 +74,17 @@ public class Controller implements Initializable{
         this.terrain = new Terrain();
         this.terrainVue = new TerrainVue(terrain, tilePane);
 
-        this.monstreVue= new EntiteVue(stackPane);
+        this.monstreVue= new MonstreVue(stackPane);
         this.interfaceVue = new InterfaceVue(stackPane);
 
         System.out.println(Main.map);
         terrainVue.dessine(Main.map);
-        observateur = new MonObservateurEntite(stackPane);
+        MonObservateurMonstre observateurMonstres = new MonObservateurMonstre(stackPane);
+        MonObservateurTour monObservateurTour = new MonObservateurTour(stackPane);
+
         environnement= new Environnement();
-        environnement.getLesMonstres().addListener(observateur);
+        environnement.getLesMonstres().addListener(observateurMonstres);
+        environnement.getLesTours().addListener(monObservateurTour);
 
         MonObservateurSymbole symbole = new MonObservateurSymbole(this.interfaceVue);
 
@@ -133,18 +133,14 @@ public class Controller implements Initializable{
 
     }
 
-    @FXML
-    public void AjouterMonstreAllie() {
-        this.environnement.ajouterEntite(0);
 
-    }
     @FXML
     public void AjouterMonstreEnnemi() {
 
 
 
-        MonstreDeBase squelette=new Squelette(1);
-        this.environnement.ajouterEntite(1);
+
+        this.environnement.ajouterEntite();
     }
     
     @FXML

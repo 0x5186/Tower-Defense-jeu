@@ -14,20 +14,20 @@ import universite_paris8.iut.nchaieb.sae_jeux.modele.monstres.Squelette;
 import java.util.HashMap;
 
 
-public class EntiteVue {
+public class MonstreVue {
     private StackPane stackPane;
-    private HashMap hashMap= new HashMap<MonstreDeBase,ImageView>();
-    private HashMap hashMapAnimation= new HashMap<MonstreDeBase, Timeline>();
+    private HashMap hashMap= new HashMap<Monstre,ImageView>();
+    private HashMap hashMapAnimation= new HashMap<Monstre, Timeline>();
     Image  squelette = new Image(Main.class.getResourceAsStream("images/squelette.png"));
     Image  sorcier = new Image(Main.class.getResourceAsStream("images/sorcier.png"));
 
 
 
-    public EntiteVue(StackPane stackPane) {
+    public MonstreVue(StackPane stackPane) {
         this.stackPane= stackPane;
     }
 
-    public void ajouterSprite(MonstreDeBase entite){
+    public void ajouterSprite(Monstre entite){
 
         ImageView  iv= new ImageView();
         if (entite instanceof Squelette) {
@@ -42,7 +42,7 @@ public class EntiteVue {
         );
         this.hashMap.put(entite, iv);
 
-        if(entite.getCamp()==0) iv.setScaleX(-1);
+
         iv.setViewport(new Rectangle2D(0,0,240,240));
 
         this.stackPane.getChildren().add(iv);

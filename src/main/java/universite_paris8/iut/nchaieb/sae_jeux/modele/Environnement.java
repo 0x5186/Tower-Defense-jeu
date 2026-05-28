@@ -1,14 +1,9 @@
 package universite_paris8.iut.nchaieb.sae_jeux.modele;
 
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import universite_paris8.iut.nchaieb.sae_jeux.Main;
-import universite_paris8.iut.nchaieb.sae_jeux.MonObservateurEntite;
 import universite_paris8.iut.nchaieb.sae_jeux.modele.monstres.Squelette;
 
 import java.util.ArrayList;
@@ -28,27 +23,18 @@ public class  Environnement {
 	public Environnement() {
 
 		this.nbTours = new SimpleIntegerProperty();
-
-
-		this.entites =FXCollections.observableArrayList();
-
 		this.lesTours =FXCollections.observableArrayList();
 		this.lesMonstres = FXCollections.observableArrayList();
 
 
-		MonstreDeBase.compteurID = 0;
+		Monstre.compteurID = 0;
 		Entite.compteurID = 0;
 	}
 
 // 	les Get :
 
 
-	public ObservableList<Entite> getEntites() {
-
-		return entites;
-	}
-
-	public ObservableList<MonstreDeBase> getLesMonstres() {
+	public ObservableList<Monstre> getLesMonstres() {
 		return lesMonstres;
 	}
 
@@ -68,11 +54,8 @@ public class  Environnement {
 		}
 
 
-		return this.lesMonstres;
-	}
-//
-//	private ObservableList<MonstreDeBase> getmonstreAdverse(ObservableList<MonstreDeBase> monstreAdverse, int camp) {
-//		ObservableList<MonstreDeBase> adversaires = FXCollections.observableArrayList();
+//	private ObservableList<Monstre> getmonstreAdverse(ObservableList<Monstre> monstreAdverse, int camp) {
+//		ObservableList<Monstre> adversaires = FXCollections.observableArrayList();
 //
 //		for(int i=0;i>=monstreAdverse.size(); i ++){
 //			if (monstreAdverse.get(i).getCamp()!=camp){
@@ -88,12 +71,11 @@ public class  Environnement {
 	// autres Méthodes:
 
 
-	public void ajouterEntite(int camp){
+	public void ajouterEntite(){
 
-		MonstreDeBase monstre=new Squelette(camp);
+		Monstre monstre=new Squelette();
 
-		entites.add(monstre);
-		if (monstre instanceof MonstreDeBase){
+		if (monstre instanceof Monstre){
 
 			lesMonstres.add(monstre);
 
@@ -128,12 +110,12 @@ public class  Environnement {
 				if (this.lesMonstres.get(i).estVivant()){
 					System.out.println(this.lesMonstres.get(i).getPV());
 
-					this.lesMonstres.get(i).agir(this.lesMonstres);
+					this.lesTours.get(i).agir(this.lesMonstres);
 
 				} else {
 					System.out.println("je suis remove");
 					this.lesMonstres.remove(i);
-					this.entites.remove(i);
+
 
 
 				}
@@ -143,8 +125,8 @@ public class  Environnement {
 
 	}
 
-//	public ArrayList<MonstreDeBase> fusionnerListe(ArrayList<MonstreDeBase> monstreAllie, ArrayList<MonstreDeBase> monstreEnnemi){
-//		ArrayList<MonstreDeBase> listeFusion=new ArrayList<MonstreDeBase>();
+//	public ArrayList<Monstre> fusionnerListe(ArrayList<Monstre> monstreAllie, ArrayList<Monstre> monstreEnnemi){
+//		ArrayList<Monstre> listeFusion=new ArrayList<Monstre>();
 //		for(int i=0; i<monstreAllie.size()+monstreEnnemi.size(); i++){
 //			if(i>= monstreAllie.size()){
 //				listeFusion.add(monstreEnnemi.get(i));
@@ -157,9 +139,9 @@ public class  Environnement {
 //	}
 
 
-//	public ObservableList<MonstreDeBase> triVitesse(ObservableList<MonstreDeBase> listMonstre){
-//		ArrayList<MonstreDeBase> listeTrie= new ArrayList<MonstreDeBase>();
-//		MonstreDeBase monstre;
+//	public ObservableList<Monstre> triVitesse(ObservableList<Monstre> listMonstre){
+//		ArrayList<Monstre> listeTrie= new ArrayList<Monstre>();
+//		Monstre monstre;
 //		int indexMax;
 //		for(int i=0; i< listMonstre.size(); i++){
 //			indexMax=i;
@@ -178,16 +160,16 @@ public class  Environnement {
 
 
 
-	public void avancer(MonstreDeBase monstre) {
+	public void avancer(Monstre monstre) {
 		monstre.setPosX(monstre.getPosX()+1);
 	}
 
 	//ce que j'ai rajouté(musa le japonais)
 
 
-	public ArrayList<MonstreDeBase> voirLesMonstresElimines(){
-		ArrayList<MonstreDeBase> historiqueDeKill = new ArrayList<>();
-		MonstreDeBase entiteActuel;
+	public ArrayList<Monstre> voirLesMonstresElimines(){
+		ArrayList<Monstre> historiqueDeKill = new ArrayList<>();
+		Monstre entiteActuel;
 		for (int i = 0; i < this.lesMonstres.size(); i++){
 			entiteActuel = lesMonstres.get(i);
 			historiqueDeKill.add(entiteActuel);
