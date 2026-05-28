@@ -190,6 +190,13 @@ public class Controller implements Initializable{
     }
 
     @FXML
+    public void AppuyerSurSymboleTriangle(){
+        Symbole symboleTriangle = new Symbole("Triangle");
+        this.symboles.add(symboleTriangle);
+        System.out.println("Triangle ajouté dans la liste");
+    }
+
+    @FXML
     public void AppuyerSurValideePentacle(){
         SortDeBase sortActuel;
 

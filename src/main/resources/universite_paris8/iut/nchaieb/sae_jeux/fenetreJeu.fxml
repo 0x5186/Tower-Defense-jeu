@@ -46,7 +46,7 @@
             
                               <Button fx:id="symboleSpirale" mnemonicParsing="false" onAction="#AppuyerSurSymboleSpirale" prefHeight="7.0" prefWidth="2.0" style="-fx-background-color: transparent; -fx-border-color: transparent; -fx-padding: 0;" layoutX="160" layoutY="-2">
                                  <graphic>
-                                    <ImageView fitHeight="64.0" fitWidth="64.0"  nodeOrientation="INHERIT" preserveRatio="true">
+                                     <ImageView fitHeight="64.0" fitWidth="64.0"  nodeOrientation="INHERIT" preserveRatio="true">
                                        <image>
                                           <Image url="@images/symboleSpirale.png">
                                           </Image>
@@ -82,6 +82,17 @@
                                        <ImageView fitHeight="64.0" fitWidth="64.0" nodeOrientation="INHERIT" preserveRatio="true">
                                            <image>
                                                <Image url="@images/symboleOiseau.png">
+                                               </Image>
+                                           </image>
+                                       </ImageView>
+                                   </graphic>
+                               </Button>
+
+                               <Button fx:id="symboleTriangle" mnemonicParsing="false" onAction="#AppuyerSurSymboleTriangle" prefHeight="7.0" prefWidth="2.0" style="-fx-background-color: transparent; -fx-border-color: transparent; -fx-padding: 0;" layoutX="480" layoutY="-3">
+                                   <graphic>
+                                       <ImageView fitHeight="64.0" fitWidth="64.0" nodeOrientation="INHERIT" preserveRatio="true">
+                                           <image>
+                                               <Image url="@images/symboleTriangle.png">
                                                </Image>
                                            </image>
                                        </ImageView>

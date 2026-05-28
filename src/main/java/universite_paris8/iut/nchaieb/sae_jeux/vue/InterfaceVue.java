@@ -23,6 +23,7 @@ public class InterfaceVue {
     Image symboleOeil = new Image(Main.class.getResourceAsStream("images/symboleOeil.png"));
     Image symboleEclipse = new Image(Main.class.getResourceAsStream("images/symboleEclipse.png"));
     Image symboleOiseau = new Image(Main.class.getResourceAsStream("images/symboleOiseau.png"));
+    Image symboleTriange = new Image(Main.class.getResourceAsStream("images/symboleTriangle.png"));
 
     private StackPane stackPane;
 
@@ -66,46 +67,54 @@ public class InterfaceVue {
             case "Spirale":
                 image = new ImageView(symboleSpirale);
                 image.setTranslateX(760);
+                image.setTranslateY(485);
+                image.setScaleY(0.1);
+                image.setScaleX(0.1);
                 break;
             case "Croix":
                 image = new ImageView(symboleCroix);
                 image.setTranslateX(600);
+                image.setTranslateY(485);
+                image.setScaleY(0.1);
+                image.setScaleX(0.1);
                 break;
             case "Goutte":
                 image = new ImageView(symboleGoutte);
                 image.setTranslateX(680);
+                image.setTranslateY(485);
+                image.setScaleY(0.1);
+                image.setScaleX(0.1);
                 break;
             case "Oeil":
                 image = new ImageView(symboleOeil);
                 image.setTranslateX(680);
+                image.setTranslateY(440);
+                image.setScaleY(0.05);
+                image.setScaleX(0.05);
                 break;
             case "Eclipse":
                 image = new ImageView(symboleEclipse);
                 image.setTranslateX(680);
+                image.setTranslateY(530);
+                image.setScaleY(0.05);
+                image.setScaleX(0.05);
                 break;
             case "Oiseau":
                 image = new ImageView(symboleOiseau);
                 image.setTranslateX(740);
-        }
-
-        if (image != null){
-            if (image.getImage().equals(symboleOeil)){
-                image.setTranslateY(440);
-                image.setScaleY(0.05);
-                image.setScaleX(0.05);
-            } else if (image.getImage().equals(symboleEclipse)){
-                image.setTranslateY(530);
-                image.setScaleY(0.05);
-                image.setScaleX(0.05);
-            } else if (image.getImage().equals(symboleOiseau)){
                 image.setTranslateY(550);
                 image.setScaleY(0.05);
                 image.setScaleX(0.05);
-            } else {
-                image.setTranslateY(485);
-                image.setScaleY(0.1);
-                image.setScaleX(0.1);
-            }
+                break;
+            case "Triangle":
+                image = new ImageView(symboleTriange);
+                image.setTranslateX(600);
+                image.setTranslateY(440);
+                image.setScaleY(0.08);
+                image.setScaleX(0.08);
+        }
+
+        if (image != null){
             this.contientSymbole.getChildren().add(image);
         }
     }
