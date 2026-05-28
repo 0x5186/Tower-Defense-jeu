@@ -16,15 +16,17 @@ public class  Environnement {
 
 
 	private ObservableList<Tour> lesTours;
-	private ObservableList<MonstreDeBase> lesMonstres;
+	private ObservableList<Monstre> lesMonstres;
 
-	private ObservableList<Entite> entites;
+
+	private ObservableList<Symbole> symboles; //liste des symboles
 
 	public Environnement() {
 
 		this.nbTours = new SimpleIntegerProperty();
 		this.lesTours =FXCollections.observableArrayList();
 		this.lesMonstres = FXCollections.observableArrayList();
+		this.symboles = FXCollections.observableArrayList();
 
 
 		Monstre.compteurID = 0;
@@ -41,17 +43,10 @@ public class  Environnement {
 	public ObservableList<Tour> getLesTours() {
 		return this.lesTours;
 	}
-	public ObservableList<MonstreDeBase> triLesMonstres() {
-		lesMonstres.clear();
-		MonstreDeBase monstre;
-		for(int i=0; i<this.entites.size(); i++){
-			if (entites.get(i) instanceof MonstreDeBase){
-				monstre = (MonstreDeBase) entites.get(i);
-				lesMonstres.add(monstre);
 
-
-			}
-		}
+	public ObservableList<Symbole> getSymboles() {
+		return this.symboles;
+	}
 
 
 //	private ObservableList<Monstre> getmonstreAdverse(ObservableList<Monstre> monstreAdverse, int camp) {

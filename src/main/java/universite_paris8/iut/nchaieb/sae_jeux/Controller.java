@@ -25,7 +25,6 @@ import java.util.ResourceBundle;
 
 public class Controller implements Initializable{
     private Environnement environnement;
-    private ObservableList<Symbole> symboles; //TODO déplacer dans environnement
     private ArrayList<SortDeBase> lesSorts;
 
 
@@ -45,7 +44,7 @@ public class Controller implements Initializable{
     Terrain terrain;
     MonstreVue monstreVue;
     InterfaceVue interfaceVue;
-    protected MonObservateurEntite observateur;
+    protected MonObservateurMonstre observateur;
 
 
 
@@ -86,7 +85,6 @@ public class Controller implements Initializable{
         environnement.getLesMonstres().addListener(observateurMonstres);
         environnement.getLesTours().addListener(monObservateurTour);
 
-        MonObservateurSymbole symbole = new MonObservateurSymbole(this.interfaceVue);
 
         initAnimation();
 
@@ -107,12 +105,13 @@ public class Controller implements Initializable{
                 initAnimation();
             }
 
+            //Partie symbole
+            MonObservateurSymbole monObservateurSymbole = new MonObservateurSymbole(this.interfaceVue);
+            this.environnement.getSymboles().addListener(monObservateurSymbole);
+
             //Partie sort
-            this.symboles = FXCollections.observableArrayList();
-            MonObservateurSymbole observateur = new MonObservateurSymbole(this.interfaceVue);
-            this.symboles.addListener(observateur);
             this.lesSorts = new ArrayList<>();
-            SortDeBase sc = new SortDeFeu();
+            SortDeBase sc = new SortDeFeu(); //test la liste des sorts
             this.lesSorts.add(sc);
             this.interfaceVue.dessinMenu();
         }
@@ -146,61 +145,57 @@ public class Controller implements Initializable{
     @FXML
     public void AppuyerSurSymboleCroix() {
         Symbole symboleCroix = new Symbole("Croix");
-        this.symboles.add(symboleCroix);
+        this.environnement.getSymboles().add(symboleCroix);
         System.out.println("Croix ajouté dans la liste");
     }
 
     @FXML
     public void AppuyerSurSymboleGoutteDeau() {
         Symbole symboleGoutteDeau= new Symbole("Goutte");
-        this.symboles.add(symboleGoutteDeau);
+        this.environnement.getSymboles().add(symboleGoutteDeau);
         System.out.println("Goutte ajouté dans liste");
     }
 
     @FXML
     public void AppuyerSurSymboleSpirale() {
         Symbole symboleSpirale = new Symbole("Spirale");
-        this.symboles.add(symboleSpirale);
+        this.environnement.getSymboles().add(symboleSpirale);
         System.out.println("Spirale ajouté dans la liste");
     }
 
     @FXML
     public void AppuyerSurSymboleOeil(){
         Symbole symboleOeil = new Symbole("Oeil");
-        this.symboles.add(symboleOeil);
+        this.environnement.getSymboles().add(symboleOeil);
         System.out.println("Oeil d'horus ajouté dans la liste");
     }
 
     @FXML
     public void AppuyerSurSymboleEclipse() {
         Symbole symboleEclipse = new Symbole("Eclipse");
-        this.symboles.add(symboleEclipse);
+        this.environnement.getSymboles().add(symboleEclipse);
         System.out.println("Eclipse ajouté dans la liste");
     }
 
     @FXML
     public void AppuyerSurSymboleOiseau(){
         Symbole symboleOiseau = new Symbole("Oiseau");
-        this.symboles.add(symboleOiseau);
+        this.environnement.getSymboles().add(symboleOiseau);
         System.out.println("Oiseau ajouté dans la liste");
     }
 
     @FXML
     public void AppuyerSurValideePentacle(){
         SortDeBase sortActuel;
-
-        ArrayList<Symbole> listeTempo = new ArrayList<>(this.symboles);
+        ArrayList<Symbole> listeTempo = new ArrayList<>(this.environnement.getSymboles());
 
         for (int i = 0; i < this.lesSorts.size(); i++){
             sortActuel = this.lesSorts.get(i);
-
             if (sortActuel.combinaisonValidee(listeTempo)){
                 sortActuel.invoquerSort();
             }
-
         }
-
-        this.symboles.clear();
+        this.environnement.getSymboles().clear(); 
         this.interfaceVue.viderSumbolesAffiches();
     }
 }

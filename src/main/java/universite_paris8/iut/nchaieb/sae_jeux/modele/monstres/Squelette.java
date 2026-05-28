@@ -11,5 +11,4 @@ public class Squelette extends Monstre {
         this.setSpawnEnnemi();
     }
 
-
 }
