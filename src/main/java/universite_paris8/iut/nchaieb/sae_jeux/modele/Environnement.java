@@ -9,6 +9,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import universite_paris8.iut.nchaieb.sae_jeux.Main;
 import universite_paris8.iut.nchaieb.sae_jeux.MonObservateurEntite;
+import universite_paris8.iut.nchaieb.sae_jeux.modele.monstres.Squelette;
 
 import java.util.ArrayList;
 
@@ -19,11 +20,10 @@ public class  Environnement {
 	private IntegerProperty nbTours;
 
 
-
-	private ObservableList<Entite> entites;
 	private ObservableList<Tour> lesTours;
 	private ObservableList<MonstreDeBase> lesMonstres;
 
+	private ObservableList<Entite> entites;
 
 	public Environnement() {
 
@@ -70,39 +70,36 @@ public class  Environnement {
 
 		return this.lesMonstres;
 	}
-
-	private ObservableList<MonstreDeBase> getmonstreAdverse(ObservableList<MonstreDeBase> monstreAdverse, int camp) {
-		ObservableList<MonstreDeBase> adversaires = FXCollections.observableArrayList();
-
-		for(int i=0;i>=monstreAdverse.size(); i ++){
-			if (monstreAdverse.get(i).getCamp()!=camp){
-				monstreAdverse.add(monstreAdverse.get(i));
-			}
-
-		}
-		return monstreAdverse;
-	}
+//
+//	private ObservableList<MonstreDeBase> getmonstreAdverse(ObservableList<MonstreDeBase> monstreAdverse, int camp) {
+//		ObservableList<MonstreDeBase> adversaires = FXCollections.observableArrayList();
+//
+//		for(int i=0;i>=monstreAdverse.size(); i ++){
+//			if (monstreAdverse.get(i).getCamp()!=camp){
+//				monstreAdverse.add(monstreAdverse.get(i));
+//			}
+//
+//		}
+//		return monstreAdverse;
+//	}
 
 
 
 	// autres Méthodes:
 
 
-	public void ajouterEntite(MonstreDeBase entite, int camp){
-		entite.setCamp(camp);
+	public void ajouterEntite(int camp){
 
-		if(camp==0) {entite.setSpawnAllie();}
+		MonstreDeBase monstre=new Squelette(camp);
 
-		else { entite.setSpawnEnnemi();}
+		entites.add(monstre);
+		if (monstre instanceof MonstreDeBase){
 
-		entites.add(entite);
-		if (entite instanceof MonstreDeBase){
-
-			lesMonstres.add(entite);
+			lesMonstres.add(monstre);
 
 		}
 //		else {
-//			lesTours.add(entite);
+//			lesTours.add(monstre);
 //		}
 
 

@@ -3,6 +3,7 @@ package universite_paris8.iut.nchaieb.sae_jeux;
 import javafx.collections.ListChangeListener;
 import javafx.scene.layout.StackPane;
 import universite_paris8.iut.nchaieb.sae_jeux.modele.Entite;
+import universite_paris8.iut.nchaieb.sae_jeux.modele.MonstreDeBase;
 import universite_paris8.iut.nchaieb.sae_jeux.vue.EntiteVue;
 
 public class MonObservateurEntite implements ListChangeListener<Entite> {
@@ -18,8 +19,8 @@ public class MonObservateurEntite implements ListChangeListener<Entite> {
 
 
 
-    private void creerSprite(Entite entite) {
-        this.monstreVue.ajouterSprite(entite);
+    private void creerSprite(MonstreDeBase monstreDeBase) {
+        this.monstreVue.ajouterSprite(monstreDeBase);
     }
 
 
@@ -37,22 +38,25 @@ public class MonObservateurEntite implements ListChangeListener<Entite> {
             if (change.wasAdded()) {
 
                 for (Entite nouveau : change.getAddedSubList()) {
-                    creerSprite(nouveau);
-                    nouveau.getActionActuelle().addListener((observable, oldValue, newValue) -> {
+                    if (nouveau instanceof MonstreDeBase) {
+                        creerSprite((MonstreDeBase) nouveau);
+                        nouveau.getActionActuelle().addListener((observable, oldValue, newValue) -> {
 
-                        if (newValue.equals("fixe")){
+                            if (newValue.equals("fixe")) {
 
-                            this.monstreVue.stopAnimation(nouveau);
-                        }
-                        if(newValue.equals("marche")){
+                                this.monstreVue.stopAnimation(nouveau);
+                            }
+                            if (newValue.equals("marche")) {
 
-                            this.monstreVue.animationMarche(nouveau);
+                                this.monstreVue.animationMarche(nouveau);
 
-                        }
-                        if (newValue.equals("attaque")){
-                            this.monstreVue.animationAttaque(nouveau);
-                        }
-                    });
+                            }
+                            if (newValue.equals("attaque")) {
+                                this.monstreVue.animationAttaque(nouveau);
+                            }
+                        });
+                    }
+                    //else
 
 
                 }

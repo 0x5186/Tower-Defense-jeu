@@ -28,7 +28,7 @@ import java.util.ResourceBundle;
 
 public class Controller implements Initializable{
     private Environnement environnement;
-    private ObservableList<Symbole> symboles;
+    private ObservableList<Symbole> symboles; //TODO déplacer dans environnement
     private ArrayList<SortDeBase> lesSorts;
 
 
@@ -84,15 +84,15 @@ public class Controller implements Initializable{
         terrainVue.dessine(Main.map);
         observateur = new MonObservateurEntite(stackPane);
         environnement= new Environnement();
-        environnement.getEntites().addListener(observateur);
+        environnement.getLesMonstres().addListener(observateur);
 
-        MonObservateurSymbole symbole = new MonObservateurSymbole(stackPane);
+        MonObservateurSymbole symbole = new MonObservateurSymbole(this.interfaceVue);
 
         initAnimation();
 
         if (Main.map == 2) {
 
-            this.interfaceVue.dessinMenu();
+
             Rectangle rectangle = new Rectangle(50, 50, Color.RED);
             stackPane.getChildren().add(rectangle);
             rectangle.setX(10);
@@ -135,8 +135,7 @@ public class Controller implements Initializable{
 
     @FXML
     public void AjouterMonstreAllie() {
-        MonstreDeBase squelette=new Squelette();
-        this.environnement.ajouterEntite(squelette,0);
+        this.environnement.ajouterEntite(0);
 
     }
     @FXML
@@ -144,8 +143,8 @@ public class Controller implements Initializable{
 
 
 
-        MonstreDeBase squelette=new Squelette();
-        this.environnement.ajouterEntite(squelette,1);
+        MonstreDeBase squelette=new Squelette(1);
+        this.environnement.ajouterEntite(1);
     }
     
     @FXML

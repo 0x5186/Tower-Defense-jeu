@@ -23,7 +23,10 @@ public abstract class MonstreDeBase extends Entite{
     protected int vitesse;// multiplicateur de vitesse ou pixels par sec ?
     protected int portee;
 
-    public MonstreDeBase(int pvMax, int atq, int PosX, int PosY, int vitesse){
+    private int camp; // 0 = allié 1 = ennemi
+
+    public MonstreDeBase(int pvMax, int atq, int PosX, int PosY, int vitesse, int camp){
+        this.camp = camp;
         this.atq=atq;
         this.pvMax = pvMax;
         this.nombreDePV = pvMax;
@@ -35,12 +38,15 @@ public abstract class MonstreDeBase extends Entite{
         this.vitesse = vitesse;
         this.actionActuelle.set("fixe");
 
+        if(camp==0) {this.setSpawnAllie();}
+
+        else { this.setSpawnEnnemi();}
     }
 
     public void agir(ObservableList<MonstreDeBase> listeMonstre) {
         MonstreDeBase monstrePlusProche;
         ArrayList<MonstreDeBase> monstreAdverse;
-        monstreAdverse=getmonstreAdverse(listeMonstre, this.getCamp());
+        monstreAdverse=getmonstreAdverse(listeMonstre, this.camp);
         if (!listeMonstre.isEmpty()) {
 
              monstrePlusProche = this.plusProche(monstreAdverse);
@@ -72,7 +78,7 @@ public abstract class MonstreDeBase extends Entite{
    private ArrayList<MonstreDeBase> getmonstreAdverse(ObservableList<MonstreDeBase> monstreAdverse, int camp) {
         ArrayList<MonstreDeBase> listeAdverse= new ArrayList<>();
         for(int i=0; i <monstreAdverse.size(); i++){
-            if(monstreAdverse.get(i).getCamp()!= camp){
+            if(monstreAdverse.get(i).camp != this.camp){
                 listeAdverse.add(monstreAdverse.get(i));
 
             }
@@ -107,7 +113,7 @@ public abstract class MonstreDeBase extends Entite{
     }
 
     private void avancer() {
-        if(this.getCamp()==0){
+        if(this.camp==0){
             setPosX(getPosX()-25);
 
         }
@@ -190,7 +196,7 @@ public abstract class MonstreDeBase extends Entite{
 
     }
 
-
-
-
+    public int getCamp() {
+        return camp;
+    }
 }

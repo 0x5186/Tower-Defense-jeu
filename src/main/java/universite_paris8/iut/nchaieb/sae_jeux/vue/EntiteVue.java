@@ -27,7 +27,7 @@ public class EntiteVue {
         this.stackPane= stackPane;
     }
 
-    public void ajouterSprite(Entite entite){
+    public void ajouterSprite(MonstreDeBase entite){
 
         ImageView  iv= new ImageView();
         if (entite instanceof Squelette) {

@@ -17,10 +17,6 @@ import java.util.HashMap;
 public class InterfaceVue {
     Image FeuilleSort = new Image(Main.class.getResourceAsStream("images/FeuillePourLesSorts.png"));
     Image InterfaceBas = new Image(Main.class.getResourceAsStream("images/interfaceBas.png"));
-    Image SymboleGoutte = new Image(Main.class.getResourceAsStream("images/symboleGoutteDeau.png"));
-    Image SymboleCroix = new Image(Main.class.getResourceAsStream("images/symboleCroix.png"));
-    Image SymboleSpirale = new Image(Main.class.getResourceAsStream("images/symboleSpirale.png"));
-
     Image symboleGoutte = new Image(Main.class.getResourceAsStream("images/symboleGoutteDeau.png"));
     Image symboleCroix = new Image(Main.class.getResourceAsStream("images/symboleCroix.png"));
     Image symboleSpirale = new Image(Main.class.getResourceAsStream("images/symboleSpirale.png"));
@@ -29,7 +25,7 @@ public class InterfaceVue {
     Image symboleOiseau = new Image(Main.class.getResourceAsStream("images/symboleOiseau.png"));
 
     private StackPane stackPane;
-    private ObservableList<String> tableauDimages;
+
     private StackPane contientSymbole;
 
 

@@ -15,7 +15,7 @@ public class Entite implements EntiteInterface{
     private IntegerProperty PosX;
     private IntegerProperty PosY;
 
-    private int camp;
+
     protected StringProperty actionActuelle= new SimpleStringProperty();
 
 
@@ -27,6 +27,7 @@ public class Entite implements EntiteInterface{
         this.id ="E"+ this.compteurID;
         this.compteurID++;
         this.actionActuelle.set("fixe");
+
 
     }
 
@@ -59,17 +60,12 @@ public class Entite implements EntiteInterface{
         this.PosX.set(posX);
     }
 
-    public int getCamp() {
-        return camp;
-    }
+
 
     public StringProperty getActionActuelle() {
         return actionActuelle;
     }
 
-    public void setCamp(int camp) {
-        this.camp = camp;
-    }
 
     public void setActionActuelle(String actionActuelle) {
         this.actionActuelle.set(actionActuelle);
