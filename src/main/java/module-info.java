@@ -5,6 +5,7 @@ module universite_paris8.iut.nchaieb.sae_jeux {
     requires java.sql;
 
 
+
     opens universite_paris8.iut.nchaieb.sae_jeux to javafx.fxml;
     exports universite_paris8.iut.nchaieb.sae_jeux;
     exports universite_paris8.iut.nchaieb.sae_jeux.modele;

@@ -6,12 +6,13 @@ public abstract class SortDeBase implements Sort   {
 
     protected int coutSort;
 
-
     public SortDeBase(int coutSort) {
         this.coutSort = coutSort;
     }
 
     public abstract ArrayList<Symbole> getCombinaison();
+
+    public abstract void invoquerSort();
 
     public boolean combinaisonValidee(ArrayList<Symbole> symboles){
         ArrayList<Symbole> combinaisonDuSort = getCombinaison();
@@ -34,7 +35,4 @@ public abstract class SortDeBase implements Sort   {
         }
         return true;
     }
-
-    public abstract void invoquerSort();
-
 }

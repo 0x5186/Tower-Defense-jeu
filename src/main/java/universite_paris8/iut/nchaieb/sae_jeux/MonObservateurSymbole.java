@@ -4,28 +4,27 @@ import javafx.collections.ListChangeListener;
 import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 import universite_paris8.iut.nchaieb.sae_jeux.modele.Symbole;
-import universite_paris8.iut.nchaieb.sae_jeux.vue.EntiteVue;
+import universite_paris8.iut.nchaieb.sae_jeux.vue.InterfaceVue;
+
+import java.util.*;
 
 public class MonObservateurSymbole implements ListChangeListener<Symbole> {
-    private StackPane stackPane;
-    private EntiteVue monstreVue= new EntiteVue(stackPane);
 
+    private InterfaceVue interfaceVue;
 
-
-    public MonObservateurSymbole(StackPane panneauJeu) {
-        super();
-        this.stackPane = panneauJeu;
+    public MonObservateurSymbole(InterfaceVue interfaceVue){
+        this.interfaceVue = interfaceVue;
     }
 
-
     @Override
-    public void onChanged(Change<? extends Symbole> change) {
-        while(change.next()) {
-            if (change.wasAdded()) {
+    public void onChanged(Change<? extends Symbole> change){
+        while(change.next()){
+            if (change.wasAdded()){
                 for (Symbole symbole : change.getAddedSubList()){
-                    System.out.println(symbole + ": ajouté !");
+                    this.interfaceVue.afficherUnSeulSymbole(symbole.getType());
                 }
             }
         }
     }
+
 }

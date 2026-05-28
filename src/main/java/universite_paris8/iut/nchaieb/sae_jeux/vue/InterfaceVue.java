@@ -9,7 +9,11 @@ import javafx.scene.layout.StackPane;
 import universite_paris8.iut.nchaieb.sae_jeux.Main;
 import javafx.collections.FXCollections;
 import universite_paris8.iut.nchaieb.sae_jeux.MonObservateurSymbole;
+import universite_paris8.iut.nchaieb.sae_jeux.Main;
+import universite_paris8.iut.nchaieb.sae_jeux.modele.Symbole;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 public class InterfaceVue {
     Image FeuilleSort = new Image(Main.class.getResourceAsStream("images/FeuillePourLesSorts.png"));
     Image InterfaceBas = new Image(Main.class.getResourceAsStream("images/interfaceBas.png"));
@@ -17,30 +21,37 @@ public class InterfaceVue {
     Image SymboleCroix = new Image(Main.class.getResourceAsStream("images/symboleCroix.png"));
     Image SymboleSpirale = new Image(Main.class.getResourceAsStream("images/symboleSpirale.png"));
 
+    Image symboleGoutte = new Image(Main.class.getResourceAsStream("images/symboleGoutteDeau.png"));
+    Image symboleCroix = new Image(Main.class.getResourceAsStream("images/symboleCroix.png"));
+    Image symboleSpirale = new Image(Main.class.getResourceAsStream("images/symboleSpirale.png"));
+    Image symboleOeil = new Image(Main.class.getResourceAsStream("images/symboleOeil.png"));
+    Image symboleEclipse = new Image(Main.class.getResourceAsStream("images/symboleEclipse.png"));
+    Image symboleOiseau = new Image(Main.class.getResourceAsStream("images/symboleOiseau.png"));
+
     private StackPane stackPane;
     private ObservableList<String> tableauDimages;
+    private StackPane contientSymbole;
 
 
     public InterfaceVue(StackPane stackPane) {
         this.stackPane = stackPane;
-        this.tableauDimages = FXCollections.observableArrayList();
-//        this.tableauDimages.addListener(new MonObservateurSymbole(stackPane));
+        this.contientSymbole = new StackPane();
     }
 
     public void dessinMenu () {
 
         ImageView FeuillePentacle = new ImageView(FeuilleSort);
         ImageView InterfaceDuBas = new ImageView(InterfaceBas);
-        ImageView symboleGoutte = new ImageView(SymboleGoutte);
-        ImageView symboleCroix = new ImageView(SymboleCroix);
-        ImageView symboleSpirale = new ImageView(SymboleSpirale);
+
         if( this.stackPane!=null){
-            //Interface Bas
+
+            this.stackPane.getChildren().add(InterfaceDuBas);
+
+            //Interface du bas
             InterfaceDuBas.setTranslateY(750);
             InterfaceDuBas.setTranslateX(500);
             InterfaceDuBas.setScaleX(1.25);
             InterfaceDuBas.setScaleX(2.5);
-            this.stackPane.getChildren().add(InterfaceDuBas);
 
             //Feuille pentacle
             FeuillePentacle.setTranslateX(1400); // position X en pixels
@@ -48,23 +59,66 @@ public class InterfaceVue {
             FeuillePentacle.setScaleX(0.65);
             FeuillePentacle.setScaleY(0.65);
             this.stackPane.getChildren().add(FeuillePentacle);
+            this.stackPane.getChildren().add(this.contientSymbole);
+        }
+    }
 
-            //Symbole Goutte
-            symboleGoutte.setTranslateX(1480);
-            symboleGoutte.setTranslateY(670);
-            symboleGoutte.setScaleX(0.1);
-            symboleGoutte.setScaleY(0.1);
-            this.stackPane.getChildren().add(symboleGoutte);
+    public void afficherUnSeulSymbole(String typeSymbole){
+        ImageView image = null;
 
-            //Symbole Croix
-            symboleCroix.setTranslateX(1320);
-            symboleCroix.setTranslateY(670);
-            symboleCroix.setScaleX(0.1);
-            symboleCroix.setScaleY(0.1);
-            this.stackPane.getChildren().add(symboleCroix);
+        switch(typeSymbole){
+            case "Spirale":
+                image = new ImageView(symboleSpirale);
+                image.setTranslateX(760);
+                break;
+            case "Croix":
+                image = new ImageView(symboleCroix);
+                image.setTranslateX(600);
+                break;
+            case "Goutte":
+                image = new ImageView(symboleGoutte);
+                image.setTranslateX(680);
+                break;
+            case "Oeil":
+                image = new ImageView(symboleOeil);
+                image.setTranslateX(680);
+                break;
+            case "Eclipse":
+                image = new ImageView(symboleEclipse);
+                image.setTranslateX(680);
+                break;
+            case "Oiseau":
+                image = new ImageView(symboleOiseau);
+                image.setTranslateX(740);
         }
 
-
+        if (image != null){
+            if (image.getImage().equals(symboleOeil)){
+                image.setTranslateY(440);
+                image.setScaleY(0.05);
+                image.setScaleX(0.05);
+            } else if (image.getImage().equals(symboleEclipse)){
+                image.setTranslateY(530);
+                image.setScaleY(0.05);
+                image.setScaleX(0.05);
+            } else if (image.getImage().equals(symboleOiseau)){
+                image.setTranslateY(550);
+                image.setScaleY(0.05);
+                image.setScaleX(0.05);
+            } else {
+                image.setTranslateY(485);
+                image.setScaleY(0.1);
+                image.setScaleX(0.1);
+            }
+            this.contientSymbole.getChildren().add(image);
+        }
     }
+
+    public void viderSumbolesAffiches(){
+        if (this.contientSymbole != null){
+            this.contientSymbole.getChildren().clear();
+        }
+    }
+
 
 }
