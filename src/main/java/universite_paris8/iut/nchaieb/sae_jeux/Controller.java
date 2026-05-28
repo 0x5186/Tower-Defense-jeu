@@ -195,7 +195,7 @@ public class Controller implements Initializable{
                 sortActuel.invoquerSort();
             }
         }
-        this.environnement.getSymboles().clear(); 
+        this.environnement.getSymboles().clear();
         this.interfaceVue.viderSumbolesAffiches();
     }
 }

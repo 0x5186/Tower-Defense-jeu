@@ -96,7 +96,7 @@
                   </ScrollPane>
                   <Button fx:id="boutonMonstreEnnemi" layoutX="22.0" layoutY="70.0" mnemonicParsing="false" onAction="#AjouterMonstreEnnemi" text="ajouter ennemi" />
 
-                   <Button fx:id="boutonAjouterMonstre" layoutX="170.0" layoutY="70.0" mnemonicParsing="false" onAction="#AjouterMonstreAllie" text="ajouter allie" />
+
                   <Button fx:id="boutonValiderPentacle" layoutX="452.0" layoutY="109.0" mnemonicParsing="false" onAction="#AppuyerSurValideePentacle" text="Valider Sort" />
                </children>
             </Pane>

@@ -68,6 +68,7 @@ public class MonstreVue {
 
     public void animationMarche(Entite monstre) {
 
+        
         ImageView iv = (ImageView) this.hashMap.get(monstre);
 
 
