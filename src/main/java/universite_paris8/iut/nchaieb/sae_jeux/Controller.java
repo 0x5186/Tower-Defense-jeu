@@ -83,7 +83,7 @@ public class Controller implements Initializable{
         MonObservateurMonstre observateurMonstres = new MonObservateurMonstre(stackPane);
         MonObservateurTour monObservateurTour = new MonObservateurTour(stackPane);
 
-        environnement= new Environnement();
+        environnement= new Environnement(this.terrain);
         environnement.getLesMonstres().addListener(observateurMonstres);
         environnement.getLesTours().addListener(monObservateurTour);
 
@@ -209,7 +209,7 @@ public class Controller implements Initializable{
             int posXGridPixel = gridX * TAILLE_TUILE;
             int posYGridPixel = gridY * TAILLE_TUILE;
 
-            TourDeBase nouvelleTour = new TourDeBase(posXGridPixel, posYGridPixel);
+            Tour nouvelleTour = new TourOeil();
             this.environnement.ajouterTour(nouvelleTour);
 
             // Tour ramenée à 32x32 pour un terrain en 16px
@@ -240,4 +240,3 @@ public class Controller implements Initializable{
     }
 }
 
-}

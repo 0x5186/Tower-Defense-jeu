@@ -82,9 +82,6 @@ public class Environnement {
 
     }
 
-	public final IntegerProperty nbToursProperty(){
-		return this.nbTours;	
-	}
 
 	public final IntegerProperty nbToursProperty(){ return this.nbTours; }
 	public int getNbTours() { return this.nbTours.getValue(); }
@@ -149,37 +146,18 @@ public class Environnement {
 //	}
 
 
-	public void avancer(MonstreDeBase monstre) { monstre.setPosX(monstre.getPosX()+1); }
-	public ArrayList<MonstreDeBase> getLesAlliees() { return this.lesAlliees; }
-	public ArrayList<MonstreDeBase> getLesMonstres() { return this.lesMonstres; }
-
-	public MonstreDeBase getLesAlliees(String id) {
-		for(MonstreDeBase a: this.lesAlliees){
-			if(a.getId().equals(id)){ return a; }
-		}
-		return null;
-	}
-//
-//	public ArrayList<Monstre> voirLesMonstresElimines(){
-//		ArrayList<Monstre> historiqueDeKill = new ArrayList<>();
-//		Monstre entiteActuel;
-//	public MonstreDeBase getLesMonstres(String id) {
-//		for(MonstreDeBase m: this.lesMonstres){
-//			if(m.getId().equals(id)){ return m; }
+	public void avancer(Monstre monstre) { monstre.setPosX(monstre.getPosX()+1); }
+////
+//	public ArrayList<MonstreDeBase> voirLesMonstresElimines(){
+//		ArrayList<MonstreDeBase> historiqueDeKill = new ArrayList<>();
+//		MonstreDeBase entiteActuel;
+//		for (int i = 0; i < this.lesMonstres.size(); i++){
+//			entiteActuel = lesMonstres.get(i);
+//			historiqueDeKill.add(entiteActuel);
+//			this.lesMonstres.remove(i);
 //		}
-//		return null;
+//		return historiqueDeKill;
 //	}
-
-	public ArrayList<MonstreDeBase> voirLesMonstresElimines(){
-		ArrayList<MonstreDeBase> historiqueDeKill = new ArrayList<>();
-		MonstreDeBase entiteActuel;
-		for (int i = 0; i < this.lesMonstres.size(); i++){
-			entiteActuel = lesMonstres.get(i);
-			historiqueDeKill.add(entiteActuel);
-			this.lesMonstres.remove(i);
-		}
-		return historiqueDeKill;
-	}
 
 	public void ajouterTour(Tour tour){
 		this.lesTours.add(tour);

@@ -2,7 +2,7 @@ package universite_paris8.iut.nchaieb.sae_jeux.modele;
 
 import javafx.collections.ObservableList;
 
-public abstract class Tour extends Entite{
+public class Tour extends Entite{
     protected int portee;
     protected int x, y;
 

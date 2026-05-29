@@ -89,40 +89,13 @@
 
                            </children></AnchorPane>
                     </content>
-                     <effect>
-                        <Glow level="0.07" />
-                     </effect>
+<!--                     <effect><Glow level="0.07" />-->
+<!--                     </effect>-->
                   </ScrollPane>
-                  <Button fx:id="boutonMonstreEnnemi" layoutX="22.0" layoutY="70.0" mnemonicParsing="false" onAction="#AjouterMonstreEnnemi" text="ajouter ennemi" />
-
+                   <Button fx:id="boutonMonstreEnnemi" layoutX="22.0" layoutY="70.0" mnemonicParsing="false" onAction="#AjouterMonstreEnnemi" text="ajouter ennemi" />
+                   <Button fx:id="boutonAjouterTour" layoutX="500.0" layoutY="95.0" prefHeight="50.0" prefWidth="150.0" style="-fx-font-size: 16px;" mnemonicParsing="false" onAction="#activerModePlacementTour" text="Ajouter tour" />
 
                   <Button fx:id="boutonValiderPentacle" layoutX="452.0" layoutY="109.0" mnemonicParsing="false" onAction="#AppuyerSurValideePentacle" text="Valider Sort" />
-               </children>
-            </Pane>
-         </children>
-      </StackPane>
-   </center>
-
-   <bottom>
-      <StackPane prefHeight="248.0" prefWidth="1920.0" BorderPane.alignment="CENTER">
-         <children>
-            <ImageView fitHeight="248.0" fitWidth="1920.0" preserveRatio="false">
-               <image>
-                  <Image url="@images/interfaceBas.png" />
-               </image>
-            </ImageView>
-
-            <Pane prefHeight="248.0" prefWidth="1920.0">
-               <children>
-                  <ImageView fitHeight="200.0" fitWidth="300.0" layoutX="1550.0" layoutY="20.0" preserveRatio="true">
-                     <image>
-                        <Image url="@images/FeuillePourLesSorts.png" />
-                     </image>
-                  </ImageView>
-
-                  <Button fx:id="boutonMonstreEnnemi" layoutX="100.0" layoutY="95.0" prefHeight="50.0" prefWidth="150.0" style="-fx-font-size: 16px;" mnemonicParsing="false" onAction="#AjouterMonstreEnnemi" text="Ajouter ennemi" />
-                  <Button fx:id="boutonAjouterMonstre" layoutX="300.0" layoutY="95.0" prefHeight="50.0" prefWidth="150.0" style="-fx-font-size: 16px;" mnemonicParsing="false" onAction="#AjouterMonstreAllie" text="Ajouter allié" />
-                  <Button fx:id="boutonAjouterTour" layoutX="500.0" layoutY="95.0" prefHeight="50.0" prefWidth="150.0" style="-fx-font-size: 16px;" mnemonicParsing="false" onAction="#activerModePlacementTour" text="Ajouter tour" />
                </children>
             </Pane>
          </children>
