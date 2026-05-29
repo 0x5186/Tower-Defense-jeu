@@ -198,7 +198,11 @@ public class Controller implements Initializable{
         this.environnement.getSymboles().add(symboleOiseau);
         System.out.println("Oiseau ajouté dans la liste");
     }
-
+    @FXML
+    public void activerModePlacementTour() {
+        this.modePlacementTour = true;
+        System.out.println("Mode placement de tour activé. Cliquez sur une case vide du terrain !");
+    }
     private void placerTour(double xPixel, double yPixel) {
         int TAILLE_TUILE = 16;
         int gridX = (int) (xPixel / TAILLE_TUILE);

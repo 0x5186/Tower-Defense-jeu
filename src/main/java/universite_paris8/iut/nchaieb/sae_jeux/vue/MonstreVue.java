@@ -11,8 +11,8 @@ import universite_paris8.iut.nchaieb.sae_jeux.modele.*;
 import universite_paris8.iut.nchaieb.sae_jeux.modele.monstres.Sorcier;
 import universite_paris8.iut.nchaieb.sae_jeux.modele.monstres.Squelette;
 import universite_paris8.iut.nchaieb.sae_jeux.modele.Environnement;
-import universite_paris8.iut.nchaieb.sae_jeux.modele.MonstreDeBase;
-import universite_paris8.iut.nchaieb.sae_jeux.modele.Squelette;
+import universite_paris8.iut.nchaieb.sae_jeux.modele.Monstre;
+//import universite_paris8.iut.nchaieb.sae_jeux.modele.Squelette;
 
 import java.util.HashMap;
 
