@@ -1,10 +1,14 @@
 package universite_paris8.iut.nchaieb.sae_jeux.vue;
 
+import javafx.beans.property.StringProperty;
+import javafx.collections.ObservableList;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import universite_paris8.iut.nchaieb.sae_jeux.Main;
+import javafx.collections.FXCollections;
+import universite_paris8.iut.nchaieb.sae_jeux.MonObservateurSymbole;
 import universite_paris8.iut.nchaieb.sae_jeux.Main;
 import universite_paris8.iut.nchaieb.sae_jeux.modele.Symbole;
 
@@ -21,6 +25,7 @@ public class InterfaceVue {
     Image symboleOiseau = new Image(Main.class.getResourceAsStream("images/symboleOiseau.png"));
 
     private StackPane stackPane;
+
     private StackPane contientSymbole;
 
 

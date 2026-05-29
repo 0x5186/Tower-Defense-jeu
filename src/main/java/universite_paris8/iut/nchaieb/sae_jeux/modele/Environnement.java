@@ -1,14 +1,10 @@
 package universite_paris8.iut.nchaieb.sae_jeux.modele;
 
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import universite_paris8.iut.nchaieb.sae_jeux.Main;
-import universite_paris8.iut.nchaieb.sae_jeux.MonObservateurEntite;
+import universite_paris8.iut.nchaieb.sae_jeux.modele.monstres.Squelette;
 
 import java.util.ArrayList;
 
@@ -19,87 +15,72 @@ public class  Environnement {
 	private IntegerProperty nbTours;
 
 
-
-	private ObservableList<Entite> entites;
 	private ObservableList<Tour> lesTours;
-	private ObservableList<MonstreDeBase> lesMonstres;
+	private ObservableList<Monstre> lesMonstres;
 
+
+	private ObservableList<Symbole> symboles; //liste des symboles
 
 	public Environnement() {
+
 		this.nbTours = new SimpleIntegerProperty();
-
-
-		this.entites =FXCollections.observableArrayList();
-
 		this.lesTours =FXCollections.observableArrayList();
 		this.lesMonstres = FXCollections.observableArrayList();
+		this.symboles = FXCollections.observableArrayList();
 
-		//à voir, pour l'instant
-		MonstreDeBase.compteurID = 0;
+
+		Monstre.compteurID = 0;
 		Entite.compteurID = 0;
 	}
 
 // 	les Get :
 
 
-	public ObservableList<Entite> getEntites() {
-
-		return entites;
-	}
-
-	public ObservableList<MonstreDeBase> getLesMonstres() {
+	public ObservableList<Monstre> getLesMonstres() {
 		return lesMonstres;
 	}
 
 	public ObservableList<Tour> getLesTours() {
 		return this.lesTours;
 	}
-	public ObservableList<MonstreDeBase> triLesMonstres() {
-		lesMonstres.clear();
-		MonstreDeBase monstre;
-		for(int i=0; i<this.entites.size(); i++){
-			if (entites.get(i) instanceof MonstreDeBase){
-				monstre = (MonstreDeBase) entites.get(i);
-				lesMonstres.add(monstre);
 
-
-			}
-		}
-
-
-		return this.lesMonstres;
+	public ObservableList<Symbole> getSymboles() {
+		return this.symboles;
 	}
 
-	private ObservableList<MonstreDeBase> getmonstreAdverse(ObservableList<MonstreDeBase> monstreAdverse, int camp) {
-		ObservableList<MonstreDeBase> adversaires = FXCollections.observableArrayList();
 
-		for(int i=0;i>=monstreAdverse.size(); i ++){
-			if (monstreAdverse.get(i).getCamp()!=camp){
-				monstreAdverse.add(monstreAdverse.get(i));
-			}
-
-		}
-		return monstreAdverse;
-	}
+//	private ObservableList<Monstre> getmonstreAdverse(ObservableList<Monstre> monstreAdverse, int camp) {
+//		ObservableList<Monstre> adversaires = FXCollections.observableArrayList();
+//
+//		for(int i=0;i>=monstreAdverse.size(); i ++){
+//			if (monstreAdverse.get(i).getCamp()!=camp){
+//				monstreAdverse.add(monstreAdverse.get(i));
+//			}
+//
+//		}
+//		return monstreAdverse;
+//	}
 
 
 
 	// autres Méthodes:
 
 
-	public void ajouterEntite(MonstreDeBase entite, int camp){
-		entite.setCamp(camp);
+	public void ajouterEntite(){
 
-		if(camp==0) {entite.setSpawnAllie();}
+		Monstre monstre=new Squelette();
 
-		else { entite.setSpawnEnnemi();}
+		if (monstre instanceof Monstre){
 
-		entites.add(entite);
-		if (entite instanceof MonstreDeBase){
-
-			lesMonstres.add(entite);
+			lesMonstres.add(monstre);
 
 		}
+//		else {
+//			lesTours.add(monstre);
+//		}
+
+
+
 
 
     }
@@ -124,12 +105,12 @@ public class  Environnement {
 				if (this.lesMonstres.get(i).estVivant()){
 					System.out.println(this.lesMonstres.get(i).getPV());
 
-					this.lesMonstres.get(i).agir(this.lesMonstres);
+					this.lesTours.get(i).agir(this.lesMonstres);
 
 				} else {
 					System.out.println("je suis remove");
 					this.lesMonstres.remove(i);
-					this.entites.remove(i);
+
 
 
 				}
@@ -139,8 +120,8 @@ public class  Environnement {
 
 	}
 
-//	public ArrayList<MonstreDeBase> fusionnerListe(ArrayList<MonstreDeBase> monstreAllie, ArrayList<MonstreDeBase> monstreEnnemi){
-//		ArrayList<MonstreDeBase> listeFusion=new ArrayList<MonstreDeBase>();
+//	public ArrayList<Monstre> fusionnerListe(ArrayList<Monstre> monstreAllie, ArrayList<Monstre> monstreEnnemi){
+//		ArrayList<Monstre> listeFusion=new ArrayList<Monstre>();
 //		for(int i=0; i<monstreAllie.size()+monstreEnnemi.size(); i++){
 //			if(i>= monstreAllie.size()){
 //				listeFusion.add(monstreEnnemi.get(i));
@@ -153,9 +134,9 @@ public class  Environnement {
 //	}
 
 
-//	public ObservableList<MonstreDeBase> triVitesse(ObservableList<MonstreDeBase> listMonstre){
-//		ArrayList<MonstreDeBase> listeTrie= new ArrayList<MonstreDeBase>();
-//		MonstreDeBase monstre;
+//	public ObservableList<Monstre> triVitesse(ObservableList<Monstre> listMonstre){
+//		ArrayList<Monstre> listeTrie= new ArrayList<Monstre>();
+//		Monstre monstre;
 //		int indexMax;
 //		for(int i=0; i< listMonstre.size(); i++){
 //			indexMax=i;
@@ -174,16 +155,16 @@ public class  Environnement {
 
 
 
-	public void avancer(MonstreDeBase monstre) {
+	public void avancer(Monstre monstre) {
 		monstre.setPosX(monstre.getPosX()+1);
 	}
 
 	//ce que j'ai rajouté(musa le japonais)
 
 
-	public ArrayList<MonstreDeBase> voirLesMonstresElimines(){
-		ArrayList<MonstreDeBase> historiqueDeKill = new ArrayList<>();
-		MonstreDeBase entiteActuel;
+	public ArrayList<Monstre> voirLesMonstresElimines(){
+		ArrayList<Monstre> historiqueDeKill = new ArrayList<>();
+		Monstre entiteActuel;
 		for (int i = 0; i < this.lesMonstres.size(); i++){
 			entiteActuel = lesMonstres.get(i);
 			historiqueDeKill.add(entiteActuel);

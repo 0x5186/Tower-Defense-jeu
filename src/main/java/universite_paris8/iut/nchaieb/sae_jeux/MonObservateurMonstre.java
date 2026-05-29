@@ -3,23 +3,24 @@ package universite_paris8.iut.nchaieb.sae_jeux;
 import javafx.collections.ListChangeListener;
 import javafx.scene.layout.StackPane;
 import universite_paris8.iut.nchaieb.sae_jeux.modele.Entite;
-import universite_paris8.iut.nchaieb.sae_jeux.vue.EntiteVue;
+import universite_paris8.iut.nchaieb.sae_jeux.modele.Monstre;
+import universite_paris8.iut.nchaieb.sae_jeux.vue.MonstreVue;
 
-public class MonObservateurEntite implements ListChangeListener<Entite> {
+public class MonObservateurMonstre implements ListChangeListener<Monstre> {
 
     private StackPane stackPane;
-    private EntiteVue monstreVue;
+    private MonstreVue monstreVue;
 
-    public MonObservateurEntite(StackPane panneauJeu) {
+    public MonObservateurMonstre(StackPane panneauJeu) {
         super();
         this.stackPane = panneauJeu;
-        this.monstreVue = new EntiteVue(this.stackPane);
+        this.monstreVue = new MonstreVue(this.stackPane);
     }
 
 
 
-    private void creerSprite(Entite entite) {
-        this.monstreVue.ajouterSprite(entite);
+    private void creerSprite(Monstre monstreDeBase) {
+        this.monstreVue.ajouterSprite(monstreDeBase);
     }
 
 
@@ -31,28 +32,31 @@ public class MonObservateurEntite implements ListChangeListener<Entite> {
     }
 
     @Override
-    public void onChanged(Change<? extends Entite> change) {
+    public void onChanged(Change<? extends Monstre> change) {
 
         while (change.next()) {
             if (change.wasAdded()) {
 
-                for (Entite nouveau : change.getAddedSubList()) {
+                for (Monstre nouveau : change.getAddedSubList()) {
+
                     creerSprite(nouveau);
                     nouveau.getActionActuelle().addListener((observable, oldValue, newValue) -> {
 
-                        if (newValue.equals("fixe")){
+                        if (newValue.equals("fixe")) {
 
                             this.monstreVue.stopAnimation(nouveau);
                         }
-                        if(newValue.equals("marche")){
+                        if (newValue.equals("marche")) {
 
                             this.monstreVue.animationMarche(nouveau);
 
                         }
-                        if (newValue.equals("attaque")){
+                        if (newValue.equals("attaque")) {
                             this.monstreVue.animationAttaque(nouveau);
                         }
                     });
+
+
 
 
                 }

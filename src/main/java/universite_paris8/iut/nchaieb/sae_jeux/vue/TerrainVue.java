@@ -35,7 +35,7 @@ public class TerrainVue {
 
     private TilePane tilePane;
     private Terrain terrain;
-    private ArrayList<EntiteVue> monstreVues = new ArrayList<>();
+    private ArrayList<MonstreVue> monstreVues = new ArrayList<>();
 
     public TerrainVue(Terrain terrain, TilePane tilePane) {
         this.terrain = terrain;
@@ -98,11 +98,11 @@ public class TerrainVue {
             }
         }
     }
-//    public void ajouterMonstre(MonstreDeBase monstre) {
+//    public void ajouterMonstre(Monstre monstre) {
 //        ImageView iv = ajouterEntite("squelette");
 //        this.stackPane.getChildren().add(iv);
 //
-//        EntiteVue mv = new EntiteVue(monstre, iv);
+//        MonstreVue mv = new MonstreVue(monstre, iv);
 //        monstreVues.add(mv);
 //
 //        mv.lancerAnimation(); // lance la Timeline

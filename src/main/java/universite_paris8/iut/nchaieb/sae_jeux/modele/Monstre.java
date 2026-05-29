@@ -1,13 +1,10 @@
 package universite_paris8.iut.nchaieb.sae_jeux.modele;
 
 import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.StringProperty;
-import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
 
-public abstract class MonstreDeBase extends Entite{
+public abstract class Monstre extends Entite{
 
     public static int compteurID = 0;
 
@@ -23,7 +20,10 @@ public abstract class MonstreDeBase extends Entite{
     protected int vitesse;// multiplicateur de vitesse ou pixels par sec ?
     protected int portee;
 
-    public MonstreDeBase(int pvMax, int atq, int PosX, int PosY, int vitesse){
+
+
+    public Monstre(int pvMax, int atq, int PosX, int PosY, int vitesse){
+
         this.atq=atq;
         this.pvMax = pvMax;
         this.nombreDePV = pvMax;
@@ -37,50 +37,50 @@ public abstract class MonstreDeBase extends Entite{
 
     }
 
-    public void agir(ObservableList<MonstreDeBase> listeMonstre) {
-        MonstreDeBase monstrePlusProche;
-        ArrayList<MonstreDeBase> monstreAdverse;
-        monstreAdverse=getmonstreAdverse(listeMonstre, this.getCamp());
-        if (!listeMonstre.isEmpty()) {
+//    public void agir(ObservableList<Monstre> listeMonstre) {
+//        Monstre monstrePlusProche;
+//        ArrayList<Monstre> monstreAdverse;
+//        monstreAdverse=getmonstreAdverse(listeMonstre, this.camp);
+//        if (!listeMonstre.isEmpty()) {
+//
+//             monstrePlusProche = this.plusProche(monstreAdverse);
+//            if (monstrePlusProche != null) {
+//                this.setActionActuelle("fixe");
+//                System.out.println("pas nul");
+//
+//                this.infligerDegat(monstrePlusProche);
+//                this.setActionActuelle("attaque");
+//            }
+//            else {
+//
+//
+//                this.avancer();
+//                this.setActionActuelle("fixe");
+//                this.setActionActuelle("marche");
+//
+//            }
+//
+////        }
+//        else {
+//
+//            this.avancer();
+//            this.setActionActuelle("fixe");
+//            this.setActionActuelle("marche");
+//        }
+//    }
 
-             monstrePlusProche = this.plusProche(monstreAdverse);
-            if (monstrePlusProche != null) {
-                this.setActionActuelle("fixe");
-                System.out.println("pas nul");
+//   private ArrayList<Monstre> getmonstreAdverse(ObservableList<Monstre> monstreAdverse, int camp) {
+//        ArrayList<Monstre> listeAdverse= new ArrayList<>();
+//        for(int i=0; i <monstreAdverse.size(); i++){
+//            if(monstreAdverse.get(i).camp != this.camp){
+//                listeAdverse.add(monstreAdverse.get(i));
+//
+//            }
+//        }
+//        return listeAdverse;
+//    }
 
-                this.infligerDegat(monstrePlusProche);
-                this.setActionActuelle("attaque");
-            }
-            else {
-
-
-                this.avancer();
-                this.setActionActuelle("fixe");
-                this.setActionActuelle("marche");
-
-            }
-
-        }
-        else {
-
-            this.avancer();
-            this.setActionActuelle("fixe");
-            this.setActionActuelle("marche");
-        }
-    }
-
-   private ArrayList<MonstreDeBase> getmonstreAdverse(ObservableList<MonstreDeBase> monstreAdverse, int camp) {
-        ArrayList<MonstreDeBase> listeAdverse= new ArrayList<>();
-        for(int i=0; i <monstreAdverse.size(); i++){
-            if(monstreAdverse.get(i).getCamp()!= camp){
-                listeAdverse.add(monstreAdverse.get(i));
-
-            }
-        }
-        return listeAdverse;
-    }
-
-    public  void infligerDegat(MonstreDeBase monstre){
+    public  void infligerDegat(Monstre monstre){
 
         if (monstre.nombreDePV != 0){
             monstre.retirerPV(this.atq);
@@ -107,20 +107,13 @@ public abstract class MonstreDeBase extends Entite{
     }
 
     private void avancer() {
-        if(this.getCamp()==0){
-            setPosX(getPosX()-25);
-
-        }
-        else{
-            setPosX(getPosX()+25);
-
-        }
+        setPosX(getPosX()+25);
 
     }
 
-    public MonstreDeBase plusProche(ArrayList<MonstreDeBase> listeMonstre){
+    public Monstre plusProche(ArrayList<Monstre> listeMonstre){
 
-        MonstreDeBase monstrePlusProche= null;
+        Monstre monstrePlusProche= null;
         for(int i=0; i <listeMonstre.size(); i++){
             if(this.estDansLeRayon(listeMonstre.get(i))){
                 if( monstrePlusProche==null || calculDistance(listeMonstre.get(i))<calculDistance(monstrePlusProche)){
@@ -133,14 +126,14 @@ public abstract class MonstreDeBase extends Entite{
 
     }
 
-    private int calculDistance(MonstreDeBase monstre) {
+    private int calculDistance(Monstre monstre) {
         int distance = (monstre.getPosX()+ monstre.getPosY())-(getPosY()+getPosX());
         if (distance<0)
             distance=distance*-1;
         return distance;
     }
 
-    public boolean estDansLeRayon (MonstreDeBase monstre){
+    public boolean estDansLeRayon (Monstre monstre){
         //on va calculer la distance entre la tour et le mosntre
         int distanceX = Math.abs(monstre.getPosX() - this.getPosX());
         int distanceY = Math.abs(monstre.getPosY() - this.getPosY());
@@ -189,8 +182,6 @@ public abstract class MonstreDeBase extends Entite{
         this.setPosY(120);
 
     }
-
-
 
 
 }

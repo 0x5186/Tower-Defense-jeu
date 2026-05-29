@@ -1,6 +1,8 @@
 package universite_paris8.iut.nchaieb.sae_jeux;
 
 import javafx.collections.ListChangeListener;
+import javafx.scene.image.Image;
+import javafx.scene.layout.StackPane;
 import universite_paris8.iut.nchaieb.sae_jeux.modele.Symbole;
 import universite_paris8.iut.nchaieb.sae_jeux.vue.InterfaceVue;
 
