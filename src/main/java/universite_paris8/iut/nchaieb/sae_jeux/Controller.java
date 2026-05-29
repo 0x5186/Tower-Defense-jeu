@@ -2,19 +2,16 @@ package universite_paris8.iut.nchaieb.sae_jeux;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
-import universite_paris8.iut.nchaieb.sae_jeux.modele.*;
 import universite_paris8.iut.nchaieb.sae_jeux.modele.Environnement;
 import universite_paris8.iut.nchaieb.sae_jeux.modele.Terrain;
-import universite_paris8.iut.nchaieb.sae_jeux.modele.combinaisonSorts.SortDeBase;
-import universite_paris8.iut.nchaieb.sae_jeux.modele.combinaisonSorts.SortDeFeu;
+import universite_paris8.iut.nchaieb.sae_jeux.modele.CombinaisonValables;
 import universite_paris8.iut.nchaieb.sae_jeux.vue.MonstreVue;
 import universite_paris8.iut.nchaieb.sae_jeux.vue.InterfaceVue;
 import universite_paris8.iut.nchaieb.sae_jeux.vue.TerrainVue;
@@ -25,11 +22,10 @@ import java.util.ResourceBundle;
 
 public class Controller implements Initializable{
     private Environnement environnement;
-    private ArrayList<SortDeBase> lesSorts;
+    private ArrayList<CombinaisonValables> lesSorts;
 
 
-    @FXML
-    private Button boutonAjouterMonstre;
+
     @FXML
     private TilePane tilePane;
     @FXML
@@ -39,7 +35,7 @@ public class Controller implements Initializable{
 
 
     private Timeline gameLoop;
-    private int temps; //TODO supprimer car remplacé par nbTours dans Env
+    private int temps;
     TerrainVue terrainVue;
     Terrain terrain;
     MonstreVue monstreVue;
@@ -88,28 +84,20 @@ public class Controller implements Initializable{
         environnement.getLesTours().addListener(monObservateurTour);
 
 
+
+
         initAnimation();
 
         if (stackPane != null) {
             stackPane.setOnMouseClicked(event -> {
-                if (modePlacementTour) {
-                    placerTour(event.getX(), event.getY());
+                if (environnement.isModePlacementTour()) {
+                    environnement.placerTour(event.getX(), event.getY());
                 }
             });
         }
 
 
         if (Main.map == 2) {
-
-
-            Rectangle rectangle = new Rectangle(50, 50, Color.RED);
-            stackPane.getChildren().add(rectangle);
-            rectangle.setX(10);
-            rectangle.setY(340);
-
-
-
-
             try {
                 gameLoop.play();
             } catch (Exception e) {
@@ -118,12 +106,8 @@ public class Controller implements Initializable{
 
             //Partie symbole
             MonObservateurSymbole monObservateurSymbole = new MonObservateurSymbole(this.interfaceVue);
-            this.environnement.getSymboles().addListener(monObservateurSymbole);
+            this.environnement.getSymbolesProperty().addListener(monObservateurSymbole);
 
-            //Partie sort
-            this.lesSorts = new ArrayList<>();
-            SortDeBase sc = new SortDeFeu(); //test la liste des sorts
-            this.lesSorts.add(sc);
             this.interfaceVue.dessinMenu();
         }
 
@@ -132,13 +116,7 @@ public class Controller implements Initializable{
 
     }
 
-    private void mettreAJour() {
-//        this.monstreVue.unTour();
-//        if(this.environnement==null){
-//            return;
-//        }
-        this.environnement.unTour();
-    }
+
 
     @FXML
     public void onBoutonJouerClique() throws Exception {
@@ -150,96 +128,89 @@ public class Controller implements Initializable{
 
     @FXML
     public void AjouterMonstreEnnemi() {
-
-
-
-
-        this.environnement.ajouterEntite();
+        this.environnement.ajouterMonstre();
     }
     
     @FXML
     public void AppuyerSurSymboleCroix() {
-        Symbole symboleCroix = new Symbole("Croix");
-        this.environnement.getSymboles().add(symboleCroix);
+
+        this.environnement.getSymboles().ajouterSymbole("croix");
         System.out.println("Croix ajouté dans la liste");
     }
 
     @FXML
     public void AppuyerSurSymboleGoutteDeau() {
-        Symbole symboleGoutteDeau= new Symbole("Goutte");
-        this.environnement.getSymboles().add(symboleGoutteDeau);
+
+        this.environnement.getSymboles().ajouterSymbole("goutte");
         System.out.println("Goutte ajouté dans liste");
     }
 
     @FXML
     public void AppuyerSurSymboleSpirale() {
-        Symbole symboleSpirale = new Symbole("Spirale");
-        this.environnement.getSymboles().add(symboleSpirale);
+        this.environnement.getSymboles().ajouterSymbole("spirale");
         System.out.println("Spirale ajouté dans la liste");
     }
 
     @FXML
     public void AppuyerSurSymboleOeil(){
-        Symbole symboleOeil = new Symbole("Oeil");
-        this.environnement.getSymboles().add(symboleOeil);
+        this.environnement.getSymboles().ajouterSymbole("oeil");
         System.out.println("Oeil d'horus ajouté dans la liste");
     }
 
     @FXML
     public void AppuyerSurSymboleEclipse() {
-        Symbole symboleEclipse = new Symbole("Eclipse");
-        this.environnement.getSymboles().add(symboleEclipse);
+
+        this.environnement.getSymboles().ajouterSymbole("eclipse");
         System.out.println("Eclipse ajouté dans la liste");
     }
 
     @FXML
     public void AppuyerSurSymboleOiseau(){
-        Symbole symboleOiseau = new Symbole("Oiseau");
-        this.environnement.getSymboles().add(symboleOiseau);
+
+        this.environnement.getSymboles().ajouterSymbole("oiseau");
         System.out.println("Oiseau ajouté dans la liste");
     }
-    @FXML
-    public void activerModePlacementTour() {
-        this.modePlacementTour = true;
-        System.out.println("Mode placement de tour activé. Cliquez sur une case vide du terrain !");
-    }
-    private void placerTour(double xPixel, double yPixel) {
-        int TAILLE_TUILE = 16;
-        int gridX = (int) (xPixel / TAILLE_TUILE);
-        int gridY = (int) (yPixel / TAILLE_TUILE);
 
-        if (!this.terrain.estPraticable(gridX, gridY)) {
 
-            int posXGridPixel = gridX * TAILLE_TUILE;
-            int posYGridPixel = gridY * TAILLE_TUILE;
-
-            Tour nouvelleTour = new TourOeil();
-            this.environnement.ajouterTour(nouvelleTour);
-
-            // Tour ramenée à 32x32 pour un terrain en 16px
-            Rectangle rectTour = new Rectangle(32, 32, Color.DIMGRAY);
-            rectTour.setTranslateX(posXGridPixel);
-            rectTour.setTranslateY(posYGridPixel);
-            stackPane.getChildren().add(rectTour);
-
-            this.modePlacementTour = false;
-            System.out.println("Tour placée avec succès en X:" + gridX + " Y:" + gridY);
-        } else {
-            System.out.println("Impossible de placer une tour sur le chemin des monstres !");
-        }
-    }
+//    @FXML
+//    public void activerModePlacementTour() {
+//        this.environnement.setModePlacementTour(true);
+//        System.out.println("Mode placement de tour activé. Cliquez sur une case vide du terrain !");
+//    }
+//    private void placerTour(double xPixel, double yPixel) {
+//        int TAILLE_TUILE = 16;
+//        int gridX = (int) (xPixel / TAILLE_TUILE);
+//        int gridY = (int) (yPixel / TAILLE_TUILE);
+//
+//        if (!this.terrain.estPraticable(gridX, gridY)) {
+//
+//            int posXGridPixel = gridX * TAILLE_TUILE;
+//            int posYGridPixel = gridY * TAILLE_TUILE;
+//
+//            Tour nouvelleTour = new TourOeil();
+//            this.environnement.ajouterTour(nouvelleTour);
+//
+//            // Tour ramenée à 32x32 pour un terrain en 16px
+//            Rectangle rectTour = new Rectangle(32, 32, Color.DIMGRAY);
+//            rectTour.setTranslateX(posXGridPixel);
+//            rectTour.setTranslateY(posYGridPixel);
+//            stackPane.getChildren().add(rectTour);
+//
+//            this.modePlacementTour = false;
+//            System.out.println("Tour placée avec succès en X:" + gridX + " Y:" + gridY);
+//        } else {
+//            System.out.println("Impossible de placer une tour sur le chemin des monstres !");
+//        }
+//    }
     @FXML
     public void AppuyerSurValideePentacle(){
-        SortDeBase sortActuel;
-        ArrayList<Symbole> listeTempo = new ArrayList<>(this.environnement.getSymboles());
+        System.out.println(this.environnement.getSymboles());
+        if(!(this.environnement.getSymboles().verifierCombinaison()==null)){
 
-        for (int i = 0; i < this.lesSorts.size(); i++){
-            sortActuel = this.lesSorts.get(i);
-            if (sortActuel.combinaisonValidee(listeTempo)){
-                sortActuel.invoquerSort();
-            }
+
+            this.environnement.ajouterTour(this.environnement.getSymboles().verifierCombinaison());
         }
-        this.environnement.getSymboles().clear();
+        this.environnement.getSymboles().reset();
         this.interfaceVue.viderSumbolesAffiches();
     }
 }

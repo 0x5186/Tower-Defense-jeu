@@ -1,14 +1,10 @@
 package universite_paris8.iut.nchaieb.sae_jeux;
 
+import javafx.beans.property.StringProperty;
 import javafx.collections.ListChangeListener;
-import javafx.scene.image.Image;
-import javafx.scene.layout.StackPane;
-import universite_paris8.iut.nchaieb.sae_jeux.modele.Symbole;
 import universite_paris8.iut.nchaieb.sae_jeux.vue.InterfaceVue;
 
-import java.util.*;
-
-public class MonObservateurSymbole implements ListChangeListener<Symbole> {
+public class MonObservateurSymbole implements ListChangeListener<String> {
 
     private InterfaceVue interfaceVue;
 
@@ -17,11 +13,11 @@ public class MonObservateurSymbole implements ListChangeListener<Symbole> {
     }
 
     @Override
-    public void onChanged(Change<? extends Symbole> change){
+    public void onChanged(Change<? extends String> change){
         while(change.next()){
             if (change.wasAdded()){
-                for (Symbole symbole : change.getAddedSubList()){
-                    this.interfaceVue.afficherUnSeulSymbole(symbole.getType());
+                for (String symbole : change.getAddedSubList()){
+                    this.interfaceVue.afficherUnSeulSymbole(symbole);
                 }
             }
         }

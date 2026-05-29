@@ -34,22 +34,25 @@ public class MonstreVue {
         this.stackPane= stackPane;
     }
 
-    public void ajouterSprite(Monstre entite){
+    public void ajouterSprite(Monstre monstre){
 
         ImageView  iv= new ImageView();
-        if (entite instanceof Squelette) {
+        if (monstre instanceof Squelette) {
             iv = new ImageView(squelette);
         }
-        if (entite instanceof Sorcier) {
+        if (monstre instanceof Sorcier) {
             iv = new ImageView(sorcier);
         }
-        iv.translateXProperty().bind(entite.posXProperty());
-        iv.translateYProperty().bind(
-                entite.posYProperty()
+        iv.translateXProperty().bind(monstre.posXProperty());
+        iv.translateYProperty().bind(monstre.posYProperty()
         );
-        this.hashMap.put(entite, iv);
 
+        this.hashMap.put(monstre, iv);
 
+        if (monstre instanceof Squelette){
+            iv.setScaleX(0.40);
+            iv.setScaleY(0.40);
+        }
         iv.setViewport(new Rectangle2D(0,0,240,240));
 
         this.stackPane.getChildren().add(iv);
@@ -77,34 +80,39 @@ public class MonstreVue {
 
 
         ImageView iv = (ImageView) this.hashMap.get(monstre);
-
-
         int largeurCase = 240;
         int hauteurCase = 240;
-        int[] frameIndex = {13};
+
+        if (monstre instanceof Squelette){
+            iv.setScaleX(0.25);
+            iv.setScaleY(0.25);
+            int[] frameIndex = {13};
+            Timeline squeletteMarche = new Timeline(
+
+                    new KeyFrame(Duration.millis(90), e -> {
+
+                        int x, y;
+                        if (frameIndex[0] < 12) {
+                            x = frameIndex[0] % 6;
+                            y = frameIndex[0] / 6;
+                        } else {
+                            x = frameIndex[0] - 12;
+                            y = 2;
+                        }
+                        frameIndex[0]++;
+                        if (frameIndex[0] == 15) frameIndex[0] = 0;
+                        iv.setViewport(new Rectangle2D(x* largeurCase, y * hauteurCase, largeurCase, hauteurCase));
+
+                    })
+            );
+            this.hashMapAnimation.put(monstre, squeletteMarche);
+            squeletteMarche.setCycleCount(15);
+            squeletteMarche.play();
 
 
-        Timeline squeletteMarche = new Timeline(
+        }
 
-                new KeyFrame(Duration.millis(90), e -> {
 
-                    int x, y;
-                    if (frameIndex[0] < 12) {
-                        x = frameIndex[0] % 6;
-                        y = frameIndex[0] / 6;
-                    } else {
-                        x = frameIndex[0] - 12;
-                        y = 2;
-                    }
-                    frameIndex[0]++;
-                    if (frameIndex[0] == 15) frameIndex[0] = 0;
-                    iv.setViewport(new Rectangle2D(x* largeurCase, y * hauteurCase, largeurCase, hauteurCase));
-
-                })
-        );
-        this.hashMapAnimation.put(monstre, squeletteMarche);
-        squeletteMarche.setCycleCount(15);
-        squeletteMarche.play();
 
 
 

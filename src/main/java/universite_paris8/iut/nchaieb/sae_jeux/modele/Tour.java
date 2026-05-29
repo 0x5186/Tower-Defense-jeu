@@ -4,7 +4,7 @@ import javafx.collections.ObservableList;
 
 public class Tour extends Entite{
     protected int portee;
-    protected int x, y;
+    protected double x, y;
 
     public Tour(int portee, int atq, int x, int y) {
 

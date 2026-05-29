@@ -12,6 +12,7 @@ import universite_paris8.iut.nchaieb.sae_jeux.Main;
 import universite_paris8.iut.nchaieb.sae_jeux.modele.Entite;
 import universite_paris8.iut.nchaieb.sae_jeux.modele.Monstre;
 import universite_paris8.iut.nchaieb.sae_jeux.modele.Tour;
+import universite_paris8.iut.nchaieb.sae_jeux.modele.TourOeil;
 import universite_paris8.iut.nchaieb.sae_jeux.modele.monstres.Sorcier;
 import universite_paris8.iut.nchaieb.sae_jeux.modele.monstres.Squelette;
 
@@ -21,8 +22,8 @@ public class TourVue {
     private StackPane stackPane;
     private HashMap hashMap= new HashMap<Monstre, ImageView>();
     private HashMap hashMapAnimation= new HashMap<Monstre, Timeline>();
-    Image squelette = new Image(Main.class.getResourceAsStream("images/squelette.png"));
-    Image  sorcier = new Image(Main.class.getResourceAsStream("images/sorcier.png"));
+    Image tourOeil = new Image(Main.class.getResourceAsStream("images/tourOeil.png"));
+
 
 
 
@@ -33,7 +34,11 @@ public class TourVue {
     public void ajouterSprite(Tour tour){
 
         ImageView  iv= new ImageView();
-
+        iv.setViewport(new Rectangle2D(0,0,240,240));
+        if(tour instanceof TourOeil){
+            iv=new ImageView(tourOeil);
+            iv.setViewport(new Rectangle2D(0,0,80,80));
+        }
         iv.translateXProperty().bind(tour.posXProperty());
         iv.translateYProperty().bind(
                 tour.posYProperty()
@@ -41,7 +46,7 @@ public class TourVue {
         this.hashMap.put(tour, iv);
 
 
-        iv.setViewport(new Rectangle2D(0,0,240,240));
+
 
         this.stackPane.getChildren().add(iv);
     }

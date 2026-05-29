@@ -2,28 +2,33 @@ package universite_paris8.iut.nchaieb.sae_jeux.modele;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import universite_paris8.iut.nchaieb.sae_jeux.modele.monstres.Squelette;
 
-import java.util.ArrayList;
-
 public class Environnement {
 	private IntegerProperty nbTours;
+
+
 
 
 	private ObservableList<Tour> lesTours;
 	private ObservableList<Monstre> lesMonstres;
 	private Terrain terrain;
 
-	private ObservableList<Symbole> symboles; //liste des symboles
+	private Tour tourAPlacer;
+	private Symboles symboles; //liste des symboles
+	private boolean modePlacementTour = false; //pour savoir si on est entrain de placer une tour ou pas
+
 
 	public Environnement(Terrain terrain) {
 		this.terrain = terrain;
 		this.nbTours = new SimpleIntegerProperty();
 		this.lesTours =FXCollections.observableArrayList();
 		this.lesMonstres = FXCollections.observableArrayList();
-		this.symboles = FXCollections.observableArrayList();
+		this.symboles = new Symboles();
+		tourAPlacer=new Tour(1,1,1,1);
 
 
 		Monstre.compteurID = 0;
@@ -41,43 +46,31 @@ public class Environnement {
 		return this.lesTours;
 	}
 
-	public ObservableList<Symbole> getSymboles() {
-		return this.symboles;
+	public Symboles getSymboles() {
+		return symboles;
+	}
+	public ObservableList<String> getSymbolesProperty() {
+		return symboles.getCombinaison();
+	}
+
+	public boolean isModePlacementTour() {
+		return modePlacementTour;
 	}
 
 
-//	private ObservableList<Monstre> getmonstreAdverse(ObservableList<Monstre> monstreAdverse, int camp) {
-//		ObservableList<Monstre> adversaires = FXCollections.observableArrayList();
-//
-//		for(int i=0;i>=monstreAdverse.size(); i ++){
-//			if (monstreAdverse.get(i).getCamp()!=camp){
-//				monstreAdverse.add(monstreAdverse.get(i));
-//			}
-//
-//		}
-//		return monstreAdverse;
-//	}
+// autres Méthodes:
 
+	public void ajouterTour(Tour tour){
+		System.out.println("tour prete");
+		this.tourAPlacer=tour;
+		this.modePlacementTour = true;
+//		this.lesTours.add(tour);
+	}
 
-
-	// autres Méthodes:
-
-
-	public void ajouterEntite(){
+	public void ajouterMonstre(){
 
 		Monstre monstre=new Squelette();
-
-		if (monstre instanceof Monstre){
-
-			lesMonstres.add(monstre);
-
-		}
-//		else {
-//			lesTours.add(monstre);
-//		}
-
-
-
+		lesMonstres.add(monstre);
 
 
     }
@@ -89,10 +82,10 @@ public class Environnement {
 	public void unTour() {
 
 		//faut les supp quand ils sont morts / sinon ils continuent d'avancer
-		if(!(this.lesMonstres ==null) && !this.lesMonstres.isEmpty() ){
+		if (!(this.lesMonstres == null) && !this.lesMonstres.isEmpty()) {
 
-			for (int i = this.lesMonstres.size() -1; i >= 0; i--){
-				if (this.lesMonstres.get(i).estVivant()){
+			for (int i = this.lesMonstres.size() - 1; i >= 0; i--) {
+				if (this.lesMonstres.get(i).estVivant()) {
 					System.out.println(this.lesMonstres.get(i).getPV());
 
 					this.lesTours.get(i).agir(this.lesMonstres);
@@ -102,64 +95,33 @@ public class Environnement {
 					this.lesMonstres.remove(i);
 
 
-
 				}
-			}
-		}
-		if(!lesTours.isEmpty()){
-			for(Tour tour : lesTours){
-				tour.agir(lesMonstres);
 			}
 		}
 	}
 
-//	public ArrayList<Monstre> fusionnerListe(ArrayList<Monstre> monstreAllie, ArrayList<Monstre> monstreEnnemi){
-//		ArrayList<Monstre> listeFusion=new ArrayList<Monstre>();
-//		for(int i=0; i<monstreAllie.size()+monstreEnnemi.size(); i++){
-//			if(i>= monstreAllie.size()){
-//				listeFusion.add(monstreEnnemi.get(i));
-//			}
-//			else{
-//				listeFusion.add(monstreAllie.get(i));
-//			}
-//		}
-//		return listeFusion;
-//	}
 
 
-//	public ObservableList<Monstre> triVitesse(ObservableList<Monstre> listMonstre){
-//		ArrayList<Monstre> listeTrie= new ArrayList<Monstre>();
-//		Monstre monstre;
-//		int indexMax;
-//		for(int i=0; i< listMonstre.size(); i++){
-//			indexMax=i;
-//			for(int j=i; j< listMonstre.size(); j++){
-//				if(listMonstre.get(j).getVitesse()>listMonstre.get(i).getVitesse()){
-//					indexMax= j;
-//				}
-//
-//			}
-//			listeTrie.add(listMonstre.get(indexMax));
-//
-//		}
-//		return listMonstre;
-//	}
+	public void placerTour(double xPixel, double yPixel) {
+		System.out.println("presque");
+		int TAILLE_TUILE = 16;
+		int gridX = (int) (xPixel / TAILLE_TUILE);
+		int gridY = (int) (yPixel / TAILLE_TUILE);
+
+		if (!this.terrain.estPraticable(gridX, gridY)) {
+
+			int posXGridPixel = gridX * TAILLE_TUILE;
+			int posYGridPixel = gridY * TAILLE_TUILE;
+			this.tourAPlacer.setPosX(posXGridPixel);
+			this.tourAPlacer.setPosY(posYGridPixel);
+			this.lesTours.add(this.tourAPlacer);
+			System.out.println("wawwwwwwwwww");
 
 
-	public void avancer(Monstre monstre) { monstre.setPosX(monstre.getPosX()+1); }
-////
-//	public ArrayList<MonstreDeBase> voirLesMonstresElimines(){
-//		ArrayList<MonstreDeBase> historiqueDeKill = new ArrayList<>();
-//		MonstreDeBase entiteActuel;
-//		for (int i = 0; i < this.lesMonstres.size(); i++){
-//			entiteActuel = lesMonstres.get(i);
-//			historiqueDeKill.add(entiteActuel);
-//			this.lesMonstres.remove(i);
-//		}
-//		return historiqueDeKill;
-//	}
-
-	public void ajouterTour(Tour tour){
-		this.lesTours.add(tour);
+			this.modePlacementTour = false;
+			System.out.println("Tour placée avec succès en X:" + gridX + " Y:" + gridY);
+		} else {
+			System.out.println("Impossible de placer une tour sur le chemin des monstres !");
+		}
 	}
 }

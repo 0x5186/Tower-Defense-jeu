@@ -40,7 +40,7 @@ public class MonObservateurTour implements ListChangeListener<Tour>{
 
                 for (Tour nouveau : change.getAddedSubList()) {
 
-                    tourVue.ajouterSprite(nouveau);
+                    creerSprite(nouveau);
                     nouveau.getActionActuelle().addListener((observable, oldValue, newValue) -> {
 
                         if (newValue.equals("fixe")) {

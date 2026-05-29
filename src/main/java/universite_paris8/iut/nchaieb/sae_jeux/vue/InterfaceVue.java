@@ -1,19 +1,11 @@
 package universite_paris8.iut.nchaieb.sae_jeux.vue;
 
 import javafx.beans.property.StringProperty;
-import javafx.collections.ObservableList;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import universite_paris8.iut.nchaieb.sae_jeux.Main;
-import javafx.collections.FXCollections;
-import universite_paris8.iut.nchaieb.sae_jeux.MonObservateurSymbole;
-import universite_paris8.iut.nchaieb.sae_jeux.Main;
-import universite_paris8.iut.nchaieb.sae_jeux.modele.Symbole;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 public class InterfaceVue {
     Image FeuilleSort = new Image(Main.class.getResourceAsStream("images/FeuillePourLesSorts.png"));
     Image InterfaceBas = new Image(Main.class.getResourceAsStream("images/interfaceBas.png"));
@@ -62,31 +54,34 @@ public class InterfaceVue {
     public void afficherUnSeulSymbole(String typeSymbole){
         ImageView image = null;
 
+
+
         switch(typeSymbole){
-            case "Spirale":
+            case "spirale":
                 image = new ImageView(symboleSpirale);
                 image.setTranslateX(760);
                 break;
-            case "Croix":
+            case "croix":
                 image = new ImageView(symboleCroix);
                 image.setTranslateX(600);
                 break;
-            case "Goutte":
+            case "goutte":
                 image = new ImageView(symboleGoutte);
                 image.setTranslateX(680);
                 break;
-            case "Oeil":
+            case "oeil":
                 image = new ImageView(symboleOeil);
                 image.setTranslateX(680);
                 break;
-            case "Eclipse":
+            case "eclipse":
                 image = new ImageView(symboleEclipse);
                 image.setTranslateX(680);
                 break;
-            case "Oiseau":
+            case "oiseau":
                 image = new ImageView(symboleOiseau);
                 image.setTranslateX(740);
         }
+
 
         if (image != null){
             if (image.getImage().equals(symboleOeil)){
