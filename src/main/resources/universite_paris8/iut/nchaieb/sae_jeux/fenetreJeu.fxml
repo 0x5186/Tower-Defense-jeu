@@ -99,6 +99,17 @@
                                    </graphic>
                                </Button>
 
+                               <Button fx:id="symbolePic" mnemonicParsing="false" onAction="#AppuyerSurSymbolePic" prefHeight="7.0" prefWidth="2.0" style="-fx-background-color: transparent; -fx-border-color: transparent; -fx-padding: 0;" layoutX="560" layoutY="-3">
+                                   <graphic>
+                                       <ImageView fitHeight="64.0" fitWidth="64.0" nodeOrientation="INHERIT" preserveRatio="true">
+                                           <image>
+                                               <Image url="@images/symbolePic.png">
+                                               </Image>
+                                           </image>
+                                       </ImageView>
+                                   </graphic>
+                               </Button>
+
                            </children></AnchorPane>
                     </content>
                      <effect>

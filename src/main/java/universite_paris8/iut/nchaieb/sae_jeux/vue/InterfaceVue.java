@@ -24,6 +24,7 @@ public class InterfaceVue {
     Image symboleEclipse = new Image(Main.class.getResourceAsStream("images/symboleEclipse.png"));
     Image symboleOiseau = new Image(Main.class.getResourceAsStream("images/symboleOiseau.png"));
     Image symboleTriange = new Image(Main.class.getResourceAsStream("images/symboleTriangle.png"));
+    Image symbolePic = new Image(Main.class.getResourceAsStream("images/symbolePic.png"));
 
     private StackPane stackPane;
 
@@ -109,6 +110,13 @@ public class InterfaceVue {
             case "Triangle":
                 image = new ImageView(symboleTriange);
                 image.setTranslateX(600);
+                image.setTranslateY(440);
+                image.setScaleY(0.08);
+                image.setScaleX(0.08);
+                break;
+            case "Pic":
+                image = new ImageView(symbolePic);
+                image.setTranslateX(740);
                 image.setTranslateY(440);
                 image.setScaleY(0.08);
                 image.setScaleX(0.08);

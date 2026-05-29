@@ -2,9 +2,7 @@ package universite_paris8.iut.nchaieb.sae_jeux;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -194,6 +192,13 @@ public class Controller implements Initializable{
         Symbole symboleTriangle = new Symbole("Triangle");
         this.symboles.add(symboleTriangle);
         System.out.println("Triangle ajouté dans la liste");
+    }
+
+    @FXML
+    public void  AppuyerSurSymbolePic() {
+        Symbole symbolePic = new Symbole("Pic");
+        this.symboles.add(symbolePic);
+        System.out.println("Pic ajouté dans la liste");
     }
 
     @FXML

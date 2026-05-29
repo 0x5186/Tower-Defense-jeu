@@ -26,5 +26,4 @@ public class MonObservateurSymbole implements ListChangeListener<Symbole> {
             }
         }
     }
-
 }
