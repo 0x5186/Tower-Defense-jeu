@@ -8,21 +8,18 @@ import universite_paris8.iut.nchaieb.sae_jeux.modele.monstres.Squelette;
 
 import java.util.ArrayList;
 
-public class  Environnement {
-
-//	private int largeur,hauteur;
-
+public class Environnement {
 	private IntegerProperty nbTours;
 
 
 	private ObservableList<Tour> lesTours;
 	private ObservableList<Monstre> lesMonstres;
-
+	private Terrain terrain;
 
 	private ObservableList<Symbole> symboles; //liste des symboles
 
-	public Environnement() {
-
+	public Environnement(Terrain terrain) {
+		this.terrain = terrain;
 		this.nbTours = new SimpleIntegerProperty();
 		this.lesTours =FXCollections.observableArrayList();
 		this.lesMonstres = FXCollections.observableArrayList();
@@ -89,12 +86,8 @@ public class  Environnement {
 		return this.nbTours;	
 	}
 
-	public int getNbTours() {
-		return this.nbTours.getValue();
-	}
-
-
-
+	public final IntegerProperty nbToursProperty(){ return this.nbTours; }
+	public int getNbTours() { return this.nbTours.getValue(); }
 
 	public void unTour() {
 
@@ -116,8 +109,11 @@ public class  Environnement {
 				}
 			}
 		}
-
-
+		if(!lesTours.isEmpty()){
+			for(Tour tour : lesTours){
+				tour.agir(lesMonstres);
+			}
+		}
 	}
 
 //	public ArrayList<Monstre> fusionnerListe(ArrayList<Monstre> monstreAllie, ArrayList<Monstre> monstreEnnemi){
@@ -153,23 +149,39 @@ public class  Environnement {
 //	}
 
 
+	public void avancer(MonstreDeBase monstre) { monstre.setPosX(monstre.getPosX()+1); }
+	public ArrayList<MonstreDeBase> getLesAlliees() { return this.lesAlliees; }
+	public ArrayList<MonstreDeBase> getLesMonstres() { return this.lesMonstres; }
 
-
-	public void avancer(Monstre monstre) {
-		monstre.setPosX(monstre.getPosX()+1);
+	public MonstreDeBase getLesAlliees(String id) {
+		for(MonstreDeBase a: this.lesAlliees){
+			if(a.getId().equals(id)){ return a; }
+		}
+		return null;
 	}
+//
+//	public ArrayList<Monstre> voirLesMonstresElimines(){
+//		ArrayList<Monstre> historiqueDeKill = new ArrayList<>();
+//		Monstre entiteActuel;
+//	public MonstreDeBase getLesMonstres(String id) {
+//		for(MonstreDeBase m: this.lesMonstres){
+//			if(m.getId().equals(id)){ return m; }
+//		}
+//		return null;
+//	}
 
-	//ce que j'ai rajouté(musa le japonais)
-
-
-	public ArrayList<Monstre> voirLesMonstresElimines(){
-		ArrayList<Monstre> historiqueDeKill = new ArrayList<>();
-		Monstre entiteActuel;
+	public ArrayList<MonstreDeBase> voirLesMonstresElimines(){
+		ArrayList<MonstreDeBase> historiqueDeKill = new ArrayList<>();
+		MonstreDeBase entiteActuel;
 		for (int i = 0; i < this.lesMonstres.size(); i++){
 			entiteActuel = lesMonstres.get(i);
 			historiqueDeKill.add(entiteActuel);
 			this.lesMonstres.remove(i);
 		}
 		return historiqueDeKill;
+	}
+
+	public void ajouterTour(Tour tour){
+		this.lesTours.add(tour);
 	}
 }

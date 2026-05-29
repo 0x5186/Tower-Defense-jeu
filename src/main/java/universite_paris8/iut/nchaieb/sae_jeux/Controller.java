@@ -49,6 +49,8 @@ public class Controller implements Initializable{
 
 
 
+    private boolean modePlacementTour = false;
+
     private void initAnimation() {
         gameLoop = new Timeline();
 
@@ -88,6 +90,15 @@ public class Controller implements Initializable{
 
         initAnimation();
 
+        if (stackPane != null) {
+            stackPane.setOnMouseClicked(event -> {
+                if (modePlacementTour) {
+                    placerTour(event.getX(), event.getY());
+                }
+            });
+        }
+
+
         if (Main.map == 2) {
 
 
@@ -122,6 +133,10 @@ public class Controller implements Initializable{
     }
 
     private void mettreAJour() {
+//        this.monstreVue.unTour();
+//        if(this.environnement==null){
+//            return;
+//        }
         this.environnement.unTour();
     }
 
@@ -129,8 +144,8 @@ public class Controller implements Initializable{
     public void onBoutonJouerClique() throws Exception {
         Main.map=2;
         Main.changerScene("universite_paris8/iut/nchaieb/sae_jeux/fenetreJeu.fxml");
-
     }
+
 
 
     @FXML
@@ -184,6 +199,31 @@ public class Controller implements Initializable{
         System.out.println("Oiseau ajouté dans la liste");
     }
 
+    private void placerTour(double xPixel, double yPixel) {
+        int TAILLE_TUILE = 16;
+        int gridX = (int) (xPixel / TAILLE_TUILE);
+        int gridY = (int) (yPixel / TAILLE_TUILE);
+
+        if (!this.terrain.estPraticable(gridX, gridY)) {
+
+            int posXGridPixel = gridX * TAILLE_TUILE;
+            int posYGridPixel = gridY * TAILLE_TUILE;
+
+            TourDeBase nouvelleTour = new TourDeBase(posXGridPixel, posYGridPixel);
+            this.environnement.ajouterTour(nouvelleTour);
+
+            // Tour ramenée à 32x32 pour un terrain en 16px
+            Rectangle rectTour = new Rectangle(32, 32, Color.DIMGRAY);
+            rectTour.setTranslateX(posXGridPixel);
+            rectTour.setTranslateY(posYGridPixel);
+            stackPane.getChildren().add(rectTour);
+
+            this.modePlacementTour = false;
+            System.out.println("Tour placée avec succès en X:" + gridX + " Y:" + gridY);
+        } else {
+            System.out.println("Impossible de placer une tour sur le chemin des monstres !");
+        }
+    }
     @FXML
     public void AppuyerSurValideePentacle(){
         SortDeBase sortActuel;
@@ -198,4 +238,6 @@ public class Controller implements Initializable{
         this.environnement.getSymboles().clear();
         this.interfaceVue.viderSumbolesAffiches();
     }
+}
+
 }

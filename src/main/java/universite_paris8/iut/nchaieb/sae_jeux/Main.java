@@ -15,8 +15,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage premierstage) throws IOException {
-        System.out.println(Main.class.getResource("universite_paris8/iut/nchaieb/sae_jeux/fenetreMenu.fxml"));
-        stage=premierstage;
+        stage = premierstage;
 
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("fenetreMenu.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1200, 900);
@@ -30,18 +29,11 @@ public class Main extends Application {
 
     }
 
-//    public static int mapChoisie() {
-//        return map;
-//    }
-
-
-    public static void setMap(int map) {
-        Main.map = map;
-    }
+    public static void setMap(int map) { Main.map = map; }
 
     public static void changerScene(String fxml) throws Exception {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("fenetreJeu.fxml"));
-        Scene scene = new Scene(loader.load(), 1200, 900);
+        Scene scene = new Scene(loader.load(), 1920, 1080);
         stage.setScene(scene);
     }
 

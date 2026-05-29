@@ -10,9 +10,14 @@ import universite_paris8.iut.nchaieb.sae_jeux.Main;
 import universite_paris8.iut.nchaieb.sae_jeux.modele.*;
 import universite_paris8.iut.nchaieb.sae_jeux.modele.monstres.Sorcier;
 import universite_paris8.iut.nchaieb.sae_jeux.modele.monstres.Squelette;
+import universite_paris8.iut.nchaieb.sae_jeux.modele.Environnement;
+import universite_paris8.iut.nchaieb.sae_jeux.modele.MonstreDeBase;
+import universite_paris8.iut.nchaieb.sae_jeux.modele.Squelette;
 
 import java.util.HashMap;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class MonstreVue {
     private StackPane stackPane;
@@ -21,6 +26,8 @@ public class MonstreVue {
     Image  squelette = new Image(Main.class.getResourceAsStream("images/squelette.png"));
     Image  sorcier = new Image(Main.class.getResourceAsStream("images/sorcier.png"));
 
+    private final int DECALAGE_X = 105;
+    private final int DECALAGE_Y = 120;
 
 
     public MonstreVue(StackPane stackPane) {
@@ -68,7 +75,7 @@ public class MonstreVue {
 
     public void animationMarche(Entite monstre) {
 
-        
+
         ImageView iv = (ImageView) this.hashMap.get(monstre);
 
 
