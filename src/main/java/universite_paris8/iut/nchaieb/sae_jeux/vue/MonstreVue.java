@@ -23,6 +23,9 @@ public class MonstreVue {
     private HashMap<MonstreDeBase, ImageView> hashMapMorts = new HashMap<>();
     Image squelette = new Image(Main.class.getResourceAsStream("images/squelette.png"));
 
+    private final int DECALAGE_X = 105;
+    private final int DECALAGE_Y = 120;
+
     public MonstreVue(StackPane stackPane, Environnement environnement) {
         this.stackPane = stackPane;
         this.environnement = environnement;
@@ -36,8 +39,8 @@ public class MonstreVue {
             }
             else {
                 ImageView iv = hashMap.get(monstre);
-                iv.setTranslateX(monstre.getPosX());
-                iv.setTranslateY(monstre.getPosY());
+                iv.setTranslateX(monstre.getPosX() - DECALAGE_X);
+                iv.setTranslateY(monstre.getPosY() - DECALAGE_Y);
 
                 if (!monstre.estVivant()) {
                     if(animeLoop.containsKey(monstre)){
@@ -60,9 +63,14 @@ public class MonstreVue {
     public void animationMarche(MonstreDeBase monstre) {
         if(monstre instanceof Squelette){
             ImageView iv=new ImageView(squelette);
-            if(monstre.getCamp()==0) { iv.setScaleX(-1); }
-            iv.setTranslateX(monstre.getPosX());
-            iv.setTranslateY(monstre.getPosY());
+
+            iv.setScaleX(0.25);
+            iv.setScaleY(0.25);
+
+            if(monstre.getCamp()==0) { iv.setScaleX(-0.25); }
+
+            iv.setTranslateX(monstre.getPosX() - DECALAGE_X);
+            iv.setTranslateY(monstre.getPosY() - DECALAGE_Y);
 
             hashMap.put(monstre, iv);
             this.stackPane.getChildren().add(iv);
@@ -74,8 +82,8 @@ public class MonstreVue {
 
             Timeline squeletteMarche = new Timeline(
                     new KeyFrame(Duration.millis(100), e -> {
-                        iv.setTranslateX(monstre.getPosX());
-                        iv.setTranslateY(monstre.getPosY());
+                        iv.setTranslateX(monstre.getPosX() - DECALAGE_X);
+                        iv.setTranslateY(monstre.getPosY() - DECALAGE_Y);
                         int x, y;
                         if (!monstre.estVivant()) {
                             iv.setImage(null);
@@ -102,9 +110,13 @@ public class MonstreVue {
     public void animationMort(MonstreDeBase monstre) {
         if(monstre instanceof Squelette){
             ImageView iv=new ImageView(squelette);
-            if(monstre.getCamp()==0) { iv.setScaleX(-1); }
-            iv.setTranslateX(monstre.getPosX());
-            iv.setTranslateY(monstre.getPosY());
+
+            iv.setScaleX(0.25);
+            iv.setScaleY(0.25);
+            if(monstre.getCamp()==0) { iv.setScaleX(-0.25); }
+
+            iv.setTranslateX(monstre.getPosX() - DECALAGE_X);
+            iv.setTranslateY(monstre.getPosY() - DECALAGE_Y);
 
             hashMapMorts.put(monstre,iv);
             this.stackPane.getChildren().add(iv);

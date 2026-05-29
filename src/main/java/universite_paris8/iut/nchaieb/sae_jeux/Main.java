@@ -12,11 +12,11 @@ public class Main extends Application {
 
     @Override
     public void start(Stage premierstage) throws IOException {
-        System.out.println(Main.class.getResource("universite_paris8/iut/nchaieb/sae_jeux/fenetreMenu.fxml"));
         stage = premierstage;
+
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("fenetreMenu.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 800, 600);
-        stage.setTitle("witch hat atelier defense");
+        stage.setTitle("Witch Hat Atelier Defense");
         stage.setScene(scene);
         stage.show();
     }
@@ -25,8 +25,9 @@ public class Main extends Application {
 
     public static void changerScene(String fxml) throws Exception {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("fenetreJeu.fxml"));
-        Scene scene = new Scene(loader.load(), 1700, 1000);
+        Scene scene = new Scene(loader.load(), 1920, 1080);
         stage.setScene(scene);
+        stage.setFullScreen(true);
     }
 
     public static void main(String[] args) {

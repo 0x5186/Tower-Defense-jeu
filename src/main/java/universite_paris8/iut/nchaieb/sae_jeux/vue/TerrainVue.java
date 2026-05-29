@@ -7,14 +7,9 @@ import universite_paris8.iut.nchaieb.sae_jeux.modele.Terrain;
 import universite_paris8.iut.nchaieb.sae_jeux.Main;
 
 public class TerrainVue {
-    Image bleu = new Image(Main.class.getResourceAsStream("images/bleu.png"));
-    Image herbe = new Image(Main.class.getResourceAsStream("images/herbe.png"));
-    Image nuage = new Image(Main.class.getResourceAsStream("images/bleunuage.png"));
-    Image herbecailloux = new Image(Main.class.getResourceAsStream("images/herbecailloux.png"));
-    Image barriere = new Image(Main.class.getResourceAsStream("images/barriere.png"));
-    Image solmilieu = new Image(Main.class.getResourceAsStream("images/solmilieu.png"));
-    Image solhaut = new Image(Main.class.getResourceAsStream("images/solhaut.png"));
-    Image solbas = new Image(Main.class.getResourceAsStream("images/solbas.png"));
+    Image herbeBasse = new Image(Main.class.getResourceAsStream("images/herbe-basse.png"));
+    Image herbeHaute = new Image(Main.class.getResourceAsStream("images/herbe-haute.png"));
+    Image terrainChemin = new Image(Main.class.getResourceAsStream("images/terrain.png"));
 
     private TilePane tilePane;
     private Terrain terrain;
@@ -25,22 +20,28 @@ public class TerrainVue {
     }
 
     public void dessine(int map) {
-        switch (map){
-            case 1: terrain.test(); break;
-            case 2: terrain.terrainPlainesCode(); break;
-        }
+        // Sécurité pour le bug du menu noir
+        if (map == 1) { return; }
+
+        terrain.terrainPlainesCode();
+        this.tilePane.getChildren().clear();
 
         for (int l = 0; l < this.terrain.hauteur(); l++) {
             for (int col = 0; col < this.terrain.largeur(); col++) {
+                ImageView imageView = new ImageView();
+
+                // Retour à la taille normale (16x16)
+                imageView.setFitWidth(16);
+                imageView.setFitHeight(16);
+
                 switch (this.terrain.codeTuile(l, col)) {
-                    case 1: this.tilePane.getChildren().add(new ImageView(bleu)); break;
-                    case 2: this.tilePane.getChildren().add(new ImageView(nuage)); break;
-                    case 3: this.tilePane.getChildren().add(new ImageView(herbe)); break;
-                    case 4: this.tilePane.getChildren().add(new ImageView(herbecailloux)); break;
-                    case 5: this.tilePane.getChildren().add(new ImageView(barriere)); break;
-                    case 6: this.tilePane.getChildren().add(new ImageView(solmilieu)); break;
-                    case 7: this.tilePane.getChildren().add(new ImageView(solhaut)); break;
-                    case 8: this.tilePane.getChildren().add(new ImageView(solbas)); break;
+                    case 0: imageView.setImage(herbeBasse); break;
+                    case 1: imageView.setImage(herbeHaute); break;
+                    case 2: imageView.setImage(terrainChemin); break;
+                }
+
+                if (imageView.getImage() != null) {
+                    this.tilePane.getChildren().add(imageView);
                 }
             }
         }

@@ -75,24 +75,6 @@ public class Controller implements Initializable {
         }
 
         if (Main.map == 2) {
-            this.interfaceVue.dessinMenu();
-            Rectangle rectangle = new Rectangle(50, 50, Color.RED);
-
-            if (stackPane != null) {
-                stackPane.getChildren().add(rectangle);
-            }
-
-            rectangle.setX(10);
-            rectangle.setY(340);
-
-            TranslateTransition transition = new TranslateTransition();
-            transition.setNode(rectangle);
-            transition.setByX(1450);
-            transition.setDuration(Duration.seconds(10));
-            transition.setCycleCount(TranslateTransition.INDEFINITE);
-            transition.setAutoReverse(true);
-            transition.play();
-
             try {
                 gameLoop.play();
             } catch (Exception e) {
@@ -134,8 +116,6 @@ public class Controller implements Initializable {
     @FXML
     public void AppuyerSurSymboleGoutteDeau() { System.out.println("ok okgdgfdofgdk"); }
 
-
-
     @FXML
     public void activerModePlacementTour() {
         this.modePlacementTour = true;
@@ -143,7 +123,7 @@ public class Controller implements Initializable {
     }
 
     private void placerTour(double xPixel, double yPixel) {
-        int TAILLE_TUILE = 32;
+        int TAILLE_TUILE = 16;
         int gridX = (int) (xPixel / TAILLE_TUILE);
         int gridY = (int) (yPixel / TAILLE_TUILE);
 
@@ -155,7 +135,8 @@ public class Controller implements Initializable {
             TourDeBase nouvelleTour = new TourDeBase(posXGridPixel, posYGridPixel);
             this.environnement.ajouterTour(nouvelleTour);
 
-            Rectangle rectTour = new Rectangle(TAILLE_TUILE, TAILLE_TUILE, Color.DIMGRAY);
+            // Tour ramenée à 32x32 pour un terrain en 16px
+            Rectangle rectTour = new Rectangle(32, 32, Color.DIMGRAY);
             rectTour.setTranslateX(posXGridPixel);
             rectTour.setTranslateY(posYGridPixel);
             stackPane.getChildren().add(rectTour);
@@ -166,4 +147,5 @@ public class Controller implements Initializable {
             System.out.println("Impossible de placer une tour sur le chemin des monstres !");
         }
     }
+
 }

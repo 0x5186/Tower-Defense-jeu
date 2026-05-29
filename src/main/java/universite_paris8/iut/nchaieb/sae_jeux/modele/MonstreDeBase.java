@@ -20,7 +20,11 @@ public abstract class MonstreDeBase extends EntiteAllieeDeBase {
 
     private Terrain terrain;
     private ArrayList<Noeud> chemin;
-    private final int TAILLE_TUILE = 32;
+
+    private final int TAILLE_TUILE = 16;
+
+    private int targetX;
+    private int targetY;
 
     public MonstreDeBase(int pvMax, int atq, int PosX, int PosY, int vitesse) {
         super(atq);
@@ -40,13 +44,36 @@ public abstract class MonstreDeBase extends EntiteAllieeDeBase {
     }
 
     public void setSpawnAllie() {
-        this.setPosX(47 * TAILLE_TUILE);
-        this.setPosY(11 * TAILLE_TUILE);
+        this.setPosX((this.terrain.largeur() - 1) * TAILLE_TUILE);
+        this.setPosY(26 * TAILLE_TUILE);
+
+        int portailAleatoire = (int) (Math.random() * 3);
+        if (portailAleatoire == 0) {
+            this.targetX = 0; this.targetY = 8;
+        } else if (portailAleatoire == 1) {
+            this.targetX = 10; this.targetY = 51;
+        } else {
+            this.targetX = 50; this.targetY = 0;
+        }
     }
 
     public void setSpawnEnnemi() {
-        this.setPosX(0);
-        this.setPosY(11 * TAILLE_TUILE);
+        int portailAleatoire = (int) (Math.random() * 3);
+
+        if (portailAleatoire == 0) { // Haut-Gauche
+            this.setPosX(0);
+            this.setPosY(8 * TAILLE_TUILE);
+        } else if (portailAleatoire == 1) { // Bas-Gauche
+            this.setPosX(10 * TAILLE_TUILE);
+            this.setPosY(51 * TAILLE_TUILE);
+        } else { // Haut-Milieu
+            this.setPosX(50 * TAILLE_TUILE);
+            this.setPosY(0);
+        }
+
+        // Base
+        this.targetX = this.terrain.largeur() - 1;
+        this.targetY = 26;
     }
 
     public void agir(ArrayList<MonstreDeBase> ennemis, ArrayList<MonstreDeBase> collegues) {
@@ -72,7 +99,6 @@ public abstract class MonstreDeBase extends EntiteAllieeDeBase {
                 int distanceY = Math.abs(collegue.getPosY() - this.getPosY());
 
                 if ((distanceX + distanceY) < 25) {
-
                     if (this.getCamp() == 1 && collegue.getPosX() > this.getPosX()) return true;
                     if (this.getCamp() == 0 && collegue.getPosX() < this.getPosX()) return true;
 
@@ -115,10 +141,7 @@ public abstract class MonstreDeBase extends EntiteAllieeDeBase {
             int departGridX = this.getPosX() / TAILLE_TUILE;
             int departGridY = this.getPosY() / TAILLE_TUILE;
 
-            int cibleGridX = (this.getCamp() == 1) ? 47 : 0;
-            int cibleGridY = 11;
-
-            this.chemin = AlgorithmeAEtoile.trouverChemin(terrain, departGridX, departGridY, cibleGridX, cibleGridY);
+            this.chemin = AlgorithmeAEtoile.trouverChemin(terrain, departGridX, departGridY, this.targetX, this.targetY);
 
             if (this.chemin == null || this.chemin.isEmpty()) return;
         }
@@ -172,8 +195,6 @@ public abstract class MonstreDeBase extends EntiteAllieeDeBase {
         int distance = distanceX + distanceY;
         return distance <= this.portee;
     }
-
-
 
     public boolean estVivant() {
         return this.nombreDePV > 0;
