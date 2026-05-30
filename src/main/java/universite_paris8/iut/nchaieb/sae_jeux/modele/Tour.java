@@ -5,10 +5,12 @@ import javafx.collections.ObservableList;
 public class Tour extends Entite{
     protected int portee;
     protected double x, y;
+    protected int atq; // ajout attribut atq
 
     public Tour(int portee, int atq, int x, int y) {
 
         this.portee = portee;
+        this.atq = atq;
         this.x = x;
         this.y = y;
     }
@@ -34,15 +36,11 @@ public class Tour extends Entite{
         int distanceY = Math.abs(monstre.getPosY() - this.getPosY());
 
         //on va multiplier la distance de monstre*tour(x) et monstre*tour(y)
-        int distance = distanceX+distanceY;
+        int distance = distanceX + distanceY;
 
 
         //on compare la distance a la porte mais on doit les mettre à unité égale
-        if (distance <= this.portee) {
-            return true;
-        }
-
-        return false;
+        return distance <= this.portee;
     }
 
     public int getPortee() {
@@ -78,8 +76,8 @@ public class Tour extends Entite{
     public  void infligerDegat(Monstre monstre){
 
         if (monstre.nombreDePV != 0){
-//            monstre.retirerPV(this.atq);
-
+            monstre.retirerPV(this.atq);
+            System.out.println(monstre.getPV());
         }
     }
 }

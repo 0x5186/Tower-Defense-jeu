@@ -5,7 +5,7 @@ import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
 
-public abstract class Monstre extends Entite{
+public abstract class Monstre extends Entite {
 
     public static int compteurID = 0;
 
@@ -14,12 +14,9 @@ public abstract class Monstre extends Entite{
     protected int nombreDePV;
     protected int pvMax;
     private int atq;
-//    protected String biome;
 
-
-    protected int vitesse;// multiplicateur de vitesse ou pixels par sec ?
+    protected int vitesse;
     protected int portee;
-
 
     private ArrayList<Noeud> chemin;
     private final int TAILLE_TUILE = 16;
@@ -27,57 +24,44 @@ public abstract class Monstre extends Entite{
     private int targetX;
     private int targetY;
 
-
-    public Monstre(int pvMax, int atq, int posX, int posY, int vitesse){
-
-        this.atq=atq;
+    public Monstre(int pvMax, int atq, int posX, int posY, int vitesse) {
+        this.atq = atq;
         this.pvMax = pvMax;
         this.nombreDePV = pvMax;
 
-//        this.biome = biome;
-        this.id ="M"+ this.compteurID;
-        this.compteurID++;
-//        this.recompenseArgent = recompenseArgent;
+        this.id = "M" + this.compteurID;
+        compteurID++;
         this.vitesse = vitesse;
         this.actionActuelle.set("fixe");
         this.targetX = 119;
         this.targetY = 26;
         this.setPosX(posX);
         this.setPosY(posY);
-
     }
-//    public void setTerrain(Terrain terrain) {
-//        this.terrain = terrain;
-//    }
 
-    public  void infligerDegat(Monstre monstre){
-
-        if (monstre.nombreDePV != 0){
+    public void infligerDegat(Monstre monstre) {
+        if (monstre.nombreDePV != 0) {
             monstre.retirerPV(this.atq);
-
         }
     }
 
-    public void ajouterPV(int soin){
+    public void ajouterPV(int soin) {
         this.nombreDePV += soin;
-        if (this.nombreDePV > this.pvMax){
+        if (this.nombreDePV > this.pvMax) {
             this.nombreDePV = this.pvMax;
         }
     }
+
     public void retirerPV(int degat) {
         this.nombreDePV -= degat;
-        if (this.nombreDePV <= 0){
+        if (this.nombreDePV <= 0) {
             this.nombreDePV = 0;
         }
     }
 
-
     public int getPortee() {
         return portee;
     }
-
-
-
 
     public void setSpawnEnnemi(Terrain terrain) {
         int portailAleatoire = (int) (Math.random() * 3);
@@ -87,7 +71,7 @@ public abstract class Monstre extends Entite{
             this.setPosY(8 * TAILLE_TUILE);
         } else if (portailAleatoire == 1) { // Bas-Gauche
             this.setPosX(10 * TAILLE_TUILE);
-            this.setPosY(51 * TAILLE_TUILE);
+            this.setPosY(46 * TAILLE_TUILE);
         } else { // Haut-Milieu
             this.setPosX(50 * TAILLE_TUILE);
             this.setPosY(0);
@@ -98,23 +82,18 @@ public abstract class Monstre extends Entite{
         this.targetY = 26;
     }
 
-
-
     public void agir(ObservableList<Monstre> collegues, Terrain terrain) {
-
-//
-//        if (monstrePlusProche != null) {
-//                this.infligerDegat(  monstrePlusProche);
-//                return;
-//        }
         if (!estBloqueParAllie(collegues)) {
-            this.setActionActuelle("fixe");
-            this.setActionActuelle("marche");
+            if (!this.getActionActuelle().get().equals("marche")) {
+                this.setActionActuelle("marche");
+            }
             this.avancer(terrain);
+        } else {
+            if (!this.getActionActuelle().get().equals("fixe")) {
+                this.setActionActuelle("fixe");
+            }
         }
     }
-
-
 
     private boolean estBloqueParAllie(ObservableList<Monstre> collegues) {
         for (Monstre collegue : collegues) {
@@ -135,24 +114,6 @@ public abstract class Monstre extends Entite{
         }
         return false;
     }
-
-//version de agir au cas ou le joueur peut invoquer des monstres
-//    public void agir(ArrayList<Monstre> collegues) {
-//        if (!ennemis.isEmpty()) {
-//            MonstreDeBase monstrePlusProche = plusProche(ennemis);
-//            if (monstrePlusProche != null) {
-//                this.setAttaque(true);
-//                this.infligerDegat(monstrePlusProche);
-//                return;
-//            }
-//        }
-//
-//        this.setAttaque(false);
-//        if (!estBloqueParAllie(collegues)) {
-//            this.avancer();
-//        }
-//    }
-
 
     private void avancer(Terrain terrain) {
         if (terrain == null) return;
@@ -191,74 +152,55 @@ public abstract class Monstre extends Entite{
         }
     }
 
-
-
-    public Monstre plusProche(ArrayList<Monstre> listeMonstre){
-
-        Monstre monstrePlusProche= null;
-        for(int i=0; i <listeMonstre.size(); i++){
-            if(this.estDansLeRayon(listeMonstre.get(i))){
-                if( monstrePlusProche==null || calculDistance(listeMonstre.get(i))<calculDistance(monstrePlusProche)){
-                    monstrePlusProche=listeMonstre.get(i);
-
+    public Monstre plusProche(ArrayList<Monstre> listeMonstre) {
+        Monstre monstrePlusProche = null;
+        for (int i = 0; i < listeMonstre.size(); i++) {
+            if (this.estDansLeRayon(listeMonstre.get(i))) {
+                if (monstrePlusProche == null || calculDistance(listeMonstre.get(i)) < calculDistance(monstrePlusProche)) {
+                    monstrePlusProche = listeMonstre.get(i);
                 }
             }
         }
         return monstrePlusProche;
-
     }
 
     private int calculDistance(Monstre monstre) {
-        int distance = (monstre.getPosX()+ monstre.getPosY())-(getPosY()+getPosX());
-        if (distance<0)
-            distance=distance*-1;
+        int distance = (monstre.getPosX() + monstre.getPosY()) - (getPosY() + getPosX());
+        if (distance < 0)
+            distance = distance * -1;
         return distance;
     }
 
-    public boolean estDansLeRayon (Monstre monstre){
-        //on va calculer la distance entre la tour et le mosntre
+    public boolean estDansLeRayon(Monstre monstre) {
         int distanceX = Math.abs(monstre.getPosX() - this.getPosX());
         int distanceY = Math.abs(monstre.getPosY() - this.getPosY());
 
-        //on va multiplier la distance de monstre*tour(x) et monstre*tour(y)
-        int distance = distanceX+distanceY;
+        int distance = distanceX + distanceY;
 
-
-        //on compare la distance a la porte mais on doit les mettre à unité égale
         if (distance <= this.portee) {
             return true;
         }
-
         return false;
     }
 
     public boolean estVivant() {
-//        if(this.nombreDePV==0){
-//            setActionActuel(0);
-//        }
-
         return this.nombreDePV > 0;
     }
-
 
     public int getVitesse() {
         return vitesse;
     }
 
-    public int getPV(){
+    public int getPV() {
         return this.nombreDePV;
     }
 
-    public String getId(){
+    public String getId() {
         return this.id;
     }
 
-
-    public void setSpawnAllie(){
+    public void setSpawnAllie() {
         this.setPosX(700);
         this.setPosY(120);
-
     }
-
-
 }
