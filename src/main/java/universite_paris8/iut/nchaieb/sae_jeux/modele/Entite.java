@@ -12,8 +12,8 @@ public class Entite implements EntiteInterface{
     public static int compteurID = 0;
 
 
-    private IntegerProperty PosX;
-    private IntegerProperty PosY;
+    private IntegerProperty posX;
+    private IntegerProperty posY;
 
 
     protected StringProperty actionActuelle= new SimpleStringProperty();
@@ -21,8 +21,8 @@ public class Entite implements EntiteInterface{
 
     public Entite(){
 
-        this.PosX = new SimpleIntegerProperty();
-        this.PosY = new SimpleIntegerProperty();
+        this.posX = new SimpleIntegerProperty();
+        this.posY = new SimpleIntegerProperty();
 //        this.biome = biome;
         this.id ="E"+ this.compteurID;
         this.compteurID++;
@@ -36,28 +36,28 @@ public class Entite implements EntiteInterface{
     }
 
     public int getPosX() {
-        return PosX.get();
+        return posX.get();
     }
 
     public IntegerProperty posXProperty() {
-        return PosX;
+        return posX;
     }
 
     public int getPosY() {
-        return PosY.get();
+        return posY.get();
     }
 
     public IntegerProperty posYProperty() {
-        return PosY;
+        return posY;
     }
 
 
     public void setPosY(int posY) {
-        this.PosY.set(posY);
+        this.posY.set(posY);
     }
 
     public void setPosX(int posX) {
-        this.PosX.set(posX);
+        this.posX.set(posX);
     }
 
 

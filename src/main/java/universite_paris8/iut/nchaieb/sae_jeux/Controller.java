@@ -40,7 +40,7 @@ public class Controller implements Initializable{
     Terrain terrain;
     MonstreVue monstreVue;
     InterfaceVue interfaceVue;
-    protected MonObservateurMonstre observateur;
+    private MonObservateurMonstre observateur;
 
 
 
@@ -130,7 +130,7 @@ public class Controller implements Initializable{
     public void AjouterMonstreEnnemi() {
         this.environnement.ajouterMonstre();
     }
-    
+
     @FXML
     public void AppuyerSurSymboleCroix() {
 

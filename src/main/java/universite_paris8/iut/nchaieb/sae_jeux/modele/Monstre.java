@@ -1,6 +1,7 @@
 package universite_paris8.iut.nchaieb.sae_jeux.modele;
 
 import javafx.beans.property.IntegerProperty;
+import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
 
@@ -15,14 +16,19 @@ public abstract class Monstre extends Entite{
     private int atq;
 //    protected String biome;
 
-    private IntegerProperty PosX;
-    private IntegerProperty PosY;
+
     protected int vitesse;// multiplicateur de vitesse ou pixels par sec ?
     protected int portee;
 
 
+    private ArrayList<Noeud> chemin;
+    private final int TAILLE_TUILE = 16;
 
-    public Monstre(int pvMax, int atq, int PosX, int PosY, int vitesse){
+    private int targetX;
+    private int targetY;
+
+
+    public Monstre(int pvMax, int atq, int posX, int posY, int vitesse){
 
         this.atq=atq;
         this.pvMax = pvMax;
@@ -34,50 +40,14 @@ public abstract class Monstre extends Entite{
 //        this.recompenseArgent = recompenseArgent;
         this.vitesse = vitesse;
         this.actionActuelle.set("fixe");
+        this.targetX = 119;
+        this.targetY = 26;
+        this.setPosX(posX);
+        this.setPosY(posY);
 
     }
-
-//    public void agir(ObservableList<Monstre> listeMonstre) {
-//        Monstre monstrePlusProche;
-//        ArrayList<Monstre> monstreAdverse;
-//        monstreAdverse=getmonstreAdverse(listeMonstre, this.camp);
-//        if (!listeMonstre.isEmpty()) {
-//
-//             monstrePlusProche = this.plusProche(monstreAdverse);
-//            if (monstrePlusProche != null) {
-//                this.setActionActuelle("fixe");
-//                System.out.println("pas nul");
-//
-//                this.infligerDegat(monstrePlusProche);
-//                this.setActionActuelle("attaque");
-//            }
-//            else {
-//
-//
-//                this.avancer();
-//                this.setActionActuelle("fixe");
-//                this.setActionActuelle("marche");
-//
-//            }
-//
-////        }
-//        else {
-//
-//            this.avancer();
-//            this.setActionActuelle("fixe");
-//            this.setActionActuelle("marche");
-//        }
-//    }
-
-//   private ArrayList<Monstre> getmonstreAdverse(ObservableList<Monstre> monstreAdverse, int camp) {
-//        ArrayList<Monstre> listeAdverse= new ArrayList<>();
-//        for(int i=0; i <monstreAdverse.size(); i++){
-//            if(monstreAdverse.get(i).camp != this.camp){
-//                listeAdverse.add(monstreAdverse.get(i));
-//
-//            }
-//        }
-//        return listeAdverse;
+//    public void setTerrain(Terrain terrain) {
+//        this.terrain = terrain;
 //    }
 
     public  void infligerDegat(Monstre monstre){
@@ -106,10 +76,122 @@ public abstract class Monstre extends Entite{
         return portee;
     }
 
-    private void avancer() {
-        setPosX(getPosX()+25);
 
+
+
+    public void setSpawnEnnemi(Terrain terrain) {
+        int portailAleatoire = (int) (Math.random() * 3);
+
+        if (portailAleatoire == 0) { // Haut-Gauche
+            this.setPosX(0);
+            this.setPosY(8 * TAILLE_TUILE);
+        } else if (portailAleatoire == 1) { // Bas-Gauche
+            this.setPosX(10 * TAILLE_TUILE);
+            this.setPosY(51 * TAILLE_TUILE);
+        } else { // Haut-Milieu
+            this.setPosX(50 * TAILLE_TUILE);
+            this.setPosY(0);
+        }
+
+        // Base
+        this.targetX = terrain.largeur() - 1;
+        this.targetY = 26;
     }
+
+
+
+    public void agir(ObservableList<Monstre> collegues, Terrain terrain) {
+
+//
+//        if (monstrePlusProche != null) {
+//                this.infligerDegat(  monstrePlusProche);
+//                return;
+//        }
+        if (!estBloqueParAllie(collegues)) {
+            this.setActionActuelle("fixe");
+            this.setActionActuelle("marche");
+            this.avancer(terrain);
+        }
+    }
+
+
+
+    private boolean estBloqueParAllie(ObservableList<Monstre> collegues) {
+        for (Monstre collegue : collegues) {
+            if (collegue != this && collegue.estVivant()) {
+                int distanceX = Math.abs(collegue.getPosX() - this.getPosX());
+                int distanceY = Math.abs(collegue.getPosY() - this.getPosY());
+
+                if ((distanceX + distanceY) < 25) {
+                    if (collegue.getPosX() > this.getPosX()) return true;
+
+                    if (collegue.getPosX() == this.getPosX() && collegue.getPosY() == this.getPosY()) {
+                        if (this.hashCode() > collegue.hashCode()) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+//version de agir au cas ou le joueur peut invoquer des monstres
+//    public void agir(ArrayList<Monstre> collegues) {
+//        if (!ennemis.isEmpty()) {
+//            MonstreDeBase monstrePlusProche = plusProche(ennemis);
+//            if (monstrePlusProche != null) {
+//                this.setAttaque(true);
+//                this.infligerDegat(monstrePlusProche);
+//                return;
+//            }
+//        }
+//
+//        this.setAttaque(false);
+//        if (!estBloqueParAllie(collegues)) {
+//            this.avancer();
+//        }
+//    }
+
+
+    private void avancer(Terrain terrain) {
+        if (terrain == null) return;
+
+        if (this.chemin == null || this.chemin.isEmpty()) {
+            int departGridX = this.getPosX() / TAILLE_TUILE;
+            int departGridY = this.getPosY() / TAILLE_TUILE;
+
+            this.chemin = AlgorithmeAEtoile.trouverChemin(terrain, departGridX, departGridY, this.targetX, this.targetY);
+
+            if (this.chemin == null || this.chemin.isEmpty()) return;
+        }
+
+        Noeud prochaineEtape = this.chemin.get(0);
+
+        int ciblePixelX = prochaineEtape.x * TAILLE_TUILE;
+        int ciblePixelY = prochaineEtape.y * TAILLE_TUILE;
+
+        int dx = ciblePixelX - this.getPosX();
+        int dy = ciblePixelY - this.getPosY();
+
+        int deplacementX = 0;
+        int deplacementY = 0;
+
+        if (dx > 0) deplacementX = Math.min(this.vitesse, dx);
+        else if (dx < 0) deplacementX = Math.max(-this.vitesse, dx);
+
+        if (dy > 0) deplacementY = Math.min(this.vitesse, dy);
+        else if (dy < 0) deplacementY = Math.max(-this.vitesse, dy);
+
+        this.setPosX(this.getPosX() + deplacementX);
+        this.setPosY(this.getPosY() + deplacementY);
+
+        if (this.getPosX() == ciblePixelX && this.getPosY() == ciblePixelY) {
+            this.chemin.remove(0);
+        }
+    }
+
+
 
     public Monstre plusProche(ArrayList<Monstre> listeMonstre){
 
@@ -174,11 +256,6 @@ public abstract class Monstre extends Entite{
 
     public void setSpawnAllie(){
         this.setPosX(700);
-        this.setPosY(120);
-
-    }
-    public void setSpawnEnnemi(){
-        this.setPosX(0);
         this.setPosY(120);
 
     }

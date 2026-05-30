@@ -70,6 +70,7 @@ public class Environnement {
 	public void ajouterMonstre(){
 
 		Monstre monstre=new Squelette();
+		monstre.setSpawnEnnemi(terrain);
 		lesMonstres.add(monstre);
 
 
@@ -83,20 +84,22 @@ public class Environnement {
 
 		//faut les supp quand ils sont morts / sinon ils continuent d'avancer
 		if (!(this.lesMonstres == null) && !this.lesMonstres.isEmpty()) {
+			for (int i =0; i< this.lesTours.size() ; i++) {
+				this.lesTours.get(i).agir(this.lesMonstres);
+
+			}
+
 
 			for (int i = this.lesMonstres.size() - 1; i >= 0; i--) {
-				if (this.lesMonstres.get(i).estVivant()) {
-					System.out.println(this.lesMonstres.get(i).getPV());
-
-					this.lesTours.get(i).agir(this.lesMonstres);
-
-				} else {
+				if (!this.lesMonstres.get(i).estVivant()) {
 					System.out.println("je suis remove");
 					this.lesMonstres.remove(i);
-
+				} else {
+					this.lesMonstres.get(i).agir(this.lesMonstres, this.terrain);
 
 				}
 			}
+
 		}
 	}
 
