@@ -1,17 +1,46 @@
-package universite_paris8.iut.nchaieb.sae_jeux.modele;
+package universite_paris8.iut.nchaieb.sae_jeux.modele.Tours;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.ObservableList;
+import universite_paris8.iut.nchaieb.sae_jeux.modele.Entite;
+import universite_paris8.iut.nchaieb.sae_jeux.modele.monstres.Monstre;
 
-public class Tour extends Entite{
+public class Tour extends Entite {
     protected int portee;
     protected double x, y;
-
+    private final BooleanProperty modePlacementTour;
     public Tour(int portee, int atq, int x, int y) {
 
         this.portee = portee;
         this.x = x;
         this.y = y;
+        this.modePlacementTour= new SimpleBooleanProperty(false);
     }
+
+
+    public boolean isModePlacementTour() {
+        return modePlacementTour.get();
+    }
+
+    public BooleanProperty modePlacementTourProperty() {
+        return modePlacementTour;
+    }
+
+
+    public void setModePlacementTour(boolean modePlacementTour) {
+        this.modePlacementTour.set(modePlacementTour);
+    }
+
+
+
+
+
+
+
+
+
+
     public void agir(ObservableList<Monstre> listeMonstre) {
         Monstre monstrePlusProche;
 
@@ -27,6 +56,10 @@ public class Tour extends Entite{
 
         }
     }
+
+
+
+
 
     public boolean estDansLeRayon (Monstre monstre){
         //on va calculer la distance entre la tour et le mosntre
@@ -77,10 +110,10 @@ public class Tour extends Entite{
 
     public  void infligerDegat(Monstre monstre){
 
-        if (monstre.nombreDePV != 0){
-//            monstre.retirerPV(this.atq);
-
-        }
+//        if (monstre.nombreDePV != 0){
+////            monstre.retirerPV(this.atq);
+//
+//        }
     }
 }
 

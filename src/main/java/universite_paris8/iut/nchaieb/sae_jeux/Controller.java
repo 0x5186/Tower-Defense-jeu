@@ -52,7 +52,7 @@ public class Controller implements Initializable{
 
 
         KeyFrame kf = new KeyFrame(
-                Duration.seconds(1),
+                Duration.millis(16),
 
                 (ev ->{
                     temps++;
@@ -90,7 +90,8 @@ public class Controller implements Initializable{
 
         if (stackPane != null) {
             stackPane.setOnMouseClicked(event -> {
-                if (environnement.isModePlacementTour()) {
+                if (environnement.tourAPlacer.isModePlacementTour()) {
+
                     environnement.placerTour(event.getX(), event.getY());
                 }
             });
