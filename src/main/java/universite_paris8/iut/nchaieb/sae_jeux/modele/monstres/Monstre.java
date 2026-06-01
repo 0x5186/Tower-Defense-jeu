@@ -94,6 +94,7 @@ public abstract class Monstre extends Entite {
         } else { // Haut-Milieu
             this.setPosX(50 * TAILLE_TUILE);
             this.setPosY(0);
+            
         }
 
         // Base

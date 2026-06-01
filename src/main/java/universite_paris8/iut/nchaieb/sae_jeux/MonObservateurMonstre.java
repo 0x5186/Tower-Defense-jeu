@@ -1,6 +1,7 @@
 package universite_paris8.iut.nchaieb.sae_jeux;
 
 import javafx.collections.ListChangeListener;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import universite_paris8.iut.nchaieb.sae_jeux.modele.Entite;
 import universite_paris8.iut.nchaieb.sae_jeux.modele.monstres.Monstre;
@@ -8,13 +9,13 @@ import universite_paris8.iut.nchaieb.sae_jeux.vue.MonstreVue;
 
 public class MonObservateurMonstre implements ListChangeListener<Monstre> {
 
-    private StackPane stackPane;
+    private Pane pane;
     private MonstreVue monstreVue;
 
-    public MonObservateurMonstre(StackPane panneauJeu) {
+    public MonObservateurMonstre(Pane pane) {
         super();
-        this.stackPane = panneauJeu;
-        this.monstreVue = new MonstreVue(this.stackPane);
+        this.pane = pane;
+        this.monstreVue = new MonstreVue(this.pane);
     }
 
 

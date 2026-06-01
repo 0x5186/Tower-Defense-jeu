@@ -4,6 +4,7 @@ import javafx.animation.*;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 import universite_paris8.iut.nchaieb.sae_jeux.Main;
@@ -16,18 +17,15 @@ import universite_paris8.iut.nchaieb.sae_jeux.modele.monstres.Monstre;
 import java.util.HashMap;
 
 public class MonstreVue {
-    private StackPane stackPane;
+    private Pane pane;
     private HashMap hashMap= new HashMap<Monstre,ImageView>();
     private HashMap hashMapAnimation= new HashMap<Monstre, Timeline>();
     Image  squelette = new Image(Main.class.getResourceAsStream("images/squelette.png"));
     Image  sorcier = new Image(Main.class.getResourceAsStream("images/sorcier.png"));
 
-    private final int DECALAGE_X = 105;
-    private final int DECALAGE_Y = 120;
 
-
-    public MonstreVue(StackPane stackPane) {
-        this.stackPane= stackPane;
+    public MonstreVue(Pane pane) {
+        this.pane= pane;
     }
 
     public void ajouterSprite(Monstre monstre){
@@ -51,13 +49,13 @@ public class MonstreVue {
         }
         iv.setViewport(new Rectangle2D(0,0,240,240));
 
-        this.stackPane.getChildren().add(iv);
+        this.pane.getChildren().add(iv);
     }
 
     public void retirer(Entite entite){
         ImageView  iv= (ImageView) hashMap.get(entite);
         iv.setImage(null);
-        this.stackPane.getChildren().remove(iv);
+        this.pane.getChildren().remove(iv);
         this.hashMap.remove(entite, iv);
     }
 
@@ -80,8 +78,7 @@ public class MonstreVue {
         int hauteurCase = 240;
 
         if (monstre instanceof Squelette){
-            iv.setScaleX(0.25);
-            iv.setScaleY(0.25);
+
             int[] frameIndex = {13};
             Timeline squeletteMarche = new Timeline(
 
