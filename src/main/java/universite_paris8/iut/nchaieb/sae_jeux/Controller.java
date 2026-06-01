@@ -55,7 +55,7 @@ public class Controller implements Initializable{
 
 
         KeyFrame kf = new KeyFrame(
-                Duration.millis(16),
+                Duration.millis(90),
 
                 (ev ->{
                     temps++;

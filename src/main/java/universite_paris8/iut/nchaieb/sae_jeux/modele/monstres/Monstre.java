@@ -84,8 +84,7 @@ public abstract class Monstre extends Entite {
 
     public void setSpawnEnnemi(Terrain terrain) {
         int portailAleatoire = (int) (Math.random() * 3);
-//        this.setPosX(0);
-//        this.setPosY(0);
+
         if (portailAleatoire == 0) { // Haut-Gauche
             this.setPosX(0);
             this.setPosY(8 * TAILLE_TUILE);
@@ -112,8 +111,10 @@ public abstract class Monstre extends Entite {
 //                this.infligerDegat(  monstrePlusProche);
 //                return;
 //        }
+
         if (!estBloqueParAllie(collegues)) {
-            this.setActionActuelle("fixe");
+            System.out.println(estBloqueParAllie(collegues));
+
             this.setActionActuelle("marche");
             this.avancer(terrain);
         }
