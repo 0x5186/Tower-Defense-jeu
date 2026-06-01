@@ -6,6 +6,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 import universite_paris8.iut.nchaieb.sae_jeux.Main;
 import universite_paris8.iut.nchaieb.sae_jeux.modele.*;
@@ -20,8 +22,10 @@ public class MonstreVue {
     private Pane pane;
     private HashMap hashMap= new HashMap<Monstre,ImageView>();
     private HashMap hashMapAnimation= new HashMap<Monstre, Timeline>();
-    Image  squelette = new Image(Main.class.getResourceAsStream("images/squelette.png"));
+    Image  squelette = new Image(Main.class.getResourceAsStream("images/squelette(3).png"));
     Image  sorcier = new Image(Main.class.getResourceAsStream("images/sorcier.png"));
+    Image tourOeilCurseur = new Image(Main.class.getResourceAsStream("images/tourOeilCurseur.png"));
+
 
 
     public MonstreVue(Pane pane) {
@@ -30,24 +34,30 @@ public class MonstreVue {
 
     public void ajouterSprite(Monstre monstre){
 
+
+        Circle circle= new Circle(0,0,15);
+        circle.setFill(Color.RED);
+        pane.getChildren().add(circle);
         ImageView  iv= new ImageView();
         if (monstre instanceof Squelette) {
             iv = new ImageView(squelette);
+            iv.setViewport(new Rectangle2D(0,0,50,50));
         }
         if (monstre instanceof Sorcier) {
+
             iv = new ImageView(sorcier);
+            iv.setViewport(new Rectangle2D(0,0,80,80));
+
         }
         iv.translateXProperty().bind(monstre.posXProperty());
         iv.translateYProperty().bind(monstre.posYProperty()
         );
 
+
         this.hashMap.put(monstre, iv);
 
-        if (monstre instanceof Squelette){
-            iv.setScaleX(0.40);
-            iv.setScaleY(0.40);
-        }
-        iv.setViewport(new Rectangle2D(0,0,240,240));
+        iv.setLayoutX(50/2);
+        iv.setLayoutX(0);
 
         this.pane.getChildren().add(iv);
     }
@@ -59,11 +69,11 @@ public class MonstreVue {
         this.hashMap.remove(entite, iv);
     }
 
-    public void stopAnimation(Entite entite){
-        if(this.hashMapAnimation.containsKey(entite)){
-            Timeline timeline= (Timeline) this.hashMapAnimation.get(entite);
+    public void stopAnimation(Monstre monstre){
+        if(this.hashMapAnimation.containsKey(monstre)){
+            Timeline timeline= (Timeline) this.hashMapAnimation.get(monstre);
             timeline.stop();
-            this.hashMapAnimation.remove(entite);
+            this.hashMapAnimation.remove(monstre);
         }
     }
 
@@ -74,12 +84,11 @@ public class MonstreVue {
 
 
         ImageView iv = (ImageView) this.hashMap.get(monstre);
-        int largeurCase = 240;
-        int hauteurCase = 240;
-
+        int largeurCase = 50;
+        int hauteurCase = 50;
         if (monstre instanceof Squelette){
 
-            int[] frameIndex = {13};
+            int[] frameIndex = {0};
             Timeline squeletteMarche = new Timeline(
 
                     new KeyFrame(Duration.millis(90), e -> {
@@ -92,6 +101,7 @@ public class MonstreVue {
                             x = frameIndex[0] - 12;
                             y = 2;
                         }
+
                         frameIndex[0]++;
                         if (frameIndex[0] == 15) frameIndex[0] = 0;
                         iv.setViewport(new Rectangle2D(x* largeurCase, y * hauteurCase, largeurCase, hauteurCase));
@@ -99,7 +109,7 @@ public class MonstreVue {
                     })
             );
             this.hashMapAnimation.put(monstre, squeletteMarche);
-            squeletteMarche.setCycleCount(15);
+            squeletteMarche.setCycleCount(Animation.INDEFINITE);
             squeletteMarche.play();
 
 

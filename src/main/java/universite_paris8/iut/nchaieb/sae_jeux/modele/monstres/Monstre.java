@@ -94,7 +94,7 @@ public abstract class Monstre extends Entite {
         } else { // Haut-Milieu
             this.setPosX(50 * TAILLE_TUILE);
             this.setPosY(0);
-            
+
         }
 
         // Base
@@ -111,8 +111,10 @@ public abstract class Monstre extends Entite {
 //                this.infligerDegat(  monstrePlusProche);
 //                return;
 //        }
+
         if (!estBloqueParAllie(collegues)) {
-            this.setActionActuelle("fixe");
+            System.out.println(estBloqueParAllie(collegues));
+
             this.setActionActuelle("marche");
             this.avancer(terrain);
         }
