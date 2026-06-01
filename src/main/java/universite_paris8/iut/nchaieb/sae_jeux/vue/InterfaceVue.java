@@ -52,7 +52,7 @@ public class InterfaceVue {
         }
     }
 
-    public void afficherUnSeulSymbole(String typeSymbole){
+    public void afficherUnSeulSymbole(String typeSymbole, int emplacement){
         ImageView image = null;
 
 
@@ -60,52 +60,49 @@ public class InterfaceVue {
         switch(typeSymbole){
             case "spirale":
                 image = new ImageView(symboleSpirale);
-                image.setTranslateX(760);
                 break;
             case "croix":
                 image = new ImageView(symboleCroix);
-                image.setTranslateX(600);
                 break;
             case "goutte":
                 image = new ImageView(symboleGoutte);
-                image.setTranslateX(680);
                 break;
             case "oeil":
                 image = new ImageView(symboleOeil);
-                image.setTranslateX(680);
                 break;
             case "eclipse":
                 image = new ImageView(symboleEclipse);
-                image.setTranslateX(680);
                 break;
             case "oiseau":
                 image = new ImageView(symboleOiseau);
-                image.setTranslateX(740);
         }
-
 
         if (image != null){
-            if (image.getImage().equals(symboleOeil)){
-                image.setTranslateY(440);
-                image.setScaleY(0.05);
-                image.setScaleX(0.05);
-            } else if (image.getImage().equals(symboleEclipse)){
-                image.setTranslateY(530);
-                image.setScaleY(0.05);
-                image.setScaleX(0.05);
-            } else if (image.getImage().equals(symboleOiseau)){
-                image.setTranslateY(550);
-                image.setScaleY(0.05);
-                image.setScaleX(0.05);
-            } else {
-                image.setTranslateY(485);
-                image.setScaleY(0.1);
-                image.setScaleX(0.1);
+            int positionDeBaseX = 600;
+            int positionDeBaseY = 450;
+            int positionSuivante =0;
+
+            if(emplacement==0 || emplacement==3){
+                positionSuivante = 0;
+            } else  if(emplacement==1 || emplacement==4){
+                positionSuivante = 80;
+            } else  if(emplacement==2 || emplacement==5){
+                positionSuivante =2 * 80;
             }
+
+            if (emplacement>=3){
+                positionDeBaseY=520;
+
+            }
+
+            image.setTranslateX(positionDeBaseX + positionSuivante);
+            image.setTranslateY(positionDeBaseY );
+            image.setScaleY(0.1);
+            image.setScaleX(0.1);
             this.contientSymbole.getChildren().add(image);
         }
-    }
 
+    }
     public void viderSumbolesAffiches(){
         if (this.contientSymbole != null){
             this.contientSymbole.getChildren().clear();
