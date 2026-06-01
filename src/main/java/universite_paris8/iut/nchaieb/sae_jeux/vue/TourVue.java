@@ -46,7 +46,7 @@ public class TourVue {
         );
         this.hashMap.put(tour, iv);
 
-
+        System.out.println("tour affichée");
 
 
         this.pane.getChildren().add(iv);

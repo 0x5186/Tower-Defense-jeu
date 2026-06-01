@@ -96,12 +96,15 @@ public class Controller implements Initializable{
 
 
 
-        pane.setOnMouseClicked(event -> {
-            if (environnement.tourAPlacer.isModePlacementTour()) {
-                System.out.println("pasnulllllll");
-                environnement.placerTour(event.getX(), event.getY());
-            }
-        });
+        if(stackPane!=null){
+            stackPane.setOnMouseClicked(event -> {
+                if (environnement.tourAPlacer.isModePlacementTour()) {
+                    System.out.println("pasnulllllll");
+                    environnement.placerTour(event.getX(), event.getY());
+                }
+            });
+        }
+
 
 
 
