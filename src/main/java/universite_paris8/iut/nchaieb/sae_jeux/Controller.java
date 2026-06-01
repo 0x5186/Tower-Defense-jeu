@@ -94,14 +94,15 @@ public class Controller implements Initializable{
 
         initAnimation();
 
-        if (pane != null) {
-            pane.setOnMouseClicked(event -> {
-                if (environnement.tourAPlacer.isModePlacementTour()) {
 
-                    environnement.placerTour(event.getX(), event.getY());
-                }
-            });
-        }
+
+        pane.setOnMouseClicked(event -> {
+            if (environnement.tourAPlacer.isModePlacementTour()) {
+                System.out.println("pasnulllllll");
+                environnement.placerTour(event.getX(), event.getY());
+            }
+        });
+
 
 
         if (Main.map == 2) {

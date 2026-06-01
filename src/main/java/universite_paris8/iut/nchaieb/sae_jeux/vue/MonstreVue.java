@@ -41,9 +41,13 @@ public class MonstreVue {
         ImageView  iv= new ImageView();
         if (monstre instanceof Squelette) {
             iv = new ImageView(squelette);
+            iv.setViewport(new Rectangle2D(0,0,50,50));
         }
         if (monstre instanceof Sorcier) {
+
             iv = new ImageView(sorcier);
+            iv.setViewport(new Rectangle2D(0,0,80,80));
+
         }
         iv.translateXProperty().bind(monstre.posXProperty());
         iv.translateYProperty().bind(monstre.posYProperty()
@@ -52,11 +56,8 @@ public class MonstreVue {
 
         this.hashMap.put(monstre, iv);
 
-//        if (monstre instanceof Squelette){
-//            iv.setScaleX(0.40);
-//            iv.setScaleY(0.40);
-//        }
-        iv.setViewport(new Rectangle2D(0,0,50,50));
+        iv.setLayoutX(50/2);
+        iv.setLayoutX(0);
 
         this.pane.getChildren().add(iv);
     }
@@ -85,8 +86,6 @@ public class MonstreVue {
         ImageView iv = (ImageView) this.hashMap.get(monstre);
         int largeurCase = 240;
         int hauteurCase = 240;
-        System.out.println(iv.getX());
-        System.out.println(iv.getY());
         if (monstre instanceof Squelette){
 
             int[] frameIndex = {13};
