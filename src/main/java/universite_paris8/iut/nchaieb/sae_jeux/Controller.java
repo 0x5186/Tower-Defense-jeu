@@ -49,6 +49,7 @@ public class Controller implements Initializable{
 
 
     private boolean modePlacementTour = false;
+    private MonObservateurSymbole monObservateurSymbole;
 
     private void initAnimation() {
         gameLoop = new Timeline();
@@ -112,9 +113,8 @@ public class Controller implements Initializable{
             }
 
             //Partie symbole
-            MonObservateurSymbole monObservateurSymbole = new MonObservateurSymbole(this.interfaceVue);
+            this.monObservateurSymbole = new MonObservateurSymbole(this.interfaceVue);
             this.environnement.getSymbolesProperty().addListener(monObservateurSymbole);
-
             this.interfaceVue.dessinMenu();
         }
 
@@ -131,8 +131,6 @@ public class Controller implements Initializable{
         Main.changerScene("universite_paris8/iut/nchaieb/sae_jeux/fenetreJeu.fxml");
     }
 
-
-
     @FXML
     public void AjouterMonstreEnnemi() {
         this.environnement.ajouterMonstre();
@@ -140,14 +138,12 @@ public class Controller implements Initializable{
 
     @FXML
     public void AppuyerSurSymboleCroix() {
-
         this.environnement.getSymboles().ajouterSymbole("croix");
         System.out.println("Croix ajouté dans la liste");
     }
 
     @FXML
     public void AppuyerSurSymboleGoutteDeau() {
-
         this.environnement.getSymboles().ajouterSymbole("goutte");
         System.out.println("Goutte ajouté dans liste");
     }
@@ -166,14 +162,12 @@ public class Controller implements Initializable{
 
     @FXML
     public void AppuyerSurSymboleEclipse() {
-
         this.environnement.getSymboles().ajouterSymbole("eclipse");
         System.out.println("Eclipse ajouté dans la liste");
     }
 
     @FXML
     public void AppuyerSurSymboleOiseau(){
-
         this.environnement.getSymboles().ajouterSymbole("oiseau");
         System.out.println("Oiseau ajouté dans la liste");
     }
@@ -217,6 +211,7 @@ public class Controller implements Initializable{
 
             this.environnement.ajouterTour(this.environnement.getSymboles().verifierCombinaison());
         }
+        this.monObservateurSymbole.setCompteur(0);
         this.environnement.getSymboles().reset();
         this.interfaceVue.viderSumbolesAffiches();
     }
