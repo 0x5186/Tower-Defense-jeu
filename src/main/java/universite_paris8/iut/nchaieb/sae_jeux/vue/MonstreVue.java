@@ -64,10 +64,10 @@ public class MonstreVue {
         if(monstre instanceof Squelette){
             ImageView iv=new ImageView(squelette);
 
-            iv.setScaleX(0.25);
-            iv.setScaleY(0.25);
+            iv.setScaleX(0.4);
+            iv.setScaleY(0.4);
 
-            if(monstre.getCamp()==0) { iv.setScaleX(-0.25); }
+            if(monstre.getCamp()==0) { iv.setScaleX(-0.4); }
 
             iv.setTranslateX(monstre.getPosX() - DECALAGE_X);
             iv.setTranslateY(monstre.getPosY() - DECALAGE_Y);
@@ -111,9 +111,9 @@ public class MonstreVue {
         if(monstre instanceof Squelette){
             ImageView iv=new ImageView(squelette);
 
-            iv.setScaleX(0.25);
-            iv.setScaleY(0.25);
-            if(monstre.getCamp()==0) { iv.setScaleX(-0.25); }
+            iv.setScaleX(0.4);
+            iv.setScaleY(0.4);
+            if(monstre.getCamp()==0) { iv.setScaleX(-0.4); }
 
             iv.setTranslateX(monstre.getPosX() - DECALAGE_X);
             iv.setTranslateY(monstre.getPosY() - DECALAGE_Y);
