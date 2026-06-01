@@ -19,6 +19,7 @@ public class Symboles {
     }
 
     public void ajouterSymbole(String symbole){
+        
         this.combinaison.add(symbole);
     }
 
