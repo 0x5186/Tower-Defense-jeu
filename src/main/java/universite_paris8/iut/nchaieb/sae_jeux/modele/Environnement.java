@@ -2,114 +2,129 @@ package universite_paris8.iut.nchaieb.sae_jeux.modele;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import java.util.ArrayList;
+import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import universite_paris8.iut.nchaieb.sae_jeux.modele.monstres.Squelette;
 
 public class Environnement {
 	private IntegerProperty nbTours;
-	private ArrayList<MonstreDeBase> lesAlliees;
-	private ArrayList<MonstreDeBase> lesMonstres;
+
+
+
+
+	private ObservableList<Tour> lesTours;
+	private ObservableList<Monstre> lesMonstres;
 	private Terrain terrain;
-	private ArrayList<Tour> lesTours;
+
+	private Tour tourAPlacer;
+	private Symboles symboles; //liste des symboles
+	private boolean modePlacementTour = false; //pour savoir si on est entrain de placer une tour ou pas
+
 
 	public Environnement(Terrain terrain) {
 		this.terrain = terrain;
 		this.nbTours = new SimpleIntegerProperty();
-		this.lesAlliees = new ArrayList<>();
-		this.lesMonstres = new ArrayList<>();
-		MonstreDeBase.compteurID = 0;
-		EntiteAllieeDeBase.compteurID = 0;
-		this.lesTours = new ArrayList<>();
+		this.lesTours =FXCollections.observableArrayList();
+		this.lesMonstres = FXCollections.observableArrayList();
+		this.symboles = new Symboles();
+		tourAPlacer=new Tour(1,1,1,1);
+
+
+		Monstre.compteurID = 0;
+		Entite.compteurID = 0;
 	}
 
-	public void ajouterEntite(MonstreDeBase entite, int camp){
-		entite.setTerrain(this.terrain);
-		if(camp==0){
-			entite.setCamp(0);
-			entite.setSpawnAllie();
-			lesAlliees.add(entite);
-		}
-		else{
-			entite.setCamp(1);
-			entite.setSpawnEnnemi();
-			lesMonstres.add(entite);
-		}
+// 	les Get :
+
+
+	public ObservableList<Monstre> getLesMonstres() {
+		return lesMonstres;
 	}
+
+	public ObservableList<Tour> getLesTours() {
+		return this.lesTours;
+	}
+
+	public Symboles getSymboles() {
+		return symboles;
+	}
+	public ObservableList<String> getSymbolesProperty() {
+		return symboles.getCombinaison();
+	}
+
+	public boolean isModePlacementTour() {
+		return modePlacementTour;
+	}
+
+
+// autres Méthodes:
+
+	public void ajouterTour(Tour tour){
+		System.out.println("tour prete");
+		this.tourAPlacer=tour;
+		this.modePlacementTour = true;
+//		this.lesTours.add(tour);
+	}
+
+	public void ajouterMonstre(){
+
+		Monstre monstre=new Squelette();
+		monstre.setSpawnEnnemi(terrain);
+		lesMonstres.add(monstre);
+
+
+    }
+
 
 	public final IntegerProperty nbToursProperty(){ return this.nbTours; }
 	public int getNbTours() { return this.nbTours.getValue(); }
 
 	public void unTour() {
-		if(!lesMonstres.isEmpty()){
-			for (int i = lesMonstres.size() - 1; i >= 0; i--){
-				if (!lesMonstres.get(i).estVivant()){
-					lesMonstres.remove(i);
+
+		//faut les supp quand ils sont morts / sinon ils continuent d'avancer
+		if (!(this.lesMonstres == null) && !this.lesMonstres.isEmpty()) {
+			for (int i =0; i< this.lesTours.size() ; i++) {
+				this.lesTours.get(i).agir(this.lesMonstres);
+
+			}
+
+
+			for (int i = this.lesMonstres.size() - 1; i >= 0; i--) {
+				if (!this.lesMonstres.get(i).estVivant()) {
+					System.out.println("je suis remove");
+					this.lesMonstres.remove(i);
 				} else {
-					lesMonstres.get(i).agir(lesAlliees, lesMonstres);
+					this.lesMonstres.get(i).agir(this.lesMonstres, this.terrain);
+
 				}
 			}
-		}
-		if(!lesAlliees.isEmpty()){
-			for (int i = lesAlliees.size() - 1; i >= 0; i--){
-				if (!lesAlliees.get(i).estVivant()){
-					lesAlliees.remove(i);
-				} else {
-					lesAlliees.get(i).agir(lesMonstres, lesAlliees);
-				}
-			}
-		}
-		if(!lesTours.isEmpty()){
-			for(Tour tour : lesTours){
-				tour.agir(lesMonstres);
-			}
+
 		}
 	}
 
-	public ArrayList<MonstreDeBase> triVitesse(ArrayList<MonstreDeBase> listMonstre){
-		ArrayList<MonstreDeBase> listeTrie= new ArrayList<MonstreDeBase>();
-		MonstreDeBase monstre;
-		int indexMax;
-		for(int i=0; i< listMonstre.size(); i++){
-			indexMax=i;
-			for(int j=i; j< listMonstre.size(); j++){
-				if(listMonstre.get(j).getVitesse()>listMonstre.get(i).getVitesse()){
-					indexMax= j;
-				}
-			}
-			listeTrie.add(listMonstre.get(indexMax));
+
+
+	public void placerTour(double xPixel, double yPixel) {
+		System.out.println("presque");
+		int TAILLE_TUILE = 16;
+		int gridX = (int) (xPixel / TAILLE_TUILE);
+		int gridY = (int) (yPixel / TAILLE_TUILE);
+
+		if (!this.terrain.estPraticable(gridX, gridY)) {
+
+			int posXGridPixel = gridX * TAILLE_TUILE;
+			int posYGridPixel = gridY * TAILLE_TUILE;
+			this.tourAPlacer.setPosX(posXGridPixel);
+			this.tourAPlacer.setPosY(posYGridPixel);
+			this.lesTours.add(this.tourAPlacer);
+			System.out.println("wawwwwwwwwww");
+
+
+			this.modePlacementTour = false;
+			System.out.println("Tour placée avec succès en X:" + gridX + " Y:" + gridY);
+		} else {
+			System.out.println("Impossible de placer une tour sur le chemin des monstres !");
 		}
-		return listMonstre;
-	}
-
-	public void avancer(MonstreDeBase monstre) { monstre.setPosX(monstre.getPosX()+1); }
-	public ArrayList<MonstreDeBase> getLesAlliees() { return this.lesAlliees; }
-	public ArrayList<MonstreDeBase> getLesMonstres() { return this.lesMonstres; }
-
-	public MonstreDeBase getLesAlliees(String id) {
-		for(MonstreDeBase a: this.lesAlliees){
-			if(a.getId().equals(id)){ return a; }
-		}
-		return null;
-	}
-
-	public MonstreDeBase getLesMonstres(String id) {
-		for(MonstreDeBase m: this.lesMonstres){
-			if(m.getId().equals(id)){ return m; }
-		}
-		return null;
-	}
-
-	public ArrayList<MonstreDeBase> voirLesMonstresElimines(){
-		ArrayList<MonstreDeBase> historiqueDeKill = new ArrayList<>();
-		MonstreDeBase entiteActuel;
-		for (int i = 0; i < this.lesMonstres.size(); i++){
-			entiteActuel = lesMonstres.get(i);
-			historiqueDeKill.add(entiteActuel);
-			this.lesMonstres.remove(i);
-		}
-		return historiqueDeKill;
-	}
-
-	public void ajouterTour(Tour tour){
-		this.lesTours.add(tour);
 	}
 }

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
@@ -11,47 +10,92 @@
          <TilePane fx:id="tilePane" alignment="TOP_LEFT" prefColumns="120" prefRows="52" prefTileHeight="16" prefTileWidth="16" BorderPane.alignment="TOP_LEFT">
          </TilePane>
 
-         <Button fx:id="symboleCroix" layoutX="500" layoutY="200" mnemonicParsing="false" onAction="#AppuyerSurSymboleCroix" prefHeight="7.0" prefWidth="2.0" style="-fx-background-color: transparent; -fx-border-color: transparent; -fx-padding: 0;">
-            <graphic>
-               <ImageView fitHeight="64.0" fitWidth="64.0" preserveRatio="true">
-                  <image>
-                     <Image url="@images/symboleCroix.png" />
-                  </image>
-               </ImageView>
-            </graphic>
-         </Button>
-         <Button fx:id="symboleGoutteDeau" layoutX="500" layoutY="200" mnemonicParsing="false" onAction="#AppuyerSurSymboleGoutteDeau" prefHeight="7.0" prefWidth="2.0" style="-fx-background-color: transparent; -fx-border-color: transparent; -fx-padding: 0;">
-            <graphic>
-               <ImageView fitHeight="64.0" fitWidth="64.0" nodeOrientation="INHERIT" preserveRatio="true">
-                  <image>
-                     <Image url="@images/symboleCroix.png" />
-                  </image>
-               </ImageView>
-            </graphic>
-         </Button>
       </StackPane>
    </center>
-
    <bottom>
-      <StackPane prefHeight="248.0" prefWidth="1920.0" BorderPane.alignment="CENTER">
+      <StackPane BorderPane.alignment="CENTER">
          <children>
-            <ImageView fitHeight="248.0" fitWidth="1920.0" preserveRatio="false">
-               <image>
-                  <Image url="@images/interfaceBas.png" />
-               </image>
-            </ImageView>
-
-            <Pane prefHeight="248.0" prefWidth="1920.0">
+            <Pane prefHeight="164.0" prefWidth="718.0">
                <children>
-                  <ImageView fitHeight="200.0" fitWidth="300.0" layoutX="1550.0" layoutY="20.0" preserveRatio="true">
-                     <image>
-                        <Image url="@images/FeuillePourLesSorts.png" />
-                     </image>
-                  </ImageView>
+                  <ScrollPane cache="true" cacheHint="SCALE_AND_ROTATE" depthTest="DISABLE" layoutX="537.0" layoutY="56.0" prefHeight="78.0" prefWidth="220.0" stylesheets="@application.css">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="16.0" prefWidth="644.0">
+                           <children>
+                              <Button fx:id="symboleCroix" mnemonicParsing="false" onAction="#AppuyerSurSymboleCroix" prefHeight="7.0" prefWidth="2.0" style="-fx-background-color: transparent; -fx-border-color: transparent; -fx-padding: 0;" layoutX="0" layoutY="-2">
+                                 <graphic>
+                                    <ImageView fitHeight="64.0" fitWidth="64.0" preserveRatio="true">
+                                       <image>
+                                          <Image url="@images/symboleCroix.png">
+                                          </Image>
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
 
-                  <Button fx:id="boutonMonstreEnnemi" layoutX="100.0" layoutY="95.0" prefHeight="50.0" prefWidth="150.0" style="-fx-font-size: 16px;" mnemonicParsing="false" onAction="#AjouterMonstreEnnemi" text="Ajouter ennemi" />
-                  <Button fx:id="boutonAjouterMonstre" layoutX="300.0" layoutY="95.0" prefHeight="50.0" prefWidth="150.0" style="-fx-font-size: 16px;" mnemonicParsing="false" onAction="#AjouterMonstreAllie" text="Ajouter allié" />
-                  <Button fx:id="boutonAjouterTour" layoutX="500.0" layoutY="95.0" prefHeight="50.0" prefWidth="150.0" style="-fx-font-size: 16px;" mnemonicParsing="false" onAction="#activerModePlacementTour" text="Ajouter tour" />
+                              <Button fx:id="symboleGoutteDeau" mnemonicParsing="false" onAction="#AppuyerSurSymboleGoutteDeau" prefHeight="7.0" prefWidth="2.0" style="-fx-background-color: transparent; -fx-border-color: transparent; -fx-padding: 0;" layoutX="80" layoutY="-2">
+                                 <graphic>
+                                    <ImageView fitHeight="64.0" fitWidth="64.0" nodeOrientation="INHERIT" preserveRatio="true">
+                                       <image>
+                                          <Image url="@images/symboleGoutteDeau.png">
+                                          </Image>
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+
+                              <Button fx:id="symboleSpirale" mnemonicParsing="false" onAction="#AppuyerSurSymboleSpirale" prefHeight="7.0" prefWidth="2.0" style="-fx-background-color: transparent; -fx-border-color: transparent; -fx-padding: 0;" layoutX="160" layoutY="-2">
+                                 <graphic>
+                                    <ImageView fitHeight="64.0" fitWidth="64.0"  nodeOrientation="INHERIT" preserveRatio="true">
+                                       <image>
+                                          <Image url="@images/symboleSpirale.png">
+                                          </Image>
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+
+                               <Button fx:id="symboleOeil" mnemonicParsing="false" onAction="#AppuyerSurSymboleOeil" prefHeight="7.0" prefWidth="2.0" style="-fx-background-color: transparent; -fx-border-color: transparent; -fx-padding: 0;" layoutX="240" layoutY="-2">
+                                   <graphic>
+                                       <ImageView fitHeight="64.0" fitWidth="64.0" nodeOrientation="INHERIT" preserveRatio="true">
+                                           <image>
+                                               <Image url="@images/symboleOeil.png">
+                                               </Image>
+                                           </image>
+                                       </ImageView>
+                                   </graphic>
+                               </Button>
+
+                               <Button fx:id="symboleEclipse" mnemonicParsing="false" onAction="#AppuyerSurSymboleEclipse" prefHeight="7.0" prefWidth="2.0" style="-fx-background-color: transparent; -fx-border-color: transparent; -fx-padding: 0;" layoutX="320" layoutY="-2">
+                                   <graphic>
+                                       <ImageView fitHeight="64.0" fitWidth="64.0" nodeOrientation="INHERIT" preserveRatio="true">
+                                           <image>
+                                               <Image url="@images/symboleEclipse.png">
+                                               </Image>
+                                           </image>
+                                       </ImageView>
+                                   </graphic>
+                               </Button>
+
+                               <Button fx:id="symboleOiseau" mnemonicParsing="false" onAction="#AppuyerSurSymboleOiseau" prefHeight="7.0" prefWidth="2.0" style="-fx-background-color: transparent; -fx-border-color: transparent; -fx-padding: 0;" layoutX="400" layoutY="-3">
+                                   <graphic>
+                                       <ImageView fitHeight="64.0" fitWidth="64.0" nodeOrientation="INHERIT" preserveRatio="true">
+                                           <image>
+                                               <Image url="@images/symboleOiseau.png">
+                                               </Image>
+                                           </image>
+                                       </ImageView>
+                                   </graphic>
+                               </Button>
+
+                           </children></AnchorPane>
+                    </content>
+<!--                     <effect><Glow level="0.07" />-->
+<!--                     </effect>-->
+                  </ScrollPane>
+                   <Button fx:id="boutonMonstreEnnemi" layoutX="22.0" layoutY="70.0" mnemonicParsing="false" onAction="#AjouterMonstreEnnemi" text="ajouter ennemi" />
+<!--                   <Button fx:id="boutonAjouterTour" layoutX="500.0" layoutY="95.0" prefHeight="50.0" prefWidth="150.0" style="-fx-font-size: 16px;" mnemonicParsing="false" onAction="#activerModePlacementTour" text="Ajouter tour" />-->
+
+                  <Button fx:id="boutonValiderPentacle" layoutX="452.0" layoutY="109.0" mnemonicParsing="false" onAction="#AppuyerSurValideePentacle" text="Valider Sort" />
                </children>
             </Pane>
          </children>
