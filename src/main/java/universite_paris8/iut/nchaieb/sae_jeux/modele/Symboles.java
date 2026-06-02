@@ -19,8 +19,11 @@ public class Symboles {
     }
 
     public void ajouterSymbole(String symbole){
-        
-        this.combinaison.add(symbole);
+        if (this.combinaison.size() != 3){
+            this.combinaison.add(symbole);
+        } else {
+            System.out.println("ce symbole ne sera pas comptabilisé");
+        }
     }
 
 
@@ -47,7 +50,6 @@ public class Symboles {
         }
 
         return tour;
-
     }
 
 }
