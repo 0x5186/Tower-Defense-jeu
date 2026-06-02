@@ -3,6 +3,7 @@ package universite_paris8.iut.nchaieb.sae_jeux.modele;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import universite_paris8.iut.nchaieb.sae_jeux.modele.Tours.Tour;
+import universite_paris8.iut.nchaieb.sae_jeux.modele.Tours.TourHeal;
 import universite_paris8.iut.nchaieb.sae_jeux.modele.Tours.TourOeil;
 
 public class Symboles {
@@ -40,11 +41,12 @@ public class Symboles {
 
         if (this.combinaison!=null ||    !this.combinaison.isEmpty()){
 
-            for(int i=0;i<combinaison.size();i++)
-                System.out.println(combinaison.get(i));
             if (combinaison.equals(combinaisonValables.tourOeil)){
-                System.out.println("combinaison validé");
                 tour= new TourOeil();
+
+            }
+            else if(combinaison.equals(combinaisonValables.tourHeal)){
+                tour= new TourHeal();
 
             }
         }

@@ -113,8 +113,6 @@ public abstract class Monstre extends Entite {
 //        }
 
         if (!estBloqueParAllie(collegues)) {
-            System.out.println(estBloqueParAllie(collegues));
-
             this.setActionActuelle("marche");
             this.avancer(terrain);
         }

@@ -37,8 +37,6 @@ public class MonObservateurTour implements ListChangeListener<Tour>{
 
         while (change.next()) {
             if (change.wasAdded()) {
-
-
                 for (Tour nouveau : change.getAddedSubList()) {
                     creerSprite(nouveau);
                     nouveau.modePlacementTourProperty().addListener((observable, oldValue, newValue) -> {
