@@ -67,15 +67,11 @@ public class Tour extends Entite {
         int distanceY = Math.abs(monstre.getPosY() - this.getPosY());
 
         //on va multiplier la distance de monstre*tour(x) et monstre*tour(y)
-        int distance = distanceX+distanceY;
+        int distance = distanceX + distanceY;
 
 
         //on compare la distance a la porte mais on doit les mettre à unité égale
-        if (distance <= this.portee) {
-            return true;
-        }
-
-        return false;
+        return distance <= this.portee;
     }
 
     public int getPortee() {

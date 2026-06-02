@@ -90,9 +90,7 @@ public class MonstreVue {
 
             int[] frameIndex = {0};
             Timeline squeletteMarche = new Timeline(
-
                     new KeyFrame(Duration.millis(90), e -> {
-
                         int x, y;
                         if (frameIndex[0] < 12) {
                             x = frameIndex[0] % 6;
@@ -202,12 +200,7 @@ public class MonstreVue {
             fade.play();
         });
         squeletteMort.play();
-        System.out.println("animort fin");
-
-
-
-
-
+        System.out.println("Animation de mort jouée");
     }
 
 }

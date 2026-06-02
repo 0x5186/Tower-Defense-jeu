@@ -24,7 +24,10 @@ public class Symboles {
 
 
     public void retirerSymbole (){
-        this.combinaison.remove(combinaison.size()-1);
+        // pr éviter un bug d'index invalide
+         if (!this.combinaison.isEmpty()){
+             this.combinaison.remove(combinaison.size()-1);
+         }
     }
     public void reset (){
         this.combinaison.clear();
@@ -32,10 +35,7 @@ public class Symboles {
 
     public Tour verifierCombinaison(){ //vérifie la combinaison et invoquie le monstre si elle est bonne
         Tour tour = null;
-
-
         if (this.combinaison!=null ||    !this.combinaison.isEmpty()){
-
             for(int i=0;i<combinaison.size();i++)
                 System.out.println(combinaison.get(i));
             if (combinaison.equals(combinaisonValables.tourOeil)){

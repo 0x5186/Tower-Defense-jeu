@@ -55,7 +55,7 @@ public class Controller implements Initializable{
 
 
         KeyFrame kf = new KeyFrame(
-                Duration.millis(90),
+                Duration.millis(16),
 
                 (ev ->{
                     temps++;
@@ -210,6 +210,7 @@ public class Controller implements Initializable{
 //            System.out.println("Impossible de placer une tour sur le chemin des monstres !");
 //        }
 //    }
+
     @FXML
     public void AppuyerSurValideePentacle(){
         System.out.println(this.environnement.getSymboles());
