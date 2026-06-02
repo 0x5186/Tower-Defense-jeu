@@ -12,6 +12,7 @@ import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 import universite_paris8.iut.nchaieb.sae_jeux.Main;
 import universite_paris8.iut.nchaieb.sae_jeux.modele.Entite;
+import universite_paris8.iut.nchaieb.sae_jeux.modele.Tours.TourHeal;
 import universite_paris8.iut.nchaieb.sae_jeux.modele.monstres.Monstre;
 import universite_paris8.iut.nchaieb.sae_jeux.modele.Tours.Tour;
 import universite_paris8.iut.nchaieb.sae_jeux.modele.Tours.TourOeil;
@@ -23,6 +24,7 @@ public class TourVue {
     private HashMap hashMap= new HashMap<Tour, ImageView>();
     private HashMap hashMapAnimation= new HashMap<Tour, Timeline>();
     Image tourOeil = new Image(Main.class.getResourceAsStream("images/tourOeil.png"));
+    Image tourHeal = new Image(Main.class.getResourceAsStream("images/tourHeal.png"));
     Image tourOeilCurseur = new Image(Main.class.getResourceAsStream("images/tourOeilCurseur.png"));
 
 
@@ -34,19 +36,33 @@ public class TourVue {
 
     public void ajouterSprite(Tour tour){
 
+        int decalageX=40;
+        int decalageY=80;
         ImageView  iv= new ImageView();
-        iv.setViewport(new Rectangle2D(0,0,240,240));
+
         if(tour instanceof TourOeil){
             iv=new ImageView(tourOeil);
             iv.setViewport(new Rectangle2D(0,0,80,80));
+
         }
-        iv.translateXProperty().bind(tour.posXProperty());
-        iv.translateYProperty().bind(
-                tour.posYProperty()
+        if(tour instanceof TourHeal){
+            iv=new ImageView(tourHeal);
+            iv.setViewport(new Rectangle2D(0,0,80,80));
+        }
+//        iv.translateXProperty().bind(tour.posXProperty());
+//        iv.translateYProperty().bind(
+//                tour.posYProperty()
+//        );
+        iv.layoutXProperty().bind(
+                tour.posXProperty().subtract(decalageX)
+        );
+
+        iv.layoutYProperty().bind(
+                tour.posYProperty().subtract(decalageY)
         );
         this.hashMap.put(tour, iv);
 
-
+        System.out.println("tour affichée");
 
 
         this.pane.getChildren().add(iv);

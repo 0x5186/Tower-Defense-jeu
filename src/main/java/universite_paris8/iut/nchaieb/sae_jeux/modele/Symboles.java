@@ -3,6 +3,7 @@ package universite_paris8.iut.nchaieb.sae_jeux.modele;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import universite_paris8.iut.nchaieb.sae_jeux.modele.Tours.Tour;
+import universite_paris8.iut.nchaieb.sae_jeux.modele.Tours.TourHeal;
 import universite_paris8.iut.nchaieb.sae_jeux.modele.Tours.TourOeil;
 
 public class Symboles {
@@ -19,15 +20,17 @@ public class Symboles {
     }
 
     public void ajouterSymbole(String symbole){
-        this.combinaison.add(symbole);
+        if (this.combinaison.size() != 3){
+            this.combinaison.add(symbole);
+        } else {
+            System.out.println("ce symbole ne sera pas comptabilisé");
+
+        }
     }
 
 
     public void retirerSymbole (){
-        // pr éviter un bug d'index invalide
-         if (!this.combinaison.isEmpty()){
-             this.combinaison.remove(combinaison.size()-1);
-         }
+        this.combinaison.remove(combinaison.size()-1);
     }
     public void reset (){
         this.combinaison.clear();
@@ -35,12 +38,17 @@ public class Symboles {
 
     public Tour verifierCombinaison(){ //vérifie la combinaison et invoquie le monstre si elle est bonne
         Tour tour = null;
+
+
         if (this.combinaison!=null ||    !this.combinaison.isEmpty()){
-            for(int i=0;i<combinaison.size();i++)
-                System.out.println(combinaison.get(i));
+
             if (combinaison.equals(combinaisonValables.tourOeil)){
                 System.out.println("combinaison validé");
                 tour= new TourOeil();
+
+            }
+            else if(combinaison.equals(combinaisonValables.tourHeal)){
+                tour= new TourHeal();
 
             }
         }
